@@ -9,7 +9,7 @@ public class GamePanel extends JPanel {
     private Spaceship spaceship;
 
     public GamePanel() {
-        this.setSize(500, 400);
+        this.setSize(1280, 720);
         System.out.println(this.getWidth());
         spaceship = new Spaceship(this.getWidth() / 2, this.getHeight() / 2, 50, 50);
         addListeners();

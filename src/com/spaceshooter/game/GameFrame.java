@@ -7,11 +7,12 @@ public class GameFrame extends JFrame {
     private GamePanel gamePanel;
 
     public GameFrame()  {
-        this.setLayout(new BorderLayout());
-        this.setSize(500, 400);
+        this.setLayout(new GridLayout());
+        this.setSize(1280, 720);
         this.setVisible(true);
+        this.setResizable(false);
 
         gamePanel = new GamePanel();
-        this.add(gamePanel, BorderLayout.CENTER);
+        this.add(gamePanel);
     }
 }
