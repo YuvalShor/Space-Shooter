@@ -1,5 +1,7 @@
 package com.spaceshooter.game;
 
+import java.awt.*;
+
 public class SpaceObject {
     protected int x;
     protected int y;
@@ -13,6 +15,10 @@ public class SpaceObject {
         this.setY(y);
         this.setWidth(width);
         this.setHeight(height);
+    }
+
+    public void draw(Graphics graphics){
+
     }
 
     public int left(){
