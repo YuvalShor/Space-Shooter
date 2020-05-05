@@ -4,6 +4,7 @@ import com.spaceshooter.model.Game;
 import com.spaceshooter.view.GameWindow;
 
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Controller implements Runnable{
     private GameWindow gameWindow;
@@ -11,7 +12,8 @@ public class Controller implements Runnable{
 
     @Override
     public void run() {
-        Graphics graphics = gameWindow.getContentPane().getGraphics();
+        BufferStrategy bufferStrategy = gameWindow.getBufferStrategy();
+        Graphics graphics = bufferStrategy.getDrawGraphics();
 
         while(true){
             game.onTick();
