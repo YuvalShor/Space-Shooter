@@ -15,24 +15,42 @@ public abstract class SpaceObject {
         this.setY(y);
         this.setWidth(width);
         this.setHeight(height);
+        this.setMoveX(0);
+        this.setMoveY(0);
+    }
+
+    public int getMoveX() {
+        return moveX;
+    }
+
+    public void setMoveX(int moveX) {
+        this.moveX = moveX;
+    }
+
+    public int getMoveY() {
+        return moveY;
+    }
+
+    public void setMoveY(int moveY) {
+        this.moveY = moveY;
     }
 
     public abstract void draw(Graphics graphics);
     public abstract void onTick();
 
-    public int left(){
+    public int leftBorder(){
         return this.x - this.width / 2;
     }
 
-    public int right(){
+    public int rightBorder(){
         return this.x + this.width / 2;
     }
 
-    public int top(){
+    public int topBorder(){
         return this.y - this.height / 2;
     }
 
-    public int bottom(){
+    public int bottomBorder(){
         return this.y + this.height / 2;
     }
 

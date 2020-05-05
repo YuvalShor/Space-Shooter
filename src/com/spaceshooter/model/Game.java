@@ -1,10 +1,17 @@
 package com.spaceshooter.model;
 
-public class Game implements Runnable{
+import java.awt.*;
 
+public class Game  {
+    public void onTick(){
 
-    @Override
-    public void run() {
+    }
 
+    public void draw(Graphics g){
+
+    }
+
+    public void checkCollisions(){
+        
     }
 }
