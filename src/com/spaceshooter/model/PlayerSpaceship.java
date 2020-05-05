@@ -1,9 +1,9 @@
-package com.spaceshooter.game;
+package com.spaceshooter.model;
 
 import java.awt.*;
 
-public class Spaceship extends SpaceObject{
-    public Spaceship(int x, int y, int width, int height) {
+public class PlayerSpaceship extends SpaceObject{
+    public PlayerSpaceship(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
 
@@ -12,5 +12,10 @@ public class Spaceship extends SpaceObject{
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(new Color(255, 0, 0));
         graphics2D.fillRect(this.left(), this.top(),this.width, this.height);
+    }
+
+    @Override
+    public void onTick() {
+
     }
 }

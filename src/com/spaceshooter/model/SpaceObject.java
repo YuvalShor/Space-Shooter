@@ -1,8 +1,8 @@
-package com.spaceshooter.game;
+package com.spaceshooter.model;
 
 import java.awt.*;
 
-public class SpaceObject {
+public abstract class SpaceObject {
     protected int x;
     protected int y;
     protected int width;
@@ -17,9 +17,8 @@ public class SpaceObject {
         this.setHeight(height);
     }
 
-    public void draw(Graphics graphics){
-
-    }
+    public abstract void draw(Graphics graphics);
+    public abstract void onTick();
 
     public int left(){
         return this.x - this.width / 2;
