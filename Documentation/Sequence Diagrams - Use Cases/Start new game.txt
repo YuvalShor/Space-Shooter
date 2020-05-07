@@ -1,0 +1,22 @@
+title Start New Game
+
+actor Player
+participant MainMenu
+participant GameEngine
+participant GameUI
+
+Player->MainMenu:Start new game
+activate MainMenu
+MainMenu->GameEngine:Request game
+activate GameEngine
+deactivate MainMenu
+GameEngine->GameUI:StartGame()
+activate GameUI
+GameUI-->GameUI:Draw game
+GameUI-->GameEngine:Game finished
+deactivate GameUI
+GameEngine-->MainMenu:Game over
+deactivate GameEngine
+activate MainMenu
+MainMenu-->Player:Start new or exit
+deactivate MainMenu
