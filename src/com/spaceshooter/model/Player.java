@@ -36,11 +36,11 @@ public class Player {
 
     }
 
-    private void updatePlyaerPosition(int x,int y){
+    private void updateSpaceshipPosition(int x,int y){
 
     }
 
-    private void addPlayerLaserbeam(){
+    private void addLaserbeam(){
 
     }
 }
