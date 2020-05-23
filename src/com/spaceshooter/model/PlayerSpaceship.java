@@ -3,11 +3,11 @@ package com.spaceshooter.model;
 import java.awt.*;
 
 public class PlayerSpaceship extends SpaceObject{
-    private static int count;
+    public static int count;
     private PlayerSpaceship instance;
     private Image image;
 
-    private PlayerSpaceship(int x, int y, int width, int height) {
+    public PlayerSpaceship(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
 
@@ -20,6 +20,14 @@ public class PlayerSpaceship extends SpaceObject{
 
     @Override
     public void onTick() {
+
+    }
+
+    public static PlayerSpaceship createInstance() {
+
+    }
+
+    private void fireLaserbeam() {
 
     }
 }
