@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnemySpaceshipManager {
-    private List<EnemySpaceship> enemySpaceships;
+    public List<EnemySpaceship> enemySpaceships;
     private LaserbeamManager enemyLasers;
 
     public EnemySpaceshipManager(LaserbeamManager enemyLasers) {
