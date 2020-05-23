@@ -1,11 +1,5 @@
 package com.spaceshooter.controller;
 
-import com.spaceshooter.model.EnemySpaceship;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class EnemySpaceshipManager {
     public List<EnemySpaceship> enemySpaceships;
     private LaserbeamManager enemyLasers;

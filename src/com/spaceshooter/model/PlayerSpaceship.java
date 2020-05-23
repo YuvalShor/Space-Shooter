@@ -22,12 +22,4 @@ public class PlayerSpaceship extends SpaceObject{
     public void onTick() {
 
     }
-
-    public static PlayerSpaceship createInstance() {
-
-    }
-
-    private void fireLaserbeam() {
-
-    }
 }
