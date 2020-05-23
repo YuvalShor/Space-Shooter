@@ -16,4 +16,16 @@ public class Star extends SpaceObject{
     public void onTick() {
 
     }
+
+    private void restartPosition() {
+
+    }
+
+    private void spark() {
+
+    }
+
+    private void fade() {
+
+    }
 }
