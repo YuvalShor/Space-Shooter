@@ -8,12 +8,7 @@ public class Star{
     public Star(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
-
-
-    public void addStar(Star star){
-        this.starsList.add(star);
-
-    }
+  
     @Override
     public void draw(Graphics graphics) {
 
@@ -23,5 +18,20 @@ public class Star{
     public void onTick() {
 
     }
+ 
+    public void addStar(Star star) {
+        this.starsList.add(star);
+    }
+  
+    private void restartPosition() {
 
+    }
+
+    private void spark() {
+
+    }
+
+    private void fade() {
+
+    }
 }
