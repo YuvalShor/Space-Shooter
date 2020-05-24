@@ -4,11 +4,12 @@ import java.awt.*;
 
 public class PlayerSpaceship extends SpaceObject{
     public static int count;
-    private PlayerSpaceship instance;
+    private static PlayerSpaceship instance;
     private Image image;
 
-    public PlayerSpaceship(int x, int y, int width, int height) {
+    private PlayerSpaceship(int x, int y, int width, int height) {
         super(x, y, width, height);
+        count = 1;
     }
 
     @Override
@@ -23,8 +24,13 @@ public class PlayerSpaceship extends SpaceObject{
 
     }
 
-    public static PlayerSpaceship createInstance() {
-
+    public static synchronized PlayerSpaceship createInstance(int x, int y, int width, int height) {
+        if (count == 1) {
+            return instance;
+        }
+        else {
+            return new PlayerSpaceship(x, y, width, height);
+        }
     }
 
     private void fireLaserbeam() {

@@ -10,14 +10,12 @@ public class Player {
     private int playerHealth;
     private LaserbeamManager playerLasers;
     private PlayerSpaceship playerSpaceship;
-    private Player instance;
+    private static final Player instance = new Player();
 
-    private Player() {
+    private Player() { }
 
-    }
-
-    public static createInstance(){
-    return Player;
+    public static Player createInstance(){
+        return instance;
     }
 
     public void onTick() {
