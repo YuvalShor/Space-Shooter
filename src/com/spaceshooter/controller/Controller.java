@@ -40,9 +40,8 @@ public class Controller implements Runnable{
             Graphics graphics = bufferStrategy.getDrawGraphics();
 
             // update game
-            synchronized (mutex) {
-                game.update(graphics);
-            }
+            game.update(graphics);
+
             // dispose of graphics and show
             graphics.dispose();
             bufferStrategy.show();
@@ -67,5 +66,9 @@ public class Controller implements Runnable{
 
     public void exitGame(){
 
+    }
+
+    public void playerMouseClicked() {
+        game.playerMouseClicked();
     }
 }

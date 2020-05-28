@@ -2,14 +2,16 @@ package com.spaceshooter.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferStrategy;
 
 public class GamePanel extends JPanel {
 
-    private GamePanelListener gamePanelListener;
     private Canvas gameCanvas;
+    private PanelMouseMovementListener panelMouseMovementListener;
+    private PanelMouseClickListener panelMouseClickListener;
 
     public GamePanel(int width, int height) {
         gameCanvas = new Canvas();
@@ -31,22 +33,35 @@ public class GamePanel extends JPanel {
         gameCanvas.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                if(gamePanelListener != null) {
-                    gamePanelListener.updatePlayerPosition(e.getX(), e.getY());
+                if(panelMouseMovementListener != null) {
+                    panelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
                 }
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(gamePanelListener != null) {
-                    gamePanelListener.updatePlayerPosition(e.getX(), e.getY());
+                if(panelMouseMovementListener != null) {
+                    panelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
+                }
+            }
+        });
+
+        gameCanvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(panelMouseClickListener != null){
+                    panelMouseClickListener.mouseClickedOnPanel();
                 }
             }
         });
     }
 
-    public void setGamePanelListener(GamePanelListener gamePanelListener){
-        this.gamePanelListener = gamePanelListener;
+    public void setPanelMouseMovementListener(PanelMouseMovementListener panelMouseMovementListener){
+        this.panelMouseMovementListener = panelMouseMovementListener;
+    }
+
+    public void setPanelMouseClickListener(PanelMouseClickListener panelMouseClickListener) {
+        this.panelMouseClickListener = panelMouseClickListener;
     }
 
     public BufferStrategy getCanvasBufferStrategy(){

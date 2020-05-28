@@ -16,5 +16,4 @@ public class CollisionHandler {
     public void onTick() {
 
     }
-
 }

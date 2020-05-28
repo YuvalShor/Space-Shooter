@@ -51,4 +51,18 @@ public class Player {
     public void addLaserbeam(Laserbeam laserbeam){
 
     }
+
+    public void playerMouseClicked() {
+        int laserbeamX = playerSpaceship.leftBorder() + 8;
+        int laserbeamY = playerSpaceship.topBorder();
+
+        Laserbeam firstLaserbeamToAdd = new Laserbeam(laserbeamX, laserbeamY, 3, 32);
+
+        laserbeamX = playerSpaceship.rightBorder() - 8;
+
+        Laserbeam secondLaserbeanToAdd = new Laserbeam(laserbeamX, laserbeamY, 3, 32);
+
+        playerLasers.addLaserbeam(firstLaserbeamToAdd);
+        playerLasers.addLaserbeam(secondLaserbeanToAdd);
+    }
 }

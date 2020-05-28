@@ -14,15 +14,23 @@ public class LaserbeamManager {
     }
 
     public void onTick() {
+        Laserbeam[] lasersArray = this.laserbeams.toArray(new Laserbeam[this.laserbeams.size()]);
 
+        for (Laserbeam laserbeam : lasersArray) {
+            laserbeam.onTick();
+        }
     }
 
     public void draw(Graphics graphics) {
+        Laserbeam[] lasersArray = this.laserbeams.toArray(new Laserbeam[this.laserbeams.size()]);
 
+        for (Laserbeam laserbeam : lasersArray) {
+            laserbeam.draw(graphics);
+        }
     }
 
     public void addLaserbeam(Laserbeam laserbeam) {
-
+        laserbeams.add(laserbeam);
     }
 
     public void destroyLaserbeam(Laserbeam laserbeam) {

@@ -3,17 +3,13 @@ package com.spaceshooter.view;
 import com.spaceshooter.controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferStrategy;
 
 public class GameWindow extends JFrame {
 
     private Controller gameController;
     private GamePanel gamePanel;
-    private GamePanelListener gamePanelListener;
+    private PanelMouseMovementListener gamePanelListener;
 
     public GameWindow(int width, int height) {
         setTitle("Space Shooter");
@@ -35,10 +31,17 @@ public class GameWindow extends JFrame {
     }
 
     private void addListeners() {
-        gamePanel.setGamePanelListener(new GamePanelListener() {
+        gamePanel.setPanelMouseMovementListener(new PanelMouseMovementListener() {
             @Override
-            public void updatePlayerPosition(int playerX, int playerY) {
+            public void mouseMovedInPanel(int playerX, int playerY) {
                 gameController.updatePlayerPosition(playerX, playerY);
+            }
+        });
+
+        gamePanel.setPanelMouseClickListener(new PanelMouseClickListener() {
+            @Override
+            public void mouseClickedOnPanel() {
+                gameController.playerMouseClicked();
             }
         });
     }

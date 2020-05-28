@@ -1,9 +1,6 @@
 package com.spaceshooter.model;
 
-import com.spaceshooter.controller.CollisionHandler;
-import com.spaceshooter.controller.Controller;
-import com.spaceshooter.controller.EnemySpaceshipManager;
-import com.spaceshooter.controller.StarManager;
+import com.spaceshooter.controller.*;
 import com.spaceshooter.view.GameWindow;
 
 import java.awt.*;
@@ -18,6 +15,7 @@ public class Game  {
     private Player player;
     private EnemySpaceshipManager enemySpaceshipManager;
     private StarManager starManager;
+    private ExplosionManager explosionManager;
     private CollisionHandler collisionHandler;
     private int gameLevel;
     private boolean gameRunning;
@@ -38,6 +36,7 @@ public class Game  {
         player = Player.createInstance();
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
+        explosionManager = new ExplosionManager();
         collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
         hud = new HUD(player);
         gameLevel = 1;
@@ -55,6 +54,8 @@ public class Game  {
         enemySpaceshipManager.onTick();
         starManager.onTick();
         collisionHandler.onTick();
+        explosionManager.onTick();
+
     }
 
     public void draw(Graphics graphics){
@@ -63,6 +64,7 @@ public class Game  {
         starManager.draw(graphics);
         enemySpaceshipManager.draw(graphics);
         player.draw(graphics);
+        explosionManager.draw(graphics);
         hud.draw(graphics);
     }
 
@@ -126,5 +128,9 @@ public class Game  {
 
     public void updatePlayerPosition(int playerX, int playerY) {
         player.updateSpaceshipPosition(playerX, playerY);
+    }
+
+    public void playerMouseClicked() {
+        player.playerMouseClicked();
     }
 }

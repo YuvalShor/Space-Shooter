@@ -19,6 +19,11 @@ public abstract class SpaceObject {
         this.setMoveY(0);
     }
 
+    public SpaceObject(int x, int y){
+        this.setX(x);
+        this.setY(y);
+    }
+
     public int getMoveX() {
         return moveX;
     }

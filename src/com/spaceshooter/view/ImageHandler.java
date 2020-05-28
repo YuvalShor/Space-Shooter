@@ -7,6 +7,11 @@ public class ImageHandler {
     private static BufferedImage enemySpaceshipImage;
     private static BufferedImage playerSpaceshipImage;
     private static BufferedImage laserbeamImage;
+    private static BufferedImage[] explosionAnimation;
+    private final static int explosionSpriteSheetRows = 7;
+    private final static int explosionSpriteSheetColumns = 10;
+    private final static int explosionSubImageWidth = 100;
+    private final static int explosionSubImageHeight = 100;
 
     static{
         BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
@@ -14,7 +19,22 @@ public class ImageHandler {
         starImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/star-24.png");
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = null;
-        laserbeamImage = null;
+        laserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");;
+
+        explosionAnimation = new BufferedImage[explosionSpriteSheetRows * explosionSpriteSheetColumns];
+
+        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/roundexplosion.png");
+        initializeExplosionAnimation(explosionSpriteSheet);
+    }
+
+    private static void initializeExplosionAnimation(BufferedImage explosionSpriteSheet) {
+        for (int i = 0; i < explosionAnimation.length ; i++) {
+            int row = i / explosionSpriteSheetColumns;
+            int column = i % explosionSpriteSheetColumns;
+
+            explosionAnimation[i] = explosionSpriteSheet.getSubimage((column * explosionSubImageWidth),
+                    (row * explosionSubImageWidth), explosionSubImageWidth, explosionSubImageHeight);
+        }
     }
 
     public static BufferedImage getStarImage(){
@@ -31,5 +51,9 @@ public class ImageHandler {
 
     public static BufferedImage getLaserbeamImage(){
         return laserbeamImage;
+    }
+
+    public static BufferedImage[] getExplosionAnimation() {
+        return explosionAnimation;
     }
 }
