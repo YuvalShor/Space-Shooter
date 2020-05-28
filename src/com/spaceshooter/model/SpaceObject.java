@@ -35,8 +35,8 @@ public abstract class SpaceObject {
         this.moveY = moveY;
     }
 
-    public abstract void draw(Graphics graphics);
-    public abstract void onTick();
+    public abstract  void draw(Graphics graphics);
+    public abstract  void onTick();
 
     public int leftBorder(){
         return this.x - this.width / 2;
@@ -58,7 +58,7 @@ public abstract class SpaceObject {
         return x;
     }
 
-    public void setX(int x) {
+    public  void setX(int x) {
         this.x = x;
     }
 
@@ -66,7 +66,7 @@ public abstract class SpaceObject {
         return y;
     }
 
-    public void setY(int y) {
+    public  void setY(int y) {
         this.y = y;
     }
 
@@ -84,5 +84,38 @@ public abstract class SpaceObject {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    protected void assureObjectWithinBorders(){
+        if(this.leftBorder() < 0){
+            this.x = 0 + this.width/2;
+        }
+
+        if(this.rightBorder() > Game.WIDTH){
+            this.x = Game.WIDTH - this.width/2;
+        }
+
+        if(this.topBorder() < 0){
+            this.y = 0 + this.height/2;
+        }
+
+        if(this.bottomBorder() > Game.HEIGHT){
+            this.y = Game.HEIGHT - this.height/2;
+        }
+    }
+
+    public boolean intersects(SpaceObject other){
+        boolean areObjectsIntersecting = false;
+
+        // interval intersection with x
+        if(this.rightBorder() >= other.leftBorder() && this.leftBorder() <= other.rightBorder()){
+
+            // interval intersection wtih y
+            if(this.bottomBorder() >= other.topBorder() && this.topBorder() <= other.bottomBorder()){
+                areObjectsIntersecting = true;
+            }
+        }
+
+        return areObjectsIntersecting;
     }
 }

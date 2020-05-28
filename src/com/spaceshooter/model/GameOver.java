@@ -1,12 +1,20 @@
 package com.spaceshooter.model;
 
+import java.awt.*;
+
 public class GameOver{
 
+    Leaderboard leaderboard;
 
+    public GameOver(){
 
-    public GameOver(){}
+    }
 
-    public void draw(){
-        return Graphics graphics;
+    public void onTick(){
+
+    }
+
+    public void draw(Graphics graphics){
+        leaderboard.draw(graphics);
     }
 }

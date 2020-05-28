@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LaserbeamManager {
-    private List<Laserbeam> lasers;
+    private List<Laserbeam> laserbeams;
 
     public LaserbeamManager() {
-        this.lasers = new ArrayList<Laserbeam>();
+        this.laserbeams = new ArrayList<Laserbeam>();
     }
 
     public void onTick() {
@@ -28,5 +28,4 @@ public class LaserbeamManager {
     public void destroyLaserbeam(Laserbeam laserbeam) {
 
     }
-}
 }

@@ -9,8 +9,8 @@ import com.spaceshooter.view.GameWindow;
 import java.awt.*;
 
 public class Game  {
-    public final int WIDTH = 1280;
-    public final int HEIGHT = 720;
+    public final static int WIDTH = 1280;
+    public final static int HEIGHT = 720;
     public GameState gameState;
     private GameMenu gameMenu;
     private GameOver gameOver;
@@ -24,8 +24,9 @@ public class Game  {
 
     public static void main(String[] args) {
         Game game = new Game();
-        GameWindow gameWindow = new GameWindow(game.WIDTH, game.HEIGHT);
+        GameWindow gameWindow = new GameWindow(Game.WIDTH, Game.HEIGHT);
         Controller gameController = new Controller(gameWindow, game);
+        gameWindow.setController(gameController);
 
         gameController.start();
     }
@@ -34,11 +35,11 @@ public class Game  {
         gameState = GameState.GameMenu;
         gameMenu = new GameMenu();
         gameOver = new GameOver();
-        hud = new HUD();
-        player = Player.CreateInstance();
+        player = Player.createInstance();
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
-        collisionHandler = new CollisionHandler();
+        collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
+        hud = new HUD(player);
         gameLevel = 1;
         gameRunning = true;
 
@@ -50,7 +51,6 @@ public class Game  {
     }
 
     public void onTick(){
-        hud.onTick();
         player.onTick();
         enemySpaceshipManager.onTick();
         starManager.onTick();
@@ -58,10 +58,12 @@ public class Game  {
     }
 
     public void draw(Graphics graphics){
-        hud.draw(graphics);
-        player.draw(graphics);
-        enemySpaceshipManager.draw(graphics);
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, 1280, 720);
         starManager.draw(graphics);
+        enemySpaceshipManager.draw(graphics);
+        player.draw(graphics);
+        hud.draw(graphics);
     }
 
     // main menu
@@ -107,7 +109,7 @@ public class Game  {
     }
 
     public void addPlayerLaserbeam(){
-        player.addLaserbeam();
+
     }
 
     public void updateLeaderboard(){
@@ -120,5 +122,9 @@ public class Game  {
 
     private void createEnemySpaceships(){
 
+    }
+
+    public void updatePlayerPosition(int playerX, int playerY) {
+        player.updateSpaceshipPosition(playerX, playerY);
     }
 }

@@ -11,6 +11,7 @@ public class Controller implements Runnable{
     private GameWindow gameWindow;
     private Game game;
     private Thread thread;
+    private Object mutex = new Object();
 
     public Controller(GameWindow gameWindow, Game game) {
         this.gameWindow = gameWindow;
@@ -20,11 +21,13 @@ public class Controller implements Runnable{
     public synchronized void start(){
         thread = new Thread(this);
         thread.start();
+        game.gameState = GameState.GameRunning;
     }
 
     @Override
     public void run() {
-        BufferStrategy bufferStrategy = gameWindow.getBufferStrategy();
+        BufferStrategy bufferStrategy = gameWindow.getGamePanelCanvasBufferStrategy();
+
         long lastTime;
         double amountOfTicks = 60.0;
         double waitingTime = (1000000000) / amountOfTicks;
@@ -37,8 +40,9 @@ public class Controller implements Runnable{
             Graphics graphics = bufferStrategy.getDrawGraphics();
 
             // update game
-           game.update(graphics);
-
+            synchronized (mutex) {
+                game.update(graphics);
+            }
             // dispose of graphics and show
             graphics.dispose();
             bufferStrategy.show();
@@ -58,7 +62,7 @@ public class Controller implements Runnable{
     }
 
     public void updatePlayerPosition(int playerX, int playerY){
-
+        game.updatePlayerPosition(playerX, playerY);
     }
 
     public void exitGame(){

@@ -3,16 +3,17 @@ package com.spaceshooter.controller;
 import com.spaceshooter.model.EnemySpaceship;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemySpaceshipManager {
     private List<EnemySpaceship> enemySpaceships;
-    private LaserbeamManager enemyLasers;
+    private LaserbeamManager laserbeamManager;
 
-    public EnemySpaceshipManager(LaserbeamManager enemyLasers) {
+    public EnemySpaceshipManager() {
         this.enemySpaceships = new ArrayList<EnemySpaceship>();
-        this.enemyLasers = enemyLasers;
+        this.laserbeamManager = new LaserbeamManager();
     }
 
     public void onTick() {
