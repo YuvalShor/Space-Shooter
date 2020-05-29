@@ -31,4 +31,9 @@ public class EnemySpaceship extends SpaceObject{
     public void setHealth(int health) {
 
     }
+
+    @Override
+    public void notifyObserver() {
+
+    }
 }

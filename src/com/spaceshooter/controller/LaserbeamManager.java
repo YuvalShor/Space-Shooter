@@ -1,12 +1,14 @@
 package com.spaceshooter.controller;
 
 import com.spaceshooter.model.Laserbeam;
+import com.spaceshooter.model.ObjectObserver;
+import com.spaceshooter.model.ObservableObject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LaserbeamManager {
+public class LaserbeamManager implements ObjectObserver {
     private List<Laserbeam> laserbeams;
 
     public LaserbeamManager() {
@@ -33,7 +35,16 @@ public class LaserbeamManager {
         laserbeams.add(laserbeam);
     }
 
-    public void destroyLaserbeam(Laserbeam laserbeam) {
+    public void removeLaserbeam(Laserbeam laserbeam) {
+        this.laserbeams.remove(laserbeam);
+    }
 
+    public List<Laserbeam> getLasers() {
+        return this.laserbeams;
+    }
+
+    @Override
+    public void objectStateChanged(ObservableObject observable) {
+        removeLaserbeam((Laserbeam) observable);
     }
 }

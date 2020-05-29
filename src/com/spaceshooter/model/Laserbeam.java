@@ -1,5 +1,6 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.controller.ExplosionManager;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;
@@ -9,8 +10,8 @@ public class Laserbeam extends SpaceObject {
     public static Image image;
     private BufferedImage laserbeamImage;
 
-    public Laserbeam(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Laserbeam(int x, int y, int width, int height, ObjectObserver observer) {
+        super(x, y, width, height, observer);
         this.moveY = -5;
         laserbeamImage = ImageHandler.getLaserbeamImage();
     }
@@ -23,5 +24,14 @@ public class Laserbeam extends SpaceObject {
     @Override
     public void onTick() {
         this.y += this.moveY;
+
+        if(this.topBorder() < 0){
+            notifyObserver();
+        }
+    }
+
+    @Override
+    public void notifyObserver() {
+        this.observer.objectStateChanged(this);
     }
 }

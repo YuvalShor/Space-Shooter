@@ -3,13 +3,13 @@ package com.spaceshooter.model;
 import com.spaceshooter.controller.LaserbeamManager;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private static int count;
     private int playerScore;
     private int playerHealth;
-    private LaserbeamManager playerLasers;
+    private LaserbeamManager playerLaserbeamManager;
     private PlayerSpaceship playerSpaceship;
     private static final Player instance = new Player();
 
@@ -17,7 +17,7 @@ public class Player {
         playerSpaceship = PlayerSpaceship.createInstance();
         playerScore = 0;
         playerHealth = 100;
-        playerLasers = new LaserbeamManager();
+        playerLaserbeamManager = new LaserbeamManager();
     }
 
     public static Player createInstance(){
@@ -26,12 +26,12 @@ public class Player {
 
     public void onTick() {
         playerSpaceship.onTick();
-        playerLasers.onTick();
+        playerLaserbeamManager.onTick();
     }
 
     public void draw(Graphics graphics) {
         playerSpaceship.draw(graphics);
-        playerLasers.draw(graphics);
+        playerLaserbeamManager.draw(graphics);
     }
 
     public int getPlayerScore() {
@@ -56,13 +56,21 @@ public class Player {
         int laserbeamX = playerSpaceship.leftBorder() + 8;
         int laserbeamY = playerSpaceship.topBorder();
 
-        Laserbeam firstLaserbeamToAdd = new Laserbeam(laserbeamX, laserbeamY, 3, 32);
+        Laserbeam firstLaserbeamToAdd = (Laserbeam)Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
 
         laserbeamX = playerSpaceship.rightBorder() - 8;
 
-        Laserbeam secondLaserbeanToAdd = new Laserbeam(laserbeamX, laserbeamY, 3, 32);
+        Laserbeam secondLaserbeanToAdd = (Laserbeam)Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
 
-        playerLasers.addLaserbeam(firstLaserbeamToAdd);
-        playerLasers.addLaserbeam(secondLaserbeanToAdd);
+        playerLaserbeamManager.addLaserbeam(firstLaserbeamToAdd);
+        playerLaserbeamManager.addLaserbeam(secondLaserbeanToAdd);
+    }
+
+    public List<Laserbeam> getPlayerLaserbeamManager() {
+        return this.playerLaserbeamManager.getLasers();
+    }
+
+    public LaserbeamManager getLaserbeamManager() {
+        return this.playerLaserbeamManager;
     }
 }

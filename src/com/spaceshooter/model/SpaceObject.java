@@ -2,13 +2,14 @@ package com.spaceshooter.model;
 
 import java.awt.*;
 
-public abstract class SpaceObject {
+public abstract class SpaceObject implements ObservableObject {
     protected int x;
     protected int y;
     protected int width;
     protected int height;
     protected int moveX;
     protected int moveY;
+    protected ObjectObserver observer;
 
     public SpaceObject(int x, int y, int width, int height) {
         this.setX(x);
@@ -17,6 +18,11 @@ public abstract class SpaceObject {
         this.setHeight(height);
         this.setMoveX(0);
         this.setMoveY(0);
+    }
+
+    public SpaceObject(int x, int y, int width, int height, ObjectObserver observer) {
+        this(x, y, width, height);
+        this.observer = observer;
     }
 
     public SpaceObject(int x, int y){
@@ -115,7 +121,7 @@ public abstract class SpaceObject {
         // interval intersection with x
         if(this.rightBorder() >= other.leftBorder() && this.leftBorder() <= other.rightBorder()){
 
-            // interval intersection wtih y
+            // interval intersection with y
             if(this.bottomBorder() >= other.topBorder() && this.topBorder() <= other.bottomBorder()){
                 areObjectsIntersecting = true;
             }

@@ -34,14 +34,18 @@ public class GameWindow extends JFrame {
         gamePanel.setPanelMouseMovementListener(new PanelMouseMovementListener() {
             @Override
             public void mouseMovedInPanel(int playerX, int playerY) {
-                gameController.updatePlayerPosition(playerX, playerY);
+                if(gameController != null){
+                    gameController.updatePlayerPosition(playerX, playerY);
+                }
             }
         });
 
         gamePanel.setPanelMouseClickListener(new PanelMouseClickListener() {
             @Override
             public void mouseClickedOnPanel() {
-                gameController.playerMouseClicked();
+                if(gameController != null) {
+                    gameController.playerMouseClicked();
+                }
             }
         });
     }

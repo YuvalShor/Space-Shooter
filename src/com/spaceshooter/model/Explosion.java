@@ -1,5 +1,6 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.controller.ExplosionManager;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;
@@ -8,32 +9,30 @@ import java.awt.image.BufferedImage;
 public class Explosion extends SpaceObject{
 
     private BufferedImage[] explosionImages;
-    private int currentImageIndex;
+    private int currentFrame;
 
-    public Explosion(int x, int y) {
-        super(x, y);
-        this.width = 100;
-        this.height = 100;
-
-        currentImageIndex = 0;
+    public Explosion(int x, int y, int width, int height, ObjectObserver observer) {
+        super(x, y, width, height, observer);
+        currentFrame = -1;
         explosionImages = ImageHandler.getExplosionAnimation();
     }
 
     @Override
     public void draw(Graphics graphics) {
-        graphics.drawImage(this.explosionImages[currentImageIndex], this.leftBorder(), this.topBorder(), null);
+        graphics.drawImage(this.explosionImages[currentFrame], this.leftBorder(), this.topBorder(), null);
     }
 
     @Override
     public void onTick() {
-        currentImageIndex++;
+        currentFrame++;
+
+        if(currentFrame >= explosionImages.length){
+            notifyObserver();
+        }
     }
 
-    public int getCurrentImageIndex() {
-        return currentImageIndex;
-    }
-
-    public boolean isKillable() {
-        return currentImageIndex >= explosionImages.length;
+    @Override
+    public void notifyObserver() {
+        observer.objectStateChanged(this);
     }
 }

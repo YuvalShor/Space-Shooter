@@ -41,4 +41,9 @@ public class PlayerSpaceship extends SpaceObject{
     private void fireLaserbeam() {
 
     }
+
+    @Override
+    public void notifyObserver() {
+
+    }
 }
