@@ -8,7 +8,7 @@ public class ImageHandler {
     private static BufferedImage playerSpaceshipImage;
     private static BufferedImage laserbeamImage;
     private static BufferedImage[] explosionAnimation;
-    private final static int explosionSpriteSheetRows = 7;
+    private final static int explosionFrames = 74;
     private final static int explosionSpriteSheetColumns = 10;
     private final static int explosionSubImageWidth = 100;
     private final static int explosionSubImageHeight = 100;
@@ -16,14 +16,14 @@ public class ImageHandler {
     static{
         BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
 
-        starImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/star-24.png");
+        starImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/star-16.png");
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = null;
         laserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
 
-        explosionAnimation = new BufferedImage[explosionSpriteSheetRows * explosionSpriteSheetColumns];
+        explosionAnimation = new BufferedImage[explosionFrames];
 
-        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/roundexplosion.png");
+        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/verticalexplosion.png");
         initializeExplosionAnimation(explosionSpriteSheet);
     }
 

@@ -1,6 +1,9 @@
 package com.spaceshooter.controller;
 
 import com.spaceshooter.model.Explosion;
+import com.spaceshooter.model.Game;
+import com.spaceshooter.model.ObjectObserver;
+import com.spaceshooter.model.ObservableObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,32 +12,41 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ExplosionManager {
+public class ExplosionManager implements ObjectObserver {
     private List<Explosion> explosionList;
 
     public ExplosionManager() {
         explosionList = new ArrayList<Explosion>();
-
-        explosionList.add(new Explosion(200, 200));
     }
-    
-    public void onTick(){
-        Iterator<Explosion> iterator = explosionList.iterator();
 
-        while(iterator.hasNext()){
-            Explosion currentExplosion = iterator.next();
+    public void onTick() {
+        Explosion[] explosions = this.explosionList.toArray(new Explosion[this.explosionList.size()]);
 
-            currentExplosion.onTick();
-
-            if(currentExplosion.isKillable()){
-                iterator.remove();
-            }
+        for (Explosion explosion : explosions) {
+            explosion.onTick();
         }
     }
-    
-    public void draw(Graphics graphics){
-        for (Explosion explosion : this.explosionList) {
+
+    public void draw(Graphics graphics) {
+        Explosion[] explosions = this.explosionList.toArray(new Explosion[this.explosionList.size()]);
+
+        for (Explosion explosion : explosions) {
             explosion.draw(graphics);
         }
     }
+
+
+    private void removeExplosion(Explosion explosion) {
+        this.explosionList.remove(explosion);
+    }
+
+    @Override
+    public void objectStateChanged(ObservableObject observable) {
+        removeExplosion((Explosion)observable);
+    }
+
+    public void addExplosion(Explosion explosionToAdd) {
+        this.explosionList.add(explosionToAdd);
+    }
 }
+

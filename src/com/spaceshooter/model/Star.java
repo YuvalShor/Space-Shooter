@@ -9,24 +9,37 @@ import java.util.Random;
 
 public class Star extends SpaceObject{
     private static BufferedImage starImage;
+    boolean isSmall;
 
-    public Star(int x, int y, int width, int height) {
+    public Star(int x, int y, int width, int height, boolean starType) {
         super(x, y, width, height);
-        starImage = ImageHandler.getStarImage();
+        this.starImage = ImageHandler.getStarImage();
+        this.isSmall = starType;
 
-        this.moveY = 3; // speed of fall
+        if (!this.isSmall) {
+            this.moveY = 3; // speed of fall
+        }
+        else {
+            this.moveY = 1;
+        }
     }
   
     @Override
     public void draw(Graphics graphics) {
-        graphics.drawImage(starImage, this.leftBorder(), this.topBorder(), null);
+        if(this.isSmall) {
+            graphics.setColor(Color.WHITE);
+            graphics.fillOval(this.leftBorder(), this.topBorder(), this.width, this.height);
+        }else
+        {
+            graphics.drawImage(starImage, this.leftBorder(), this.topBorder(), null);
+        }
     }
 
     @Override
     public void onTick() {
         this.y += this.moveY;
 
-        if(this.y > Game.HEIGHT){
+        if (this.y > Game.HEIGHT) {
             restartPosition();
         }
     }
@@ -42,6 +55,11 @@ public class Star extends SpaceObject{
     }
 
     private void fade() {
+
+    }
+
+    @Override
+    public void notifyObserver() {
 
     }
 }

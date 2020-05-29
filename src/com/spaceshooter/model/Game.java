@@ -8,6 +8,7 @@ import java.awt.*;
 public class Game  {
     public final static int WIDTH = 1280;
     public final static int HEIGHT = 720;
+    public final static SpaceObjectCreator creator = new SpaceObjectCreator();
     public GameState gameState;
     private GameMenu gameMenu;
     private GameOver gameOver;
@@ -37,12 +38,19 @@ public class Game  {
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
-        collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
+        collisionHandler = new CollisionHandler(enemySpaceshipManager, player, explosionManager);
         hud = new HUD(player);
         gameLevel = 1;
         gameRunning = true;
 
-        createStars();
+        creator.setEnemyManager(this.enemySpaceshipManager);
+        creator.setExplosionManager(this.explosionManager);
+        creator.setPlayerLaserbeamManager(this.player.getLaserbeamManager());
+        creator.setEnemyLaserbeamManager(this.enemySpaceshipManager.getEnemyLaserbeamManager());
+
+        Explosion explosionToAdd = (Explosion) Game.creator.createSpaceObject("explosion", 200, 200);
+        explosionManager.addExplosion(explosionToAdd);
+        starManager.createStars();
     }
 
     public boolean isGameRunning() {
@@ -113,10 +121,6 @@ public class Game  {
     }
 
     public void updateLeaderboard(){
-
-    }
-
-    private void createStars(){
 
     }
 
