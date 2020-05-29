@@ -19,7 +19,7 @@ public class ImageHandler {
         starImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/star-24.png");
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = null;
-        laserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");;
+        laserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
 
         explosionAnimation = new BufferedImage[explosionSpriteSheetRows * explosionSpriteSheetColumns];
 

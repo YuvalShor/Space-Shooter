@@ -26,7 +26,7 @@ public class Game  {
         Controller gameController = new Controller(gameWindow, game);
         gameWindow.setController(gameController);
 
-        gameController.start();
+//        gameController.start();
     }
 
     public Game() {
@@ -55,7 +55,6 @@ public class Game  {
         starManager.onTick();
         collisionHandler.onTick();
         explosionManager.onTick();
-
     }
 
     public void draw(Graphics graphics){
@@ -73,7 +72,6 @@ public class Game  {
         gameMenu.onTick();
         gameMenu.draw(graphics);
     }
-
 
     public void runGame(Graphics graphics) {
         onTick();
