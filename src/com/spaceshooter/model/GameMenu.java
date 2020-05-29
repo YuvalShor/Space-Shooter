@@ -4,10 +4,12 @@ import java.awt.*;
 
 public class GameMenu {
 
-    private MenuState menuState;
     public GameMenu(){ }
+
     public void onTick(){
+
     }
+
     public void draw(Graphics graphics){
 
     }

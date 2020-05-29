@@ -8,7 +8,9 @@ import java.awt.image.BufferStrategy;
 public class GameWindow extends JFrame {
 
     private Controller gameController;
+    private MenuPanel menuPanel;
     private GamePanel gamePanel;
+    private LeaderboardsPanel leaderboardsPanel;
     private PanelMouseMovementListener gamePanelListener;
 
     public GameWindow(int width, int height) {
@@ -16,12 +18,11 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+        menuPanel = new MenuPanel(width, height);
         gamePanel = new GamePanel(width, height);
 
-        setContentPane(gamePanel);
+        setContentPane(menuPanel);
         this.pack();
-
-        gamePanel.CreateGamePanelBufferStrategy(2);
 
         addListeners();
     }
@@ -43,6 +44,33 @@ public class GameWindow extends JFrame {
             public void mouseClickedOnPanel() {
                 gameController.playerMouseClicked();
             }
+        });
+
+        menuPanel.setMenuPlayButtonClickListener(new MenuPlayButtonClickListener() {
+            @Override
+            public void mouseButtonClick() {
+                setContentPane(gamePanel);
+                gamePanel.CreateGamePanelBufferStrategy(2);
+                pack();
+                gameController.start();
+            }
+        });
+
+        menuPanel.setMenuLeaderboardsClickListener(new MenuLeaderboardsClickListener() {
+            @Override
+            public void mouseButtonClick() {
+                setContentPane(leaderboardsPanel);
+            }
+
+            private void setContentPane(LeaderboardsPanel leaderboardsPanel) {
+            }
+        });
+
+        menuPanel.setMenuExitClickListener(new MenuExitButtonClickListener() {
+           @Override
+           public void mouseButtonClick() {
+               System.exit(0);
+           }
         });
     }
 
