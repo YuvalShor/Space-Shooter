@@ -1,6 +1,5 @@
 package com.spaceshooter.controller;
-import com.spaceshooter.model.Laserbeam;
-import com.spaceshooter.model.Player;
+import com.spaceshooter.model.*;
 
 import java.util.List;
 
@@ -9,17 +8,35 @@ public class CollisionHandler {
     private List<Laserbeam> enemyLasers;
     private List<Laserbeam> playerLasers;
     private Player player;
-    private ExplosionManager explosionManager;
 
-    public CollisionHandler(EnemySpaceshipManager enemyManager, Player player, ExplosionManager explosionManager) {
+    public CollisionHandler(EnemySpaceshipManager enemyManager, Player player) {
         this.enemyManager = enemyManager;
         this.player = player;
-        this.explosionManager = explosionManager;
         this.playerLasers =  player.getPlayerLaserbeamManager();
         this.enemyLasers = enemyManager.getEnemyLasers();
     }
 
     public void onTick() {
+        Laserbeam[] playerLaserbeams = playerLasers.toArray(new Laserbeam[playerLasers.size()]);
+        Laserbeam[] enemyLaserbeams = enemyLasers.toArray(new Laserbeam[enemyLasers.size()]);
 
+        for (Laserbeam laser : playerLaserbeams) {
+
+            for (EnemySpaceship enemy : enemyManager.getEnemySpaceships()) {
+                if(laser.intersects(enemy)){
+                    enemy.hit(20);
+                    laser.notifyObserver();
+                }
+            }
+        }
+
+        PlayerSpaceship playerSpaceship = player.getPlayerSpaceship();
+
+      /*  for (Laserbeam laser : enemyLaserbeams) {
+
+            if(laser.intersects(playerSpaceship){
+
+            }
+        }*/
     }
 }

@@ -53,17 +53,14 @@ public class Player {
     }
 
     public void playerMouseClicked() {
-        int laserbeamX = playerSpaceship.leftBorder() + 8;
-        int laserbeamY = playerSpaceship.topBorder();
+        float laserbeamX = playerSpaceship.leftBorder() + 8;
+        float laserbeamY = playerSpaceship.topBorder();
 
-        Laserbeam firstLaserbeamToAdd = (Laserbeam)Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
+        Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
 
         laserbeamX = playerSpaceship.rightBorder() - 8;
 
-        Laserbeam secondLaserbeanToAdd = (Laserbeam)Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
-
-        playerLaserbeamManager.addLaserbeam(firstLaserbeamToAdd);
-        playerLaserbeamManager.addLaserbeam(secondLaserbeanToAdd);
+        Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
     }
 
     public List<Laserbeam> getPlayerLaserbeamManager() {
@@ -72,5 +69,17 @@ public class Player {
 
     public LaserbeamManager getLaserbeamManager() {
         return this.playerLaserbeamManager;
+    }
+
+    public float spaceshipX() {
+        return this.playerSpaceship.getX();
+    }
+
+    public float spaceshipY() {
+        return this.playerSpaceship.getY();
+    }
+
+    public PlayerSpaceship getPlayerSpaceship() {
+        return this.playerSpaceship;
     }
 }

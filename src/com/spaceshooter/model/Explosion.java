@@ -1,6 +1,5 @@
 package com.spaceshooter.model;
 
-import com.spaceshooter.controller.ExplosionManager;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;
@@ -11,7 +10,7 @@ public class Explosion extends SpaceObject{
     private BufferedImage[] explosionImages;
     private int currentFrame;
 
-    public Explosion(int x, int y, int width, int height, ObjectObserver observer) {
+    public Explosion(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer);
         currentFrame = -1;
         explosionImages = ImageHandler.getExplosionAnimation();
@@ -19,7 +18,7 @@ public class Explosion extends SpaceObject{
 
     @Override
     public void draw(Graphics graphics) {
-        graphics.drawImage(this.explosionImages[currentFrame], this.leftBorder(), this.topBorder(), null);
+        graphics.drawImage(this.explosionImages[currentFrame], (int) this.leftBorder(), (int) this.topBorder(), null);
     }
 
     @Override

@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Random;
 
 public class StarManager {
-    private final int NUMBER_OF_SMALL_STARS = 20;
+    private final int NUNMBER_OF_STARS = 20;
     private final int NUMBER_OF_BIG_STARS = 50;
 
     private List<Star> stars;
 
     public StarManager() {
-        this.stars = new ArrayList<Star>(NUMBER_OF_SMALL_STARS);
+        this.stars = new ArrayList<Star>(NUNMBER_OF_STARS);
 
         createStars();
     }
@@ -23,27 +23,12 @@ public class StarManager {
     public void createStars() {
         Random random = new Random();
 
-        // big stars
-        for (int i = 0; i < NUMBER_OF_SMALL_STARS; i++) {
-            int starX = random.nextInt(Game.WIDTH);
-            int starY = random.nextInt(Game.HEIGHT);
-
-            Star starToAdd = (Star) Game.creator.createSpaceObject("bigstar", starX, starY);
-
-            while(checkStarIntersectionWithAll(starToAdd) == true){
-                starToAdd.setX(random.nextInt(Game.WIDTH));
-                starToAdd.setY( random.nextInt(Game.HEIGHT));
-            }
-
-            this.stars.add(starToAdd);
-        }
-
         // small stars
         for (int i = 0; i < NUMBER_OF_BIG_STARS; i++) {
             int starX = random.nextInt(Game.WIDTH);
             int starY = random.nextInt(Game.HEIGHT);
 
-            Star starToAdd = (Star) Game.creator.createSpaceObject("smallstar", starX, starY);
+            Star starToAdd = (Star) Game.creator.createSpaceObject("star", starX, starY);
             this.stars.add(starToAdd);
         }
     }

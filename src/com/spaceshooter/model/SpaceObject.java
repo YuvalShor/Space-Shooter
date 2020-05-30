@@ -3,15 +3,15 @@ package com.spaceshooter.model;
 import java.awt.*;
 
 public abstract class SpaceObject implements ObservableObject {
-    protected int x;
-    protected int y;
+    protected float x;
+    protected float y;
     protected int width;
     protected int height;
-    protected int moveX;
-    protected int moveY;
+    protected float moveX;
+    protected float moveY;
     protected ObjectObserver observer;
 
-    public SpaceObject(int x, int y, int width, int height) {
+    public SpaceObject(float x, float y, int width, int height) {
         this.setX(x);
         this.setY(y);
         this.setWidth(width);
@@ -20,64 +20,59 @@ public abstract class SpaceObject implements ObservableObject {
         this.setMoveY(0);
     }
 
-    public SpaceObject(int x, int y, int width, int height, ObjectObserver observer) {
+    public SpaceObject(float x, float y, int width, int height, ObjectObserver observer) {
         this(x, y, width, height);
         this.observer = observer;
     }
 
-    public SpaceObject(int x, int y){
-        this.setX(x);
-        this.setY(y);
-    }
-
-    public int getMoveX() {
+    public float getMoveX() {
         return moveX;
     }
 
-    public void setMoveX(int moveX) {
+    public void setMoveX(float moveX) {
         this.moveX = moveX;
     }
 
-    public int getMoveY() {
+    public float getMoveY() {
         return moveY;
     }
 
-    public void setMoveY(int moveY) {
+    public void setMoveY(float moveY) {
         this.moveY = moveY;
     }
 
     public abstract  void draw(Graphics graphics);
     public abstract  void onTick();
 
-    public int leftBorder(){
+    public float leftBorder(){
         return this.x - this.width / 2;
     }
 
-    public int rightBorder(){
+    public float rightBorder(){
         return this.x + this.width / 2;
     }
 
-    public int topBorder(){
+    public float topBorder(){
         return this.y - this.height / 2;
     }
 
-    public int bottomBorder(){
+    public float bottomBorder(){
         return this.y + this.height / 2;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public  void setX(int x) {
+    public  void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public  void setY(int y) {
+    public  void setY(float y) {
         this.y = y;
     }
 
@@ -113,6 +108,28 @@ public abstract class SpaceObject implements ObservableObject {
         if(this.bottomBorder() > Game.HEIGHT){
             this.y = Game.HEIGHT - this.height/2;
         }
+    }
+
+    public boolean isWithinBorders(){
+        boolean isWithinBorders = true;
+
+        if(this.leftBorder() < 0){
+            isWithinBorders = false;
+        }
+
+        if(this.rightBorder() > Game.WIDTH){
+            isWithinBorders = false;
+        }
+
+        if(this.topBorder() < 0){
+            isWithinBorders = false;
+        }
+
+        if(this.bottomBorder() > Game.HEIGHT){
+            isWithinBorders = false;
+        }
+
+        return isWithinBorders;
     }
 
     public boolean intersects(SpaceObject other){

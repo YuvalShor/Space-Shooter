@@ -38,7 +38,6 @@ public class Game  {
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
-        collisionHandler = new CollisionHandler(enemySpaceshipManager, player, explosionManager);
         hud = new HUD(player);
         gameLevel = 1;
         gameRunning = true;
@@ -47,10 +46,12 @@ public class Game  {
         creator.setExplosionManager(this.explosionManager);
         creator.setPlayerLaserbeamManager(this.player.getLaserbeamManager());
         creator.setEnemyLaserbeamManager(this.enemySpaceshipManager.getEnemyLaserbeamManager());
+        creator.setPlayer(this.player);
 
-        Explosion explosionToAdd = (Explosion) Game.creator.createSpaceObject("explosion", 200, 200);
-        explosionManager.addExplosion(explosionToAdd);
         starManager.createStars();
+        enemySpaceshipManager.createEnemies();
+
+        collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
     }
 
     public boolean isGameRunning() {
