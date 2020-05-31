@@ -30,10 +30,10 @@ public class BossSpaceship extends EnemySpaceship{
         frame = (frame + 1) % 120;
         if(frame % 120 == 0) {
             Random random = new Random();
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 100; i++) {
                 Laserbeam laser = (Laserbeam) Game.creator.createSpaceObject("enemylaserbeam", this.x,
                         this.bottomBorder());
-                laser.calculateDirection(random.nextInt(Game.WIDTH), Game.HEIGHT/2 + Game.HEIGHT/4);
+                laser.calculateDirection(random.nextInt(Game.WIDTH), Game.HEIGHT/2 );
             }
         }
     }

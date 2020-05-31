@@ -38,5 +38,12 @@ public class CollisionHandler {
                 enemyLasers.remove(laser);
             }
         }
+
+        for (EnemySpaceship enemySpaceship : enemyManager.getEnemySpaceships()) {
+            if(enemySpaceship.intersects(playerSpaceship)){
+                player.hit(25);
+                enemySpaceship.hit(100);
+            }
+        }
     }
 }
