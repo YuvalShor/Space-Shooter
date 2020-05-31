@@ -1,14 +1,11 @@
 package com.spaceshooter.controller;
 
 import com.spaceshooter.model.Explosion;
-import com.spaceshooter.model.Game;
 import com.spaceshooter.model.ObjectObserver;
 import com.spaceshooter.model.ObservableObject;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -47,6 +44,10 @@ public class ExplosionManager implements ObjectObserver {
 
     public void addExplosion(Explosion explosionToAdd) {
         this.explosionList.add(explosionToAdd);
+    }
+
+    public boolean hasExplosions() {
+        return this.explosionList.size() > 0;
     }
 }
 

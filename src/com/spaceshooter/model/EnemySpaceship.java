@@ -8,17 +8,22 @@ import java.util.Random;
 
 public class EnemySpaceship extends SpaceObject implements ObservableObject{
     public BufferedImage enemySpaceshipImage;
-    private int health;
-    private final int MAX_HEALTH = 100;
+    protected int health;
+    protected final int MAX_HEALTH;
     public EnemySpaceship(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer);
         this.enemySpaceshipImage = ImageHandler.getEnemySpaceshipImage();
+        this.MAX_HEALTH = 100;
         this.health = MAX_HEALTH;
     }
 
+    protected EnemySpaceship(float x, float y, int width, int height, ObjectObserver observer, int maxHealth){
+        super(x, y, width, height, observer);
+        this.MAX_HEALTH = maxHealth;
+    }
     @Override
     public void draw(Graphics graphics) {
-        float healthRatio = this.health / (float)MAX_HEALTH;
+        float healthRatio = this.health / (float)this.MAX_HEALTH;
         float healthBarFillWidth = healthRatio * this.width;
 
         graphics.setColor(Color.RED);
@@ -31,19 +36,16 @@ public class EnemySpaceship extends SpaceObject implements ObservableObject{
     public void onTick() {
         if(this.health <= 0){
             notifyObserver();
-            Game.creator.createSpaceObject("explosion", this.x, this.y);
+            Game.creator.createSpaceObject("smallexplosion", this.x, this.y);
         }
 
         Random random = new Random();
 
-        if(random.nextInt(100) < 5){
+        if(random.nextInt(1000) < 10){
             Game.creator.createSpaceObject("enemylaserbeam", this.x, this.y);
         }
     }
 
-    private void fireLaserbeam() {
-
-    }
 
     public int getHealth() {
         return 0;
@@ -61,5 +63,4 @@ public class EnemySpaceship extends SpaceObject implements ObservableObject{
     public void hit(int hitpoints){
         this.health -= hitpoints;
     }
-    
 }

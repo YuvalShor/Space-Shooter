@@ -57,16 +57,26 @@ public class EnemySpaceshipManager implements ObjectObserver {
         removeEnemySpaceship(enemySpaceship);
     }
 
-    public void createEnemies() {
+    public void createEnemies(int numberOfEnemies) {
         int enemyWidth = Game.creator.getEnemySpaceshipWidth();
         int enemyHeight = Game.creator.getEnemySpaceshipHeight();
+        int enemyDistance = (Game.WIDTH - enemyWidth)/numberOfEnemies;
 
-        for (int i = 1; i <= 5; i++) {
-            Game.creator.createSpaceObject("enemyspaceship", i*enemyWidth + i*100, 200);
+        for (int i = 0; i < numberOfEnemies; i++) {
+            Game.creator.createSpaceObject("enemyspaceship",
+                    i * enemyDistance + enemyWidth, Game.HEIGHT / 4);
         }
     }
 
     public List<EnemySpaceship> getEnemySpaceships(){
         return this.enemySpaceships;
+    }
+
+    public boolean isFleetAnnihilated(){
+        return this.enemySpaceships.size() == 0;
+    }
+
+    public void clear() {
+        this.enemySpaceships.clear();
     }
 }

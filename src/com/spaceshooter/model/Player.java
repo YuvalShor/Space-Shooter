@@ -25,6 +25,10 @@ public class Player {
     }
 
     public void onTick() {
+        if(this.playerHealth <= 0){
+            Game.gameState = GameState.GameOver;
+            Game.creator.createSpaceObject("smallexplosion", this.playerSpaceship.getX(), this.playerSpaceship.getY());
+        }
         playerSpaceship.onTick();
         playerLaserbeamManager.onTick();
     }
@@ -81,5 +85,13 @@ public class Player {
 
     public PlayerSpaceship getPlayerSpaceship() {
         return this.playerSpaceship;
+    }
+
+    public int getHealth() {
+        return this.playerHealth;
+    }
+
+    public void hit(int hitpoints) {
+        this.playerHealth -= hitpoints;
     }
 }

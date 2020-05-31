@@ -9,7 +9,7 @@ public class Game  {
     public final static int WIDTH = 1280;
     public final static int HEIGHT = 720;
     public final static SpaceObjectCreator creator = new SpaceObjectCreator();
-    public GameState gameState;
+    public static GameState gameState;
     private GameMenu gameMenu;
     private GameOver gameOver;
     private HUD hud;
@@ -19,6 +19,7 @@ public class Game  {
     private ExplosionManager explosionManager;
     private CollisionHandler collisionHandler;
     private int gameLevel;
+    private final int MAX_LEVEL = 10;
     private boolean gameRunning;
 
     public static void main(String[] args) {
@@ -38,7 +39,7 @@ public class Game  {
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
-        hud = new HUD(player);
+        hud = new HUD(player, this);
         gameLevel = 1;
         gameRunning = true;
 
@@ -49,7 +50,7 @@ public class Game  {
         creator.setPlayer(this.player);
 
         starManager.createStars();
-        enemySpaceshipManager.createEnemies();
+//        enemySpaceshipManager.createEnemies(gameLevel);
 
         collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
     }
@@ -61,6 +62,20 @@ public class Game  {
     public void onTick(){
         player.onTick();
         enemySpaceshipManager.onTick();
+
+        if(enemySpaceshipManager.isFleetAnnihilated()){
+            if(gameLevel == MAX_LEVEL){
+                creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
+                gameLevel++;
+            }
+            else if (gameLevel > MAX_LEVEL){
+                gameState = GameState.GameOver;
+            }
+            else{
+                enemySpaceshipManager.createEnemies(++gameLevel);
+            }
+        }
+
         starManager.onTick();
         collisionHandler.onTick();
         explosionManager.onTick();
@@ -88,8 +103,16 @@ public class Game  {
     }
 
     public void runGameOver(Graphics graphics) {
+        starManager.onTick();
+        explosionManager.onTick();
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, 1280, 720);
+        starManager.draw(graphics);
+        explosionManager.draw(graphics);
+        hud.draw(graphics);
         gameOver.onTick();
         gameOver.draw(graphics);
+
     }
 
     public void update(Graphics graphics) {
@@ -135,5 +158,9 @@ public class Game  {
 
     public void playerMouseClicked() {
         player.playerMouseClicked();
+    }
+
+    public int getLevel() {
+        return this.gameLevel;
     }
 }

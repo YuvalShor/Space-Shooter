@@ -11,14 +11,18 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
 
     private final int playerLaserbeamWidth = 3;
     private final int playerLaserbeamHeight = 32;
-    private final int enemyEnergyBallWidth = 16;
-    private final int enemyEnergyBallHeight = 16;
+    private final int enemyEnergyBallWidth = 8;
+    private final int enemyEnergyBallHeight = 8;
     private final int starWidth = 2;
     private final int starHeight = 2;
-    private final int enemySpaceshipWidth = 64;
-    private final int enemySpaceshipHeight = 64;
-    private final int explosionWidth = 100;
-    private final int explosionHeight = 100;
+    private final int enemySpaceshipWidth = 60;
+    private final int enemySpaceshipHeight = 60;
+    private final int bossSpaceshipWidth = 403;
+    private final int bossSpaceshipHeight = 286;
+    private final int smallExplosionWidth = 100;
+    private final int smallExplosionHeight = 100;
+    private final int bigExplosionWidth = 256;
+    private final int bigExplosionHeight = 256;
     private  EnemySpaceshipManager enemySpaceshipManager;
     private  ExplosionManager explosionManager;
     private  LaserbeamManager playerLaserbeamManager;
@@ -44,14 +48,26 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         else if(nameOfObject == "star"){
             spaceObjectToCreate = createStar(objectX, objectY);
         }
-        else if(nameOfObject == "explosion"){
-            spaceObjectToCreate = createExplosion(objectX, objectY);
+        else if(nameOfObject == "smallexplosion"){
+            spaceObjectToCreate = createSmallExplosion(objectX, objectY);
+        }
+        else if(nameOfObject == "bigexplosion"){
+            spaceObjectToCreate = createBigExplosion(objectX, objectY);
+        }
+        else if(nameOfObject == "boss"){
+            spaceObjectToCreate = createBoss(objectX, objectY);
         }
         else{
             throw new IllegalArgumentException("Object name does not exist");
         }
 
         return spaceObjectToCreate;
+    }
+
+    private BossSpaceship createBoss(float bossX, float bossY) {
+        BossSpaceship bossSpaceship = new BossSpaceship(bossX, bossY, bossSpaceshipWidth, bossSpaceshipHeight, enemySpaceshipManager);
+        enemySpaceshipManager.addEnemySpaceship(bossSpaceship);
+        return bossSpaceship;
     }
 
     private Star createStar(float starX, float starY){
@@ -87,9 +103,18 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         return enemySpaceship;
     }
 
-    private Explosion createExplosion(float explosionX, float explosionY){
-        Explosion explosion = new Explosion(explosionX, explosionY, explosionWidth, explosionHeight, explosionManager);
+    private Explosion createSmallExplosion(float explosionX, float explosionY){
+        Explosion explosion = new Explosion(explosionX, explosionY, smallExplosionWidth, smallExplosionHeight, explosionManager);
         explosionManager.addExplosion(explosion);
+        explosion.setAnimation(ImageHandler.getSmallExplosionAnimation());
+        return explosion;
+    }
+
+
+    private Explosion createBigExplosion(float explosionX, float explosionY){
+        Explosion explosion = new Explosion(explosionX, explosionY, bigExplosionWidth, bigExplosionHeight, explosionManager);
+        explosionManager.addExplosion(explosion);
+        explosion.setAnimation(ImageHandler.getBigExplosionAnimation());
 
         return explosion;
     }
@@ -146,11 +171,23 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         return enemySpaceshipHeight;
     }
 
-    public int getExplosionWidth() {
-        return explosionWidth;
+    public int getBossSpaceshipHeight() {
+        return bossSpaceshipHeight;
     }
 
-    public int getExplosionHeight() {
-        return explosionHeight;
+    public int getSmallExplosionWidth() {
+        return smallExplosionWidth;
+    }
+
+    public int getSmallExplosionHeight() {
+        return smallExplosionHeight;
+    }
+
+    public int getBigExplosionWidth() {
+        return bigExplosionWidth;
+    }
+
+    public int getBigExplosionHeight() {
+        return bigExplosionHeight;
     }
 }
