@@ -1,4 +1,6 @@
 package com.spaceshooter.view;
 
-public class LeaderboardsPanel {
+import javax.swing.*;
+
+public class LeaderboardsPanel extends JPanel {
 }

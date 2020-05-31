@@ -1,6 +1,8 @@
 package com.spaceshooter.view;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class ImageHandler {
     private static BufferedImage starImage;
@@ -12,18 +14,19 @@ public class ImageHandler {
     private final static int explosionSpriteSheetColumns = 10;
     private final static int explosionSubImageWidth = 100;
     private final static int explosionSubImageHeight = 100;
+    private final static BufferedImageLoader bufferedImageLoader;
 
     static{
-        BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
+        bufferedImageLoader = new BufferedImageLoader();
 
-        starImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/star-16.png");
-        playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
+        starImage = GetMenuImage("/com/spaceshooter/view/images/star-16.png");
+        playerSpaceshipImage = GetMenuImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = null;
-        laserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
+        laserbeamImage = GetMenuImage("/com/spaceshooter/view/images/PlayerLaser.png");
 
         explosionAnimation = new BufferedImage[explosionFrames];
 
-        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/verticalexplosion.png");
+        BufferedImage explosionSpriteSheet = GetMenuImage("/com/spaceshooter/view/images/verticalexplosion.png");
         initializeExplosionAnimation(explosionSpriteSheet);
     }
 
@@ -55,5 +58,20 @@ public class ImageHandler {
 
     public static BufferedImage[] getExplosionAnimation() {
         return explosionAnimation;
+    }
+
+    public static BufferedImage GetMenuImage(String imagePath) {
+        return bufferedImageLoader.loadImage(imagePath);
+    }
+
+    public ImageIcon CreateIcon(String path){
+        URL url = getClass().getResource(path);
+
+        if(url == null){
+            System.err.println("Unable to load image " +  path);
+            return null;
+        }
+
+        return new ImageIcon(url);
     }
 }

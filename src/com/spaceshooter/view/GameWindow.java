@@ -65,9 +65,6 @@ public class GameWindow extends JFrame {
             public void mouseButtonClick() {
                 setContentPane(leaderboardsPanel);
             }
-
-            private void setContentPane(LeaderboardsPanel leaderboardsPanel) {
-            }
         });
 
         menuPanel.setMenuExitClickListener(new MenuExitButtonClickListener() {
