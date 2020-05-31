@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 
 public class ImageHandler {
+    private static BufferedImageLoader bufferedImageLoader;
+
     private static BufferedImage enemySpaceshipImage;
     private static BufferedImage playerSpaceshipImage;
     private static BufferedImage playerLaserbeamImage;
