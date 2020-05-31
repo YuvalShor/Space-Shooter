@@ -40,7 +40,7 @@ public class Game  {
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
-        gameLevel = 1;
+        gameLevel = 0;
         gameRunning = true;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
