@@ -1,6 +1,8 @@
 package com.spaceshooter.view;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class ImageHandler {
     private static BufferedImage enemySpaceshipImage;
@@ -22,7 +24,7 @@ public class ImageHandler {
     private final static int bigExplosionSubImageHeight = 256;
 
     static{
-        BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
+        bufferedImageLoader = new BufferedImageLoader();
 
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/ufodark.png");
@@ -78,6 +80,21 @@ public class ImageHandler {
         return smallExplosionAnimation;
     }
 
+    public static BufferedImage GetMenuImage(String imagePath) {
+        return bufferedImageLoader.loadImage(imagePath);
+    }
+
+    public ImageIcon CreateIcon(String path){
+        URL url = getClass().getResource(path);
+
+        if(url == null){
+            System.err.println("Unable to load image " +  path);
+            return null;
+        }
+
+        return new ImageIcon(url);
+    }
+
     public static BufferedImage getPlayerLaserbeamImage() {
         return playerLaserbeamImage;
     }
@@ -89,8 +106,6 @@ public class ImageHandler {
     public static BufferedImage[] getBigExplosionAnimation() {
         return bigExplosionAnimation;
     }
-
-
 
     /*  public static BufferedImage[] getPlayerSpaceshipAnimation(){
         return playerSpaceshipAnimation;

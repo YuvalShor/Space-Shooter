@@ -7,16 +7,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
 public class MenuPanel extends JPanel {
     private PanelMouseMovementListener panelMouseMovementListener;
     private PanelMouseClickListener panelMouseClickListener;
+
+    private ImageHandler imageHandler = new ImageHandler();
+
     private BufferedImage menuBackgroundImage;
 
     private JButton playButton;
     private JButton leaderboardsButton;
     private JButton exitButton;
+
+    private ImageIcon playButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton.png");
+    private ImageIcon playButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton_Opaque.png");
+    private ImageIcon leaderboardsButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton.png");
+    private ImageIcon leaderboardsButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton_Opaque.png");
+    private ImageIcon exitButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton.png");
+    private ImageIcon exitButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton_Opaque.png");
 
     private MenuPlayButtonClickListener menuPlayButtonClickListener;
     private MenuLeaderboardsClickListener menuLeaderboardsClickListener;
@@ -30,8 +39,7 @@ public class MenuPanel extends JPanel {
     }
 
     public MenuPanel(int width, int height) {
-        BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
-        menuBackgroundImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/menuBackground.jpg");
+        menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
 
         Dimension dimension = new Dimension(width, height);
         setPreferredSize(dimension);
@@ -87,53 +95,47 @@ public class MenuPanel extends JPanel {
 
         playButton.setOpaque(false);
         playButton.setPreferredSize(menuButtonDimension);
-        playButton.setIcon(createIcon("/com/spaceshooter/view/images/menuPlayButton.png"));
+        playButton.setIcon(playButtonIcon);
         leaderboardsButton.setOpaque(false);
         leaderboardsButton.setPreferredSize(menuButtonDimension);
-        leaderboardsButton.setIcon(createIcon("/com/spaceshooter/view/images/menuLeaderboardsButton.png"));
+        leaderboardsButton.setIcon(leaderboardsButtonIcon);
         exitButton.setOpaque(false);
         exitButton.setPreferredSize(menuButtonDimension);
-        exitButton.setIcon(createIcon("/com/spaceshooter/view/images/menuExitButton.png"));
+        exitButton.setIcon(exitButtonIcon);
 
         playButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-//                playButton.setBackground(new Color(0,0,0,20));
-                playButton.setIcon(createIcon("/com/spaceshooter/view/images/menuPlayButton_Opaque.png"));
+                playButton.setIcon(playButtonOpaqueIcon);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-//                playButton.setBackground(UIManager.getColor("control"));
-                playButton.setIcon(createIcon("/com/spaceshooter/view/images/menuPlayButton.png"));
+                playButton.setIcon(playButtonIcon);
             }
         });
 
         leaderboardsButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-//                leaderboardsButton.setBackground(new Color(0,0,0,20));
-                leaderboardsButton.setIcon(createIcon("/com/spaceshooter/view/images/menuLeaderboardsButton_Opaque.png"));
+                leaderboardsButton.setIcon(leaderboardsButtonOpaqueIcon);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-//                leaderboardsButton.setBackground(UIManager.getColor("control"));
-                leaderboardsButton.setIcon(createIcon("/com/spaceshooter/view/images/menuLeaderboardsButton.png"));
+                leaderboardsButton.setIcon(leaderboardsButtonIcon);
             }
         });
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-//                exitButton.setBackground(new Color(0,0,0,20));
-                exitButton.setIcon(createIcon("/com/spaceshooter/view/images/menuExitButton_Opaque.png"));
+                exitButton.setIcon(exitButtonOpaqueIcon);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-//                exitButton.setBackground(UIManager.getColor("control"));
-                exitButton.setIcon(createIcon("/com/spaceshooter/view/images/menuExitButton.png"));
+                exitButton.setIcon(exitButtonIcon);
             }
         });
 
@@ -166,17 +168,6 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
-    }
-
-    private ImageIcon createIcon(String path){
-        URL url = getClass().getResource(path);
-
-        if(url == null){
-            System.err.println("Unable to load image " +  path);
-            return null;
-        }
-
-        return new ImageIcon(url);
     }
 
     public void setMenuPlayButtonClickListener(MenuPlayButtonClickListener menuPlayButtonClickListener) {
