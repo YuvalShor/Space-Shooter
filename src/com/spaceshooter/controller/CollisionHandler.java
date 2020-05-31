@@ -24,7 +24,7 @@ public class CollisionHandler {
 
             for (EnemySpaceship enemy : enemyManager.getEnemySpaceships()) {
                 if(laser.intersects(enemy)){
-                    enemy.hit(50);
+                    enemy.hit(5);
                     laser.notifyObserver();
                 }
             }
