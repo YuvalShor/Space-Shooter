@@ -11,7 +11,6 @@ public class Controller implements Runnable{
     private GameWindow gameWindow;
     private Game game;
     private Thread thread;
-    private Object mutex = new Object();
 
     public Controller(GameWindow gameWindow, Game game) {
         this.gameWindow = gameWindow;
@@ -56,8 +55,6 @@ public class Controller implements Runnable{
                 }
             }
         }
-
-
     }
 
     public void updatePlayerPosition(int playerX, int playerY){

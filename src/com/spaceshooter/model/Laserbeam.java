@@ -1,31 +1,34 @@
 package com.spaceshooter.model;
 
-import com.spaceshooter.controller.ExplosionManager;
-import com.spaceshooter.view.ImageHandler;
-
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Laserbeam extends SpaceObject {
-    public static Image image;
     private BufferedImage laserbeamImage;
 
-    public Laserbeam(int x, int y, int width, int height, ObjectObserver observer) {
+    public Laserbeam(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer);
         this.moveY = -5;
-        laserbeamImage = ImageHandler.getLaserbeamImage();
     }
 
     @Override
     public void draw(Graphics graphics) {
-        graphics.drawImage(laserbeamImage, this.leftBorder(), this.topBorder(), null);
+        Graphics2D g2d = (Graphics2D) graphics;
+
+        AffineTransform affineTransform = new AffineTransform();
+
+        affineTransform.translate(this.x, this.y);
+        affineTransform.scale(1, 1);
+        g2d.drawImage(laserbeamImage, affineTransform, null);
     }
 
     @Override
     public void onTick() {
+        this.x += this.moveX;
         this.y += this.moveY;
 
-        if(this.topBorder() < 0){
+        if(!isWithinBorders()){
             notifyObserver();
         }
     }
@@ -33,5 +36,18 @@ public class Laserbeam extends SpaceObject {
     @Override
     public void notifyObserver() {
         this.observer.objectStateChanged(this);
+    }
+
+    public void calculateDirection(float x, float y){
+        double distanceX = x - this.x;
+        double distanceY = y - this.y;
+        double realDistance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        this.moveX = (float) (distanceX / realDistance);
+        this.moveY = (float) (distanceY / realDistance);
+    }
+
+    public void setImage(BufferedImage imageToSet){
+        this.laserbeamImage = imageToSet;
     }
 }
