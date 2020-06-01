@@ -47,4 +47,8 @@ public class LaserbeamManager implements ObjectObserver {
     public void objectStateChanged(ObservableObject observable) {
         removeLaserbeam((Laserbeam) observable);
     }
+
+    public void clear() {
+        this.laserbeams.clear();
+    }
 }
