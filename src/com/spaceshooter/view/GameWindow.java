@@ -20,6 +20,7 @@ public class GameWindow extends JFrame {
         setVisible(true);
         menuPanel = new MenuPanel(width, height);
         gamePanel = new GamePanel(width, height);
+        leaderboardsPanel = new LeaderboardsPanel(width,height);
 
         setContentPane(menuPanel);
         this.pack();
@@ -64,6 +65,7 @@ public class GameWindow extends JFrame {
             @Override
             public void mouseButtonClick() {
                 setContentPane(leaderboardsPanel);
+                pack();
             }
         });
 

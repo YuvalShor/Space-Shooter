@@ -78,5 +78,6 @@ public class EnemySpaceshipManager implements ObjectObserver {
 
     public void clear() {
         this.enemySpaceships.clear();
+        this.enemyLaserbeamManager.clear();
     }
 }
