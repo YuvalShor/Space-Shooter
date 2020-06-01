@@ -40,7 +40,7 @@ public class Game  {
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
-        gameLevel = 0;
+        gameLevel = 10;
         gameRunning = true;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
@@ -68,11 +68,14 @@ public class Game  {
                 creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
                 gameLevel++;
             }
-            else if (gameLevel > MAX_LEVEL){
-                gameState = GameState.GameOver;
-            }
             else{
                 enemySpaceshipManager.createEnemies(++gameLevel);
+            }
+        }
+
+        if(gameLevel > MAX_LEVEL){
+            if(explosionManager.hasExplosions()){
+                gameState = GameState.GameOver;
             }
         }
 
@@ -105,9 +108,15 @@ public class Game  {
     public void runGameOver(Graphics graphics) {
         starManager.onTick();
         explosionManager.onTick();
+
+        if(!explosionManager.hasExplosions()){
+            enemySpaceshipManager.clear();
+        }
+
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, 1280, 720);
         starManager.draw(graphics);
+        enemySpaceshipManager.draw(graphics);
         explosionManager.draw(graphics);
         hud.draw(graphics);
         gameOver.onTick();
