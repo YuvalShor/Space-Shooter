@@ -51,7 +51,7 @@ public class MenuPanel extends JPanel {
         exitButton = new JButton();
 
         Dimension menuButtonDimension = new Dimension(402, 99);
-        Font menuButtonFont = new Font("Arial", Font.PLAIN, 30);
+        Font titleFont = new Font("Arial", Font.BOLD, 70);
 
         setLayout(new GridBagLayout());
 
@@ -60,23 +60,12 @@ public class MenuPanel extends JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weighty = 0.55;
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
-
-        JLabel menuTitleShadow = new JLabel("Space Shooter");
-        menuTitleShadow.setPreferredSize(new Dimension(500,100));
-        menuTitleShadow.setFont(new Font("Arial",Font.BOLD,70));
-        menuTitleShadow.setForeground(Color.WHITE);
-        add(menuTitleShadow, gridBagConstraints);
-
-        gridBagConstraints.ipadx = 4;
-        JLabel menuTitle = new JLabel("Space Shooter");
-        menuTitle.setPreferredSize(new Dimension(500,100));
-        menuTitle.setFont(new Font("Arial",Font.BOLD,70));
-        menuTitle.setForeground(Color.BLACK);
-        add(menuTitle, gridBagConstraints);
-
-        gridBagConstraints.ipadx = 0;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
+        JLabel menuTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/logo.png"));
+        menuTitle.setSize(new Dimension(500,100));
+        add(menuTitle, gridBagConstraints);
+        
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.15;
