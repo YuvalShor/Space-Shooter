@@ -20,16 +20,24 @@ public class MenuPanel extends JPanel {
 
     private JButton playButton = new JButton();
     private JButton leaderboardsButton = new JButton();
+    private JButton loginButton = new JButton();
+    private JButton registerButton = new JButton();
     private JButton exitButton = new JButton();
 
     private ImageIcon playButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton.png");
     private ImageIcon playButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton_Opaque.png");
+    private ImageIcon loginButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLoginButton.png");
+    private ImageIcon loginButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLoginButton_Opaque.png");
+    private ImageIcon registerButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuRegisterButton.png");
+    private ImageIcon registerButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuRegisterButton_Opaque.png");
     private ImageIcon leaderboardsButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton.png");
     private ImageIcon leaderboardsButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton_Opaque.png");
     private ImageIcon exitButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton.png");
     private ImageIcon exitButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton_Opaque.png");
 
     private MenuPlayButtonClickListener menuPlayButtonClickListener;
+    private MenuLoginButtonClickListener menuLoginButtonClickListener;
+    private MenuRegisterButtonClickListener menuRegisterButtonClickListener;
     private MenuLeaderboardsClickListener menuLeaderboardsClickListener;
     private MenuExitButtonClickListener menuExitButtonClickListener;
 
@@ -67,21 +75,41 @@ public class MenuPanel extends JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.weighty = 0.15;
-        add(leaderboardsButton, gridBagConstraints);
+        add(loginButton, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 0.15;
+        add(registerButton, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.weighty = 0.15;
+        add(leaderboardsButton, gridBagConstraints);
+
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.weighty = 0.15;
         add(exitButton, gridBagConstraints);
 
-        Dimension menuButtonDimension = new Dimension(402, 99);
+        Dimension menuButtonDimension = new Dimension(300, 74);
 
         playButton.setOpaque(false);
         playButton.setPreferredSize(menuButtonDimension);
         playButton.setIcon(playButtonIcon);
+
+        loginButton.setOpaque(false);
+        loginButton.setPreferredSize(menuButtonDimension);
+        loginButton.setIcon(loginButtonIcon);
+
+        registerButton.setOpaque(false);
+        registerButton.setPreferredSize(menuButtonDimension);
+        registerButton.setIcon(registerButtonIcon);
+
         leaderboardsButton.setOpaque(false);
         leaderboardsButton.setPreferredSize(menuButtonDimension);
         leaderboardsButton.setIcon(leaderboardsButtonIcon);
+
         exitButton.setOpaque(false);
         exitButton.setPreferredSize(menuButtonDimension);
         exitButton.setIcon(exitButtonIcon);
@@ -96,6 +124,45 @@ public class MenuPanel extends JPanel {
             public void mouseExited(MouseEvent e) {
                 playButton.setIcon(playButtonIcon);
             }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                playButton.setIcon(playButtonIcon);
+            }
+        });
+
+        loginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                loginButton.setIcon(loginButtonOpaqueIcon);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                loginButton.setIcon(loginButtonIcon);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                loginButton.setIcon(loginButtonIcon);
+            }
+        });
+
+        registerButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                registerButton.setIcon(registerButtonOpaqueIcon);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                registerButton.setIcon(registerButtonIcon);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                registerButton.setIcon(registerButtonIcon);
+            }
         });
 
         leaderboardsButton.addMouseListener(new MouseAdapter() {
@@ -106,6 +173,11 @@ public class MenuPanel extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
+                leaderboardsButton.setIcon(leaderboardsButtonIcon);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 leaderboardsButton.setIcon(leaderboardsButtonIcon);
             }
         });
@@ -131,6 +203,24 @@ public class MenuPanel extends JPanel {
             }
         });
 
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menuLoginButtonClickListener != null) {
+                    menuLoginButtonClickListener.mouseButtonClick();
+                }
+            }
+        });
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menuRegisterButtonClickListener != null) {
+                    menuRegisterButtonClickListener.mouseButtonClick();
+                }
+            }
+        });
+
         leaderboardsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,6 +242,14 @@ public class MenuPanel extends JPanel {
 
     public void setMenuPlayButtonClickListener(MenuPlayButtonClickListener menuPlayButtonClickListener) {
         this.menuPlayButtonClickListener = menuPlayButtonClickListener;
+    }
+
+    public void setMenuLoginButtonClickListener(MenuLoginButtonClickListener menuLoginButtonClickListener) {
+        this.menuLoginButtonClickListener = menuLoginButtonClickListener;
+    }
+
+    public void setMenuRegisterButtonClickListener(MenuRegisterButtonClickListener menuRegisterButtonClickListener) {
+        this.menuRegisterButtonClickListener = menuRegisterButtonClickListener;
     }
 
     public void setMenuLeaderboardsClickListener(MenuLeaderboardsClickListener menuLeaderboardsClickListener) {
