@@ -75,6 +75,16 @@ public class GameWindow extends JFrame {
                System.exit(0);
            }
         });
+
+        leaderboardsPanel.setLeaderboardsBackClickListener(new BackToMenuButtonClickListener(){
+            @Override
+            public void mouseButtonClick() {
+                setContentPane(menuPanel);
+                pack();
+            }
+        });
+
+
     }
 
     public BufferStrategy getGamePanelCanvasBufferStrategy() {
