@@ -14,11 +14,13 @@ public class MenuPanel extends JPanel {
 
     private ImageHandler imageHandler = new ImageHandler();
 
-    private BufferedImage menuBackgroundImage;
+    private BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
 
-    private JButton playButton;
-    private JButton leaderboardsButton;
-    private JButton exitButton;
+    private JLabel menuLogo = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/logo.png"));
+
+    private JButton playButton = new JButton();
+    private JButton leaderboardsButton = new JButton();
+    private JButton exitButton = new JButton();
 
     private ImageIcon playButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton.png");
     private ImageIcon playButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton_Opaque.png");
@@ -39,19 +41,11 @@ public class MenuPanel extends JPanel {
     }
 
     public MenuPanel(int width, int height) {
-        menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
+        Dimension windowDimension = new Dimension(width, height);
 
-        Dimension dimension = new Dimension(width, height);
-        setPreferredSize(dimension);
-        setMinimumSize(dimension);
-        setMaximumSize(dimension);
-
-        playButton = new JButton();
-        leaderboardsButton = new JButton();
-        exitButton = new JButton();
-
-        Dimension menuButtonDimension = new Dimension(402, 99);
-        Font titleFont = new Font("Arial", Font.BOLD, 70);
+        setPreferredSize(windowDimension);
+        setMinimumSize(windowDimension);
+        setMaximumSize(windowDimension);
 
         setLayout(new GridBagLayout());
 
@@ -62,10 +56,9 @@ public class MenuPanel extends JPanel {
         gridBagConstraints.weighty = 0.55;
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
 
-        JLabel menuTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/logo.png"));
-        menuTitle.setSize(new Dimension(500,100));
-        add(menuTitle, gridBagConstraints);
-        
+        menuLogo.setSize(new Dimension(500, 100));
+        add(menuLogo, gridBagConstraints);
+
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weighty = 0.15;
@@ -81,6 +74,7 @@ public class MenuPanel extends JPanel {
         gridBagConstraints.weighty = 0.15;
         add(exitButton, gridBagConstraints);
 
+        Dimension menuButtonDimension = new Dimension(402, 99);
 
         playButton.setOpaque(false);
         playButton.setPreferredSize(menuButtonDimension);
@@ -131,8 +125,7 @@ public class MenuPanel extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (menuPlayButtonClickListener != null)
-                {
+                if (menuPlayButtonClickListener != null) {
                     menuPlayButtonClickListener.mouseButtonClick();
                 }
             }
@@ -141,8 +134,7 @@ public class MenuPanel extends JPanel {
         leaderboardsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (menuLeaderboardsClickListener != null)
-                {
+                if (menuLeaderboardsClickListener != null) {
                     menuLeaderboardsClickListener.mouseButtonClick();
                 }
             }
@@ -151,8 +143,7 @@ public class MenuPanel extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (menuExitButtonClickListener != null)
-                {
+                if (menuExitButtonClickListener != null) {
                     menuExitButtonClickListener.mouseButtonClick();
                 }
             }
