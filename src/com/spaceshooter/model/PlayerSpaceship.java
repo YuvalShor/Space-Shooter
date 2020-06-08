@@ -37,7 +37,7 @@ public class PlayerSpaceship extends SpaceObject{
         else {
             int halfWidthOfScreen = Game.WIDTH/2;
             int bottomOfScreen = Game.HEIGHT - 100;
-            int widthOfSpaceship = 75, heightOfSpaceship = 75;
+            int widthOfSpaceship = 50, heightOfSpaceship = 50;
             return new PlayerSpaceship(halfWidthOfScreen, bottomOfScreen, widthOfSpaceship, heightOfSpaceship);
         }
     }

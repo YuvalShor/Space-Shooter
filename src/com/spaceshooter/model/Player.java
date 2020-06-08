@@ -94,4 +94,8 @@ public class Player {
     public void hit(int hitpoints) {
         this.playerHealth -= hitpoints;
     }
+
+    public void addScore(int scoreToAdd) {
+        this.playerScore += scoreToAdd;
+    }
 }

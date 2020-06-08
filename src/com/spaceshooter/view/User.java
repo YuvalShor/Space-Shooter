@@ -1,10 +1,10 @@
-public class Person {
+package com.spaceshooter.view;
 
-    private String dateOfBirth;
+public class User {
     private String username;
     private String password;
 
-    public Person( String username, String password) {
+    public User( String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -12,15 +12,6 @@ public class Person {
     @Override
     public String toString() {
         return super.toString();
-    }
-
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public String getUsername() {

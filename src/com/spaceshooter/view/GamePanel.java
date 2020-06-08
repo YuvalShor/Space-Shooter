@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
 
@@ -25,8 +26,18 @@ public class GamePanel extends JPanel {
 
         setLayout(new BorderLayout());
         add(gameCanvas, BorderLayout.CENTER);
-        
+
+        hideCursor();
+
         addPanelListeners();
+    }
+
+    private void hideCursor() {
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                ImageHandler.getCursorImg(), new Point(0, 0), "blank cursor");
+
+        this.setCursor(blankCursor);
+
     }
 
     private void addPanelListeners() {

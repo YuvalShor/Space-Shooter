@@ -2,10 +2,12 @@ package com.spaceshooter.model;
 
 import com.spaceshooter.controller.*;
 import com.spaceshooter.view.GameWindow;
+import com.spaceshooter.view.LoginPanel;
+import com.spaceshooter.view.LoginRegisterFrame;
 
 import java.awt.*;
 
-public class Game  {
+public class Game implements ObjectObserver{
     public final static int WIDTH = 1280;
     public final static int HEIGHT = 720;
     public final static SpaceObjectCreator creator = new SpaceObjectCreator();
@@ -21,14 +23,13 @@ public class Game  {
     private int gameLevel;
     private final int MAX_LEVEL = 10;
     private boolean gameRunning;
+    private long startTime;
 
     public static void main(String[] args) {
         Game game = new Game();
-        GameWindow gameWindow = new GameWindow(Game.WIDTH, Game.HEIGHT);
-        Controller gameController = new Controller(gameWindow, game);
-        gameWindow.setController(gameController);
-
-//        gameController.start();
+        LoginRegisterFrame loginRegisterFrame = new LoginRegisterFrame();
+        Controller gameController = new Controller(loginRegisterFrame, game);
+        loginRegisterFrame.setController(gameController);
     }
 
     public Game() {
@@ -40,7 +41,7 @@ public class Game  {
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
-        gameLevel = 10;
+        gameLevel = 1;
         gameRunning = true;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
@@ -50,7 +51,8 @@ public class Game  {
         creator.setPlayer(this.player);
 
         starManager.createStars();
-//        enemySpaceshipManager.createEnemies(gameLevel);
+        enemySpaceshipManager.setObservableObject(this);
+        enemySpaceshipManager.createEnemies(gameLevel);
 
         collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
     }
@@ -64,6 +66,12 @@ public class Game  {
         enemySpaceshipManager.onTick();
 
         if(enemySpaceshipManager.isFleetAnnihilated()){
+            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000;
+            int scoreToAdd = (int) ((1/minutesTookToFinishRound) * gameLevel * 100);
+
+            player.addScore(scoreToAdd);
+
+            startTime = System.currentTimeMillis();
             if(gameLevel == MAX_LEVEL){
                 creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
                 gameLevel++;
@@ -157,10 +165,6 @@ public class Game  {
 
     }
 
-    private void createEnemySpaceships(){
-
-    }
-
     public void updatePlayerPosition(int playerX, int playerY) {
         player.updateSpaceshipPosition(playerX, playerY);
     }
@@ -171,5 +175,18 @@ public class Game  {
 
     public int getLevel() {
         return this.gameLevel;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public void objectStateChanged(ObservableObject observable) {
+        player.addScore(10);
     }
 }

@@ -6,9 +6,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemySpaceshipManager implements ObjectObserver {
+public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
     private List<EnemySpaceship> enemySpaceships;
     private LaserbeamManager enemyLaserbeamManager;
+    private ObjectObserver objectObserver;
 
     public EnemySpaceshipManager() {
         this.enemySpaceships = new ArrayList<EnemySpaceship>();
@@ -55,6 +56,7 @@ public class EnemySpaceshipManager implements ObjectObserver {
     public void objectStateChanged(ObservableObject observable) {
         EnemySpaceship enemySpaceship = (EnemySpaceship) observable;
         removeEnemySpaceship(enemySpaceship);
+        notifyObserver();
     }
 
     public void createEnemies(int numberOfEnemies) {
@@ -79,5 +81,14 @@ public class EnemySpaceshipManager implements ObjectObserver {
     public void clear() {
         this.enemySpaceships.clear();
         this.enemyLaserbeamManager.clear();
+    }
+
+    @Override
+    public void notifyObserver() {
+        objectObserver.objectStateChanged(this);
+    }
+
+    public void setObservableObject(ObjectObserver objectObserver) {
+        this.objectObserver = objectObserver;
     }
 }

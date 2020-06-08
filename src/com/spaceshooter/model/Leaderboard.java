@@ -35,9 +35,9 @@ public class Leaderboard {
                 new LinkedList<>(hm.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<>() {
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
             public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
+                    Map.Entry<String, Integer> o2)
             {
                 return (o2.getValue()).compareTo(o1.getValue());
             }

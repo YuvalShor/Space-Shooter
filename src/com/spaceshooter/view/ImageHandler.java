@@ -14,6 +14,7 @@ public class ImageHandler {
     private static BufferedImage bossImage;
     private static BufferedImage[] smallExplosionAnimation;
     private static BufferedImage[] bigExplosionAnimation;
+    private static BufferedImage cursorImg;
 //    private static BufferedImage[] playerSpaceshipAnimation;
     private final static int smallExplosionFrames = 80;
     private final static int smallExplosionSpriteSheetColumns = 10;
@@ -33,6 +34,7 @@ public class ImageHandler {
         playerLaserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
         enemyLaserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/enemyEnergyBall.png");
         bossImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/boss.png");
+        cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
         smallExplosionAnimation = new BufferedImage[smallExplosionFrames];
 //        playerSpaceshipAnimation = new BufferedImage[11];
@@ -112,4 +114,8 @@ public class ImageHandler {
     /*  public static BufferedImage[] getPlayerSpaceshipAnimation(){
         return playerSpaceshipAnimation;
     }*/
+
+    public static BufferedImage getCursorImg() {
+        return cursorImg;
+    }
 }
