@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class EnemySpaceship extends SpaceObject implements ObservableObject{
+public class EnemySpaceship extends SpaceObject{
     public BufferedImage enemySpaceshipImage;
     protected int health;
     protected final int MAX_HEALTH;

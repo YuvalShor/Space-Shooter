@@ -23,6 +23,8 @@ public class BossSpaceship extends EnemySpaceship{
             Game.creator.createSpaceObject("bigexplosion",this.leftBorder() + explosionWidth/8, this.y );
             Game.creator.createSpaceObject("bigexplosion", this.x, this.y );
             Game.creator.createSpaceObject("bigexplosion", this.rightBorder() - explosionWidth/8 , this.y);
+
+            notifyObserver();
         }
 
         frame = (frame + 1) % 120;
@@ -34,5 +36,10 @@ public class BossSpaceship extends EnemySpaceship{
                 laser.calculateDirection(random.nextInt(Game.WIDTH), Game.HEIGHT/2 );
             }
         }
+    }
+
+    @Override
+    public void notifyObserver() {
+        this.observer.objectStateChanged(this);
     }
 }
