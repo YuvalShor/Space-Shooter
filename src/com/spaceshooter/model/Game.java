@@ -1,8 +1,6 @@
 package com.spaceshooter.model;
 
 import com.spaceshooter.controller.*;
-import com.spaceshooter.view.GameWindow;
-import com.spaceshooter.view.LoginPanel;
 import com.spaceshooter.view.LoginRegisterFrame;
 
 import java.awt.*;
@@ -64,29 +62,6 @@ public class Game implements ObjectObserver{
     public void onTick(){
         player.onTick();
         enemySpaceshipManager.onTick();
-
-        if(enemySpaceshipManager.isFleetAnnihilated()){
-            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000;
-            int scoreToAdd = (int) ((1/minutesTookToFinishRound) * gameLevel * 100);
-
-            player.addScore(scoreToAdd);
-
-            startTime = System.currentTimeMillis();
-            if(gameLevel == MAX_LEVEL){
-                creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
-                gameLevel++;
-            }
-            else{
-                enemySpaceshipManager.createEnemies(++gameLevel);
-            }
-        }
-
-        if(gameLevel > MAX_LEVEL){
-            if(explosionManager.hasExplosions()){
-                gameState = GameState.GameOver;
-            }
-        }
-
         starManager.onTick();
         collisionHandler.onTick();
         explosionManager.onTick();
@@ -129,7 +104,6 @@ public class Game implements ObjectObserver{
         hud.draw(graphics);
         gameOver.onTick();
         gameOver.draw(graphics);
-
     }
 
     public void update(Graphics graphics) {
@@ -188,5 +162,27 @@ public class Game implements ObjectObserver{
     @Override
     public void objectStateChanged(ObservableObject observable) {
         player.addScore(10);
+
+        if(enemySpaceshipManager.isFleetAnnihilated()){
+            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000;
+            int scoreToAdd = (int) ((1/minutesTookToFinishRound) * gameLevel * 100);
+
+            player.addScore(scoreToAdd);
+
+            startTime = System.currentTimeMillis();
+
+            if(gameLevel == MAX_LEVEL){
+                creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
+                gameLevel++;
+            }
+            else{
+                enemySpaceshipManager.createEnemies(++gameLevel);
+            }
+        }
+        else{
+            if (enemySpaceshipManager.getEnemySpaceships().get(0) instanceof BossSpaceship) {
+                gameState = GameState.GameOver;
+            }
+        }
     }
 }

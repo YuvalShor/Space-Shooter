@@ -54,8 +54,11 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
 
     @Override
     public void objectStateChanged(ObservableObject observable) {
-        EnemySpaceship enemySpaceship = (EnemySpaceship) observable;
-        removeEnemySpaceship(enemySpaceship);
+        if (!(observable instanceof BossSpaceship)) {
+            EnemySpaceship enemySpaceship = (EnemySpaceship) observable;
+            removeEnemySpaceship(enemySpaceship);
+        }
+
         notifyObserver();
     }
 
@@ -75,7 +78,7 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
     }
 
     public boolean isFleetAnnihilated(){
-        return this.enemySpaceships.size() == 0;
+        return this.enemySpaceships.isEmpty();
     }
 
     public void clear() {
@@ -89,6 +92,7 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
     }
 
     public void setObservableObject(ObjectObserver objectObserver) {
+
         this.objectObserver = objectObserver;
     }
 }
