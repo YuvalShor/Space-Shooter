@@ -4,6 +4,10 @@ import com.spaceshooter.controller.*;
 import com.spaceshooter.view.LoginRegisterFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.spaceshooter.controller.SecurityManager;
 
 public class Game implements ObjectObserver{
     public final static int WIDTH = 1280;
@@ -18,19 +22,18 @@ public class Game implements ObjectObserver{
     private StarManager starManager;
     private ExplosionManager explosionManager;
     private CollisionHandler collisionHandler;
+    private LeaderboardsManager leaderboardsManager;
     private int gameLevel;
     private final int MAX_LEVEL = 10;
-    private boolean gameRunning;
     private long startTime;
 
     public static void main(String[] args) {
-        Game game = new Game();
         LoginRegisterFrame loginRegisterFrame = new LoginRegisterFrame();
-        Controller gameController = new Controller(loginRegisterFrame, game);
+        Controller gameController = new Controller();
         loginRegisterFrame.setController(gameController);
     }
 
-    public Game() {
+    public Game(LeaderboardsManager leaderboardsManager) {
         gameState = GameState.GameMenu;
         gameMenu = new GameMenu();
         gameOver = new GameOver();
@@ -39,8 +42,8 @@ public class Game implements ObjectObserver{
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
-        gameLevel = 1;
-        gameRunning = true;
+        this.leaderboardsManager = leaderboardsManager;
+        gameLevel = 10;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
         creator.setExplosionManager(this.explosionManager);
@@ -53,10 +56,15 @@ public class Game implements ObjectObserver{
         enemySpaceshipManager.createEnemies(gameLevel);
 
         collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
-    }
 
-    public boolean isGameRunning() {
-        return gameRunning;
+
+        player.setPlayerDeathListener(new PlayerDeathListener() {
+            @Override
+            public void onPlayerDeath() {
+                gameState = GameState.GameOver;
+                updateLeaderboard();
+            }
+        });
     }
 
     public void onTick(){
@@ -136,7 +144,7 @@ public class Game implements ObjectObserver{
     }
 
     public void updateLeaderboard(){
-
+        leaderboardsManager.addUserScore(SecurityManager.currentUser, player.getPlayerScore());
     }
 
     public void updatePlayerPosition(int playerX, int playerY) {
@@ -182,7 +190,16 @@ public class Game implements ObjectObserver{
         else{
             if (enemySpaceshipManager.getEnemySpaceships().get(0) instanceof BossSpaceship) {
                 gameState = GameState.GameOver;
+                updateLeaderboard();
             }
         }
+    }
+
+    public ArrayList<LeaderboardData> getLeaderboardData() {
+        return leaderboardsManager.getLeaderboardsData();
+    }
+
+    public void reset() {
+        player.reset();
     }
 }

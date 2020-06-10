@@ -1,9 +1,12 @@
 package com.spaceshooter.view;
 
 import com.spaceshooter.controller.Controller;
+import com.spaceshooter.model.LeaderboardData;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 public class GameWindow extends JFrame {
 
@@ -11,21 +14,34 @@ public class GameWindow extends JFrame {
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private LeaderboardsPanel leaderboardsPanel;
-    private PanelMouseMovementListener gamePanelListener;
+    final private JPanel cardPanel;
 
     public GameWindow(int width, int height) {
         setTitle("Space Shooter");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
+
+        setLayout(new BorderLayout());
+
+        cardPanel = new JPanel();
+        cardPanel.setLayout(new CardLayout());
+
         menuPanel = new MenuPanel(width, height);
         gamePanel = new GamePanel(width, height);
         leaderboardsPanel = new LeaderboardsPanel(width,height);
 
-        setContentPane(menuPanel);
-        this.pack();
+        cardPanel.add(gamePanel, "gamepanel");
+        cardPanel.add(menuPanel, "menupanel");
+        cardPanel.add(leaderboardsPanel, "leaderboardpanel");
 
+        add(cardPanel, BorderLayout.CENTER);
+
+        pack();
         addListeners();
+
+        CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+        cardLayout.show(cardPanel, "menupanel");
     }
 
     public void setController(Controller gameController) {
@@ -51,20 +67,34 @@ public class GameWindow extends JFrame {
             }
         });
 
+        gamePanel.setGamePanelKeyInputListener(new GamePanelKeyInputListener() {
+            @Override
+            public void enterKeyPressed() {
+                if(gameController.attemptStopGame()) {
+                    CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
+                    cardLayout.show(cardPanel, "menupanel");
+                    pack();
+                }
+            }
+        });
+
         menuPanel.setMenuPlayButtonClickListener(new MenuPlayButtonClickListener() {
             @Override
             public void mouseButtonClick() {
-                setContentPane(gamePanel);
+                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                cardLayout.show(cardPanel, "gamepanel");
                 gamePanel.CreateGamePanelBufferStrategy(2);
                 pack();
-                gameController.start();
+                gameController.startGame();
             }
         });
 
         menuPanel.setMenuLeaderboardsClickListener(new MenuLeaderboardsClickListener() {
             @Override
             public void mouseButtonClick() {
-                setContentPane(leaderboardsPanel);
+                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                cardLayout.show(cardPanel, "leaderboardpanel");
+                leaderboardsPanel.drawLeaderboardsTable();
                 pack();
             }
         });
@@ -79,11 +109,22 @@ public class GameWindow extends JFrame {
         leaderboardsPanel.setLeaderboardsBackClickListener(new BackToMenuButtonClickListener(){
             @Override
             public void mouseButtonClick() {
-                setContentPane(menuPanel);
+                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                cardLayout.show(cardPanel, "menupanel");
                 pack();
             }
         });
 
+        leaderboardsPanel.setLeaderboardDataListener(new LeaderboardDataListener() {
+            @Override
+            public ArrayList<LeaderboardData> getLeaderboardData() {
+                if(gameController != null){
+                    return gameController.getLeaderboardData();
+                }
+
+                return null;
+            }
+        });
 
     }
 

@@ -2,18 +2,24 @@ package com.spaceshooter.controller;
 
 import com.spaceshooter.view.User;
 
+import java.io.EOFException;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class SecurityManager {
-    private static Map<String, User> usersMap = new HashMap<String, User>();
+    public static String currentUser;
+    final static private String usersFilename = "users.dat";
+    private static Map<String, User> usersMap;
 
     static{
-        User newUser = new User("123", "123");
-        usersMap.put("123", newUser);
+        try {
+            usersMap = (Map<String, User>) FileHandler.readObjectFromFile(usersFilename);
+        } catch (EOFException e) {
+            usersMap = new Hashtable<>();
+        }
     }
 
     public static boolean login (String username,String password) throws Exception {
@@ -24,7 +30,9 @@ public class SecurityManager {
         String hashedPassword =  getSha1Hex(password);
         User newUserToRegister = new User(username, hashedPassword);
 
+        currentUser = username;
         usersMap.put(username, newUserToRegister);
+        FileHandler.writeObjectToFile(usersMap, usersFilename);
     }
 
     private static String getSha1Hex(String clearString)
@@ -53,6 +61,7 @@ public class SecurityManager {
 
         if(usersMap.containsKey(username)){
             if(usersMap.get(username).getPassword().equals(passText)) {
+                currentUser = username;
                 return true;
             }
             else{

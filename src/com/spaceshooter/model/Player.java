@@ -6,12 +6,12 @@ import java.awt.*;
 import java.util.List;
 
 public class Player {
-    private static int count;
     private int playerScore;
     private int playerHealth;
     private LaserbeamManager playerLaserbeamManager;
     private PlayerSpaceship playerSpaceship;
     private static final Player instance = new Player();
+    private PlayerDeathListener playerDeathListener;
 
     private Player() {
         playerSpaceship = PlayerSpaceship.createInstance();
@@ -26,8 +26,11 @@ public class Player {
 
     public void onTick() {
         if(this.playerHealth <= 0){
-            Game.gameState = GameState.GameOver;
             Game.creator.createSpaceObject("smallexplosion", this.playerSpaceship.getX(), this.playerSpaceship.getY());
+
+            if(playerDeathListener != null){
+                playerDeathListener.onPlayerDeath();
+            }
         }
         playerSpaceship.onTick();
         playerLaserbeamManager.onTick();
@@ -42,18 +45,10 @@ public class Player {
         return playerScore;
     }
 
-    public void updateScore(){
-
-    }
-
     public void updateSpaceshipPosition(int playerSpaceshipX,int playerSpaceshipY){
         playerSpaceship.setX(playerSpaceshipX);
         playerSpaceship.setY(playerSpaceshipY);
         playerSpaceship.onTick();
-    }
-
-    public void addLaserbeam(Laserbeam laserbeam){
-
     }
 
     public void playerMouseClicked() {
@@ -97,5 +92,16 @@ public class Player {
 
     public void addScore(int scoreToAdd) {
         this.playerScore += scoreToAdd;
+    }
+
+    public void reset(){
+        playerSpaceship.reset();
+        playerScore = 0;
+        playerHealth = 100;
+        playerLaserbeamManager = new LaserbeamManager();
+    }
+
+    public void setPlayerDeathListener(PlayerDeathListener playerDeathListener) {
+        this.playerDeathListener = playerDeathListener;
     }
 }
