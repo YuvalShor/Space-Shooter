@@ -14,7 +14,7 @@ public class LoginPanel extends JPanel{
     private CancelButtonClickListener cancelButtonClickListener;
 
     public LoginPanel() {
-        setBorder(BorderFactory.createTitledBorder("Login"));
+        //setBorder(BorderFactory.createTitledBorder("Login"));
         setLayout(null);
         setVisible(true);
 

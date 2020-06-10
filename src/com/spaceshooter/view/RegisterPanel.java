@@ -14,7 +14,7 @@ public class RegisterPanel extends JPanel {
 
     public RegisterPanel(){
 
-        setBorder(BorderFactory.createTitledBorder("User not find  You Must Register first"));
+        setBorder(BorderFactory.createTitledBorder("User not found. You must register first"));
         setLayout(null);
 
         usertText=new JTextField(20);
