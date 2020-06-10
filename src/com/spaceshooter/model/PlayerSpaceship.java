@@ -9,15 +9,11 @@ public class PlayerSpaceship extends SpaceObject{
     public static int count;
     private static PlayerSpaceship instance;
     private BufferedImage playerSpaceshipImage;
-    private int currentFrame;
-    private int frameCounter;
 
     private PlayerSpaceship(int x, int y, int width, int height) {
         super(x, y, width, height);
         count = 1;
         playerSpaceshipImage = ImageHandler.getPlayerSpaceshipImage();
-        currentFrame = -1;
-        frameCounter = 0;
     }
 
     @Override
@@ -37,13 +33,14 @@ public class PlayerSpaceship extends SpaceObject{
         else {
             int halfWidthOfScreen = Game.WIDTH/2;
             int bottomOfScreen = Game.HEIGHT - 100;
-            int widthOfSpaceship = 50, heightOfSpaceship = 50;
+            int widthOfSpaceship = 75, heightOfSpaceship = 50;
             return new PlayerSpaceship(halfWidthOfScreen, bottomOfScreen, widthOfSpaceship, heightOfSpaceship);
         }
     }
 
-    private void fireLaserbeam() {
-
+    public void reset(){
+        this.x = Game.WIDTH / 2;
+        this.y = Game.HEIGHT - 100;
     }
 
     @Override

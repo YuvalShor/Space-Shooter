@@ -2,9 +2,7 @@ package com.spaceshooter.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -13,6 +11,7 @@ public class GamePanel extends JPanel {
     private Canvas gameCanvas;
     private PanelMouseMovementListener panelMouseMovementListener;
     private PanelMouseClickListener panelMouseClickListener;
+    private GamePanelKeyInputListener gamePanelKeyInputListener;
 
     public GamePanel(int width, int height) {
         gameCanvas = new Canvas();
@@ -65,6 +64,17 @@ public class GamePanel extends JPanel {
                 }
             }
         });
+
+        gameCanvas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == MouseEvent.BUTTON1){
+                    if(gamePanelKeyInputListener != null){
+                        gamePanelKeyInputListener.enterKeyPressed();
+                    }
+                }
+            }
+        });
     }
 
     public void setPanelMouseMovementListener(PanelMouseMovementListener panelMouseMovementListener){
@@ -81,5 +91,9 @@ public class GamePanel extends JPanel {
 
     public void CreateGamePanelBufferStrategy(int buffers) {
         gameCanvas.createBufferStrategy(buffers);
+    }
+
+    public void setGamePanelKeyInputListener(GamePanelKeyInputListener gamePanelKeyInputListener) {
+        this.gamePanelKeyInputListener = gamePanelKeyInputListener;
     }
 }

@@ -2,25 +2,33 @@ package com.spaceshooter.controller;
 
 import com.spaceshooter.model.Game;
 import com.spaceshooter.model.GameState;
+import com.spaceshooter.model.LeaderboardData;
 import com.spaceshooter.view.GameWindow;
-import com.spaceshooter.view.LoginRegisterFrame;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller implements Runnable{
     private GameWindow gameWindow;
-    private LoginRegisterFrame loginRegisterFrame;
     private Game game;
+    private LeaderboardsManager leaderboardsManager;
     private Thread thread;
 
-    public Controller(LoginRegisterFrame loginRegisterFrame, Game game) {
-        this.loginRegisterFrame = loginRegisterFrame;
-        this.game = game;
+    public Controller() {
+        this.gameWindow = new GameWindow(Game.WIDTH, Game.HEIGHT);
+        this.gameWindow.setController(this);
+        leaderboardsManager = new LeaderboardsManager();
+
     }
 
-    public synchronized void start(){
+    public synchronized void startGame(){
         thread = new Thread(this);
+
+        game = new Game(leaderboardsManager);
+        Game.gameState = GameState.GameRunning;
+
         thread.start();
         game.gameState = GameState.GameRunning;
     }
@@ -32,9 +40,9 @@ public class Controller implements Runnable{
         long lastTime;
         double amountOfTicks = 60.0;
         double waitingTime = (1000000000) / amountOfTicks;
-        long difference;
+        long difference, now;
 
-        while(game.isGameRunning()){
+        while(Game.gameState != GameState.GameMenu){
             lastTime = System.nanoTime();
 
             // prepare the ground
@@ -47,7 +55,7 @@ public class Controller implements Runnable{
             graphics.dispose();
             bufferStrategy.show();
 
-            long now = System.nanoTime();
+            now = System.nanoTime();
             difference = now - lastTime;
             if(difference < waitingTime){
                 try {
@@ -63,10 +71,6 @@ public class Controller implements Runnable{
         game.updatePlayerPosition(playerX, playerY);
     }
 
-    public void exitGame(){
-
-    }
-
     public void playerMouseClicked() {
         game.playerMouseClicked();
     }
@@ -76,11 +80,24 @@ public class Controller implements Runnable{
     }
 
     public void startGameWindow() {
-        this.gameWindow = new GameWindow(Game.WIDTH, Game.HEIGHT);
-        this.gameWindow.setController(this);
+        gameWindow.setVisible(true);
     }
 
     public boolean login(String username, String password) throws Exception {
         return SecurityManager.login(username, password);
+    }
+
+    public ArrayList<LeaderboardData> getLeaderboardData() {
+        return leaderboardsManager.getLeaderboardsData();
+    }
+
+    public boolean attemptStopGame() {
+        if(Game.gameState == GameState.GameOver) {
+            Game.gameState = GameState.GameMenu;
+            game.reset();
+            return true;
+        }
+
+        return false;
     }
 }
