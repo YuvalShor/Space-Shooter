@@ -33,14 +33,6 @@ public class Star extends SpaceObject{
         this.y = 0;
     }
 
-    private void spark() {
-
-    }
-
-    private void fade() {
-
-    }
-
     @Override
     public void notifyObserver() {
 

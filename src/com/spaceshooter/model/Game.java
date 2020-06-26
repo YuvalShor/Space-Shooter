@@ -2,11 +2,8 @@ package com.spaceshooter.model;
 
 import com.spaceshooter.controller.*;
 import com.spaceshooter.view.LoginRegisterFrame;
-
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.spaceshooter.controller.SecurityManager;
 
 public class Game implements ObjectObserver{
@@ -14,7 +11,6 @@ public class Game implements ObjectObserver{
     public final static int HEIGHT = 720;
     public final static SpaceObjectCreator creator = new SpaceObjectCreator();
     public static GameState gameState;
-    private GameMenu gameMenu;
     private GameOver gameOver;
     private HUD hud;
     private Player player;
@@ -35,7 +31,6 @@ public class Game implements ObjectObserver{
 
     public Game(LeaderboardsManager leaderboardsManager) {
         gameState = GameState.GameMenu;
-        gameMenu = new GameMenu();
         gameOver = new GameOver();
         player = Player.createInstance();
         enemySpaceshipManager = new EnemySpaceshipManager();
@@ -43,7 +38,7 @@ public class Game implements ObjectObserver{
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
         this.leaderboardsManager = leaderboardsManager;
-        gameLevel = 10;
+        gameLevel = 1;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
         creator.setExplosionManager(this.explosionManager);
@@ -85,12 +80,6 @@ public class Game implements ObjectObserver{
         hud.draw(graphics);
     }
 
-    // main menu
-    public void runMenu(Graphics graphics) {
-        gameMenu.onTick();
-        gameMenu.draw(graphics);
-    }
-
     public void runGame(Graphics graphics) {
         onTick();
         draw(graphics);
@@ -110,16 +99,12 @@ public class Game implements ObjectObserver{
         enemySpaceshipManager.draw(graphics);
         explosionManager.draw(graphics);
         hud.draw(graphics);
-        gameOver.onTick();
         gameOver.draw(graphics);
     }
 
     public void update(Graphics graphics) {
 
         switch(gameState) {
-            case GameMenu:
-                runMenu(graphics);
-                break;
             case GameRunning:
                 runGame(graphics);
                 break;

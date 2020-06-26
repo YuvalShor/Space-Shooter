@@ -19,10 +19,6 @@ public class GameOver{
         mainMenuMessageFont = new Font("Arial", Font.BOLD, 20);
     }
 
-    public void onTick(){
-
-    }
-
     public void draw(Graphics graphics){
         graphics.setFont(gameOverFont);
         FontMetrics fontMetrics = graphics.getFontMetrics();

@@ -15,7 +15,6 @@ public class ImageHandler {
     private static BufferedImage[] smallExplosionAnimation;
     private static BufferedImage[] bigExplosionAnimation;
     private static BufferedImage cursorImg;
-//    private static BufferedImage[] playerSpaceshipAnimation;
     private final static int smallExplosionFrames = 80;
     private final static int smallExplosionSpriteSheetColumns = 10;
     private final static int smallExplosionSubImageWidth = 100;
@@ -37,13 +36,11 @@ public class ImageHandler {
         cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
         smallExplosionAnimation = new BufferedImage[smallExplosionFrames];
-//        playerSpaceshipAnimation = new BufferedImage[11];
 
         BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/verticalexplosion.png");
         smallExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, smallExplosionSpriteSheetColumns, smallExplosionSubImageWidth, smallExplosionSubImageHeight, smallExplosionFrames);
         explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/explosion256.png");
         bigExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, bigExplosionSpriteSheetColumns, bigExplosionSubImageWidth, bigExplosionSubImageHeight, bigExplosionFrames);
-//        loadPlayerSpaceshipAnimation();
     }
 
     private static BufferedImage[] initializeExplosionAnimation(BufferedImage explosionSpriteSheet, int explosionSpriteSheetColumns, int explosionSubImageWidth, int explosionSubImageHeight, int explosionFrames)
@@ -59,14 +56,6 @@ public class ImageHandler {
 
         return explosionAnimation;
     }
-
-  /*  private static void loadPlayerSpaceshipAnimation(){
-        BufferedImageLoader bufferedImageLoader = new BufferedImageLoader();
-
-        for (int i = 0; i < 11; i++) {
-            playerSpaceshipAnimation[i] = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerspaceship/fighter/smallfighter" + (i+1) + ".png");
-        }
-    }*/
 
     public static BufferedImage getEnemySpaceshipImage(){
         return enemySpaceshipImage;
@@ -110,10 +99,6 @@ public class ImageHandler {
     public static BufferedImage[] getBigExplosionAnimation() {
         return bigExplosionAnimation;
     }
-
-    /*  public static BufferedImage[] getPlayerSpaceshipAnimation(){
-        return playerSpaceshipAnimation;
-    }*/
 
     public static BufferedImage getCursorImg() {
         return cursorImg;

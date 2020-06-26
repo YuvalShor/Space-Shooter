@@ -8,9 +8,8 @@ import com.spaceshooter.view.GameWindow;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Controller implements Runnable{
+public class Controller{
     private GameWindow gameWindow;
     private Game game;
     private LeaderboardsManager leaderboardsManager;
@@ -24,47 +23,44 @@ public class Controller implements Runnable{
     }
 
     public synchronized void startGame(){
-        thread = new Thread(this);
-
         game = new Game(leaderboardsManager);
-        Game.gameState = GameState.GameRunning;
-
-        thread.start();
         game.gameState = GameState.GameRunning;
-    }
 
-    @Override
-    public void run() {
-        BufferStrategy bufferStrategy = gameWindow.getGamePanelCanvasBufferStrategy();
-        game.setStartTime(System.currentTimeMillis());
-        long lastTime;
-        double amountOfTicks = 60.0;
-        double waitingTime = (1000000000) / amountOfTicks;
-        long difference, now;
+        // game loop in a different thread from UI components.
+        thread = new Thread(() -> {
+            BufferStrategy bufferStrategy = gameWindow.getGamePanelCanvasBufferStrategy();
+            game.setStartTime(System.currentTimeMillis());
+            long lastTime;
+            double amountOfTicks = 60.0;
+            double waitingTime = (1000000000) / amountOfTicks;
+            long difference, now;
 
-        while(Game.gameState != GameState.GameMenu){
-            lastTime = System.nanoTime();
+            while(game.gameState != GameState.GameMenu){
+                lastTime = System.nanoTime();
 
-            // prepare the ground
-            Graphics graphics = bufferStrategy.getDrawGraphics();
+                // prepare the ground
+                Graphics graphics = bufferStrategy.getDrawGraphics();
 
-            // update game
-            game.update(graphics);
+                // update game
+                game.update(graphics);
 
-            // dispose of graphics and show
-            graphics.dispose();
-            bufferStrategy.show();
+                // dispose of graphics and show
+                graphics.dispose();
+                bufferStrategy.show();
 
-            now = System.nanoTime();
-            difference = now - lastTime;
-            if(difference < waitingTime){
-                try {
-                    thread.sleep((long)((waitingTime - difference)/1000000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                now = System.nanoTime();
+                difference = now - lastTime;
+                if(difference < waitingTime){
+                    try {
+                        thread.sleep((long)((waitingTime - difference)/1000000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
+        });
+
+        thread.start();
     }
 
     public void updatePlayerPosition(int playerX, int playerY){

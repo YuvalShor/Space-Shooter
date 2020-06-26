@@ -1,9 +1,8 @@
 package com.spaceshooter.controller;
 
-import com.spaceshooter.view.User;
+import com.spaceshooter.model.User;
 
 import java.io.EOFException;
-import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Hashtable;

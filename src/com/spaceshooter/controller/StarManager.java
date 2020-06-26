@@ -9,13 +9,12 @@ import java.util.List;
 import java.util.Random;
 
 public class StarManager {
-    private final int NUNMBER_OF_STARS = 20;
-    private final int NUMBER_OF_BIG_STARS = 50;
+    private final int NUMBER_OF_STARS = 50;
 
     private List<Star> stars;
 
     public StarManager() {
-        this.stars = new ArrayList<Star>(NUNMBER_OF_STARS);
+        this.stars = new ArrayList<>(NUMBER_OF_STARS);
 
         createStars();
     }
@@ -23,8 +22,7 @@ public class StarManager {
     public void createStars() {
         Random random = new Random();
 
-        // small stars
-        for (int i = 0; i < NUMBER_OF_BIG_STARS; i++) {
+        for (int i = 0; i < NUMBER_OF_STARS; i++) {
             int starX = random.nextInt(Game.WIDTH);
             int starY = random.nextInt(Game.HEIGHT);
 
@@ -45,7 +43,7 @@ public class StarManager {
         }
     }
 
-    public boolean checkStarIntersectionWithAll(Star starToCheck){
+  /*  public boolean checkStarIntersectionWithAll(Star starToCheck){
         boolean starIntersects = false;
 
         // check if current star that needs to be added intersects with already existing stars
@@ -56,5 +54,5 @@ public class StarManager {
         }
 
         return starIntersects;
-    }
+    }*/
 }
