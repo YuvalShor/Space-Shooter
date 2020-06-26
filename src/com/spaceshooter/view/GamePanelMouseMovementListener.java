@@ -1,5 +1,5 @@
 package com.spaceshooter.view;
 
-public interface PanelMouseMovementListener {
+public interface GamePanelMouseMovementListener {
     void mouseMovedInPanel(int playerX, int playerY);
 }

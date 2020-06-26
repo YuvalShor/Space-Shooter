@@ -46,13 +46,8 @@ public class EnemySpaceship extends SpaceObject{
         }
     }
 
-
     public int getHealth() {
-        return 0;
-    }
-
-    public void setHealth(int health) {
-
+        return health;
     }
 
     @Override

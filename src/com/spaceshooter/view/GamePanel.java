@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
 
     private Canvas gameCanvas;
-    private PanelMouseMovementListener panelMouseMovementListener;
-    private PanelMouseClickListener panelMouseClickListener;
+    private GamePanelMouseMovementListener gamePanelMouseMovementListener;
+    private GamePanelMouseClickListener gamePanelMouseClickListener;
     private GamePanelKeyInputListener gamePanelKeyInputListener;
 
     public GamePanel(int width, int height) {
@@ -43,15 +42,15 @@ public class GamePanel extends JPanel {
         gameCanvas.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                if(panelMouseMovementListener != null) {
-                    panelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
+                if(gamePanelMouseMovementListener != null) {
+                    gamePanelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
                 }
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(panelMouseMovementListener != null) {
-                    panelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
+                if(gamePanelMouseMovementListener != null) {
+                    gamePanelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
                 }
             }
         });
@@ -59,8 +58,8 @@ public class GamePanel extends JPanel {
         gameCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(panelMouseClickListener != null){
-                    panelMouseClickListener.mouseClickedOnPanel();
+                if(gamePanelMouseClickListener != null){
+                    gamePanelMouseClickListener.mouseClickedOnPanel();
                 }
             }
         });
@@ -77,12 +76,12 @@ public class GamePanel extends JPanel {
         });
     }
 
-    public void setPanelMouseMovementListener(PanelMouseMovementListener panelMouseMovementListener){
-        this.panelMouseMovementListener = panelMouseMovementListener;
+    public void setGamePanelMouseMovementListener(GamePanelMouseMovementListener gamePanelMouseMovementListener){
+        this.gamePanelMouseMovementListener = gamePanelMouseMovementListener;
     }
 
-    public void setPanelMouseClickListener(PanelMouseClickListener panelMouseClickListener) {
-        this.panelMouseClickListener = panelMouseClickListener;
+    public void setGamePanelMouseClickListener(GamePanelMouseClickListener gamePanelMouseClickListener) {
+        this.gamePanelMouseClickListener = gamePanelMouseClickListener;
     }
 
     public BufferStrategy getCanvasBufferStrategy(){

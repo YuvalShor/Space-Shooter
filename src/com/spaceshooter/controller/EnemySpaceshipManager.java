@@ -64,12 +64,16 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
 
     public void createEnemies(int numberOfEnemies) {
         int enemyWidth = Game.creator.getEnemySpaceshipWidth();
-        int enemyHeight = Game.creator.getEnemySpaceshipHeight();
-        int enemyDistance = (Game.WIDTH - enemyWidth)/numberOfEnemies;
+        int enemyDistance = (Game.WIDTH - enemyWidth)/(numberOfEnemies*2);
 
-        for (int i = 0; i < numberOfEnemies; i++) {
-            Game.creator.createSpaceObject("enemyspaceship",
-                    i * enemyDistance + enemyWidth, Game.HEIGHT / 4);
+        if(numberOfEnemies % 2 == 1) {
+            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2, Game.HEIGHT / 4);
+            numberOfEnemies -= 1;
+        }
+
+        for (int i = 1; i <= numberOfEnemies/2; i++) {
+            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 + i*(enemyWidth + enemyDistance) , Game.HEIGHT / 4);
+            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 - i*(enemyWidth + enemyDistance) , Game.HEIGHT/4);
         }
     }
 

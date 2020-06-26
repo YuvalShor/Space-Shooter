@@ -49,7 +49,7 @@ public class GameWindow extends JFrame {
     }
 
     private void addListeners() {
-        gamePanel.setPanelMouseMovementListener(new PanelMouseMovementListener() {
+        gamePanel.setGamePanelMouseMovementListener(new GamePanelMouseMovementListener() {
             @Override
             public void mouseMovedInPanel(int playerX, int playerY) {
                 if(gameController != null){
@@ -58,7 +58,7 @@ public class GameWindow extends JFrame {
             }
         });
 
-        gamePanel.setPanelMouseClickListener(new PanelMouseClickListener() {
+        gamePanel.setGamePanelMouseClickListener(new GamePanelMouseClickListener() {
             @Override
             public void mouseClickedOnPanel() {
                 if(gameController != null) {
@@ -102,7 +102,7 @@ public class GameWindow extends JFrame {
         menuPanel.setMenuExitClickListener(new MenuExitButtonClickListener() {
            @Override
            public void mouseButtonClick() {
-               System.exit(0);
+               dispose();
            }
         });
 

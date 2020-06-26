@@ -1,5 +1,5 @@
 package com.spaceshooter.view;
 
-public interface PanelMouseClickListener {
+public interface GamePanelMouseClickListener {
     void mouseClickedOnPanel();
 }

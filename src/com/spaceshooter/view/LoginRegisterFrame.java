@@ -46,7 +46,6 @@ public class LoginRegisterFrame extends JFrame{
             public void mouseCancelButtonClick() {
                 if(controller != null) {
                     dispose();
-                    controller.startGameWindow();
                 }
             }
         });

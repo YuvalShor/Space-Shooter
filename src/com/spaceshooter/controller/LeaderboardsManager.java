@@ -13,21 +13,6 @@ public class LeaderboardsManager {
     private ArrayList<LeaderboardData> leaderboardsData;
 
     public LeaderboardsManager() {
-        /*leaderboardsData.put("Eliad",250);
-        leaderboardsData.put("Yuval",350);
-        leaderboardsData.put("Oron",1450);
-        leaderboardsData.put("Alex",550);
-        leaderboardsData.put("a",150);
-        leaderboardsData.put("b",170);
-        leaderboardsData.put("c",0);
-        leaderboardsData.put("d",15);
-        leaderboardsData.put("bb",150);
-        leaderboardsData.put("dsad",150);
-        leaderboardsData.put("aqwe",150);
-        leaderboardsData.put("vcxvr",150);
-        leaderboardsData.put("vcbcvb",150);
-        leaderboardsData.put("Valorant",150);*/
-
         try {
             leaderboardsData = (ArrayList<LeaderboardData>) FileHandler.readObjectFromFile(leaderboardFilename);
         } catch (EOFException e) {
