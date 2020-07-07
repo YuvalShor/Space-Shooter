@@ -20,7 +20,6 @@ public class Explosion extends SpaceObject{
     public void draw(Graphics graphics) {
         graphics.drawImage(this.explosionAnimation[currentFrame], (int) this.leftBorder(), (int) this.topBorder(),
                     null);
-
     }
 
     @Override

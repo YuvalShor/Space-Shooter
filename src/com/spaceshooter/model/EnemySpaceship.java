@@ -23,25 +23,28 @@ public class EnemySpaceship extends SpaceObject{
     }
     @Override
     public void draw(Graphics graphics) {
+        drawPlayerHealthBar(graphics);
+        graphics.drawImage(enemySpaceshipImage, (int) this.leftBorder(), (int) this.topBorder(), null);
+    }
+
+    private void drawPlayerHealthBar(Graphics graphics) {
         float healthRatio = this.health / (float)this.MAX_HEALTH;
         float healthBarFillWidth = healthRatio * this.width;
 
         graphics.setColor(Color.RED);
         graphics.drawRect((int) this.leftBorder(), (int) this.topBorder() - 15, this.width, 8);
         graphics.fillRect((int) this.leftBorder(), (int) this.topBorder() - 15, (int) healthBarFillWidth, 8);
-        graphics.drawImage(enemySpaceshipImage, (int) this.leftBorder(), (int) this.topBorder(), null);
     }
 
     @Override
     public void onTick() {
+
         if(this.health <= 0){
             notifyObserver();
             Game.creator.createSpaceObject("smallexplosion", this.x, this.y);
         }
 
-        Random random = new Random();
-
-        if(random.nextInt(1000) < 10){
+        if(RandomNumberCreator.getRandomNumberFromZeroTo(1000) < 10){
             Game.creator.createSpaceObject("enemylaserbeam", this.x, this.y);
         }
     }
