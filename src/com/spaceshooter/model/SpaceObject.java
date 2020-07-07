@@ -113,19 +113,11 @@ public abstract class SpaceObject implements ObservableObject {
     public boolean isWithinBorders(){
         boolean isWithinBorders = true;
 
-        if(this.leftBorder() < 0){
-            isWithinBorders = false;
-        }
+        if(this.leftBorder() < 0 ||
+                this.rightBorder() > Game.WIDTH ||
+                this.topBorder() < 0 ||
+                this.bottomBorder() > Game.HEIGHT){
 
-        if(this.rightBorder() > Game.WIDTH){
-            isWithinBorders = false;
-        }
-
-        if(this.topBorder() < 0){
-            isWithinBorders = false;
-        }
-
-        if(this.bottomBorder() > Game.HEIGHT){
             isWithinBorders = false;
         }
 

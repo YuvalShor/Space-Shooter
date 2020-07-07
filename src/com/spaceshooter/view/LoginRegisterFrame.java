@@ -46,6 +46,7 @@ public class LoginRegisterFrame extends JFrame{
             public void mouseCancelButtonClick() {
                 if(controller != null) {
                     dispose();
+                    System.exit(0);
                 }
             }
         });
@@ -70,6 +71,7 @@ public class LoginRegisterFrame extends JFrame{
             @Override
             public void mouseCancelButtonClick() {
                 dispose();
+                System.exit(0);
             }
         });
     }

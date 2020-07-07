@@ -14,16 +14,12 @@ public class HUD {
     }
 
     public void draw(Graphics graphics){
-        graphics.setColor(Color.GREEN);
-        graphics.fillRoundRect(30, Game.HEIGHT - 30, player.getHealth(), 15, 15, 30);
-        graphics.setColor(Color.BLUE);
-        graphics.drawRoundRect(30, Game.HEIGHT - 30, 100, 15, 15, 30);
+        drawPlayerHealthBar(graphics);
 
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
 
         String levelMessage;
-
         if(game.getLevel() <= 10){
             levelMessage = "Level: " + game.getLevel();
         }
@@ -35,7 +31,14 @@ public class HUD {
         int messageY = fontMetrics.getHeight();
         graphics.drawString(levelMessage, messageX, messageY);
 
-
         graphics.drawString("Score: " + player.getPlayerScore(), 30, messageY);
+    }
+
+    private void drawPlayerHealthBar(Graphics graphics) {
+        drawPlayerHealthBar(graphics);
+        graphics.setColor(Color.GREEN);
+        graphics.fillRoundRect(30, Game.HEIGHT - 30, player.getHealth(), 15, 15, 30);
+        graphics.setColor(Color.BLUE);
+        graphics.drawRoundRect(30, Game.HEIGHT - 30, 100, 15, 15, 30);
     }
 }

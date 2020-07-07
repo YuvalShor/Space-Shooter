@@ -38,7 +38,7 @@ public class Game implements ObjectObserver{
         explosionManager = new ExplosionManager();
         hud = new HUD(player, this);
         this.leaderboardsManager = leaderboardsManager;
-        gameLevel = 1;
+        gameLevel = 10;
 
         creator.setEnemyManager(this.enemySpaceshipManager);
         creator.setExplosionManager(this.explosionManager);

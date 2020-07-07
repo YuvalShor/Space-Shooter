@@ -25,6 +25,12 @@ public class Player {
     }
 
     public void onTick() {
+        checkIfDead();
+        playerSpaceship.onTick();
+        playerLaserbeamManager.onTick();
+    }
+
+    private void checkIfDead() {
         if(this.playerHealth <= 0){
             Game.creator.createSpaceObject("smallexplosion", this.playerSpaceship.getX(), this.playerSpaceship.getY());
 
@@ -32,8 +38,6 @@ public class Player {
                 playerDeathListener.onPlayerDeath();
             }
         }
-        playerSpaceship.onTick();
-        playerLaserbeamManager.onTick();
     }
 
     public void draw(Graphics graphics) {
@@ -52,14 +56,11 @@ public class Player {
     }
 
     public void playerMouseClicked() {
-        float laserbeamX = playerSpaceship.leftBorder() + 8;
+        float playerSpaceshipWidth = playerSpaceship.width;
         float laserbeamY = playerSpaceship.topBorder();
 
-        Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
-
-        laserbeamX = playerSpaceship.rightBorder() - 8;
-
-        Game.creator.createSpaceObject("playerlaserbeam", laserbeamX, laserbeamY);
+        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth*0.09f, laserbeamY);
+        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth*0.88f, laserbeamY);
     }
 
     public List<Laserbeam> getPlayerLaserbeamManager() {
