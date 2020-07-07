@@ -19,6 +19,8 @@ public class LeaderboardsPanel extends JPanel {
     private final ImageHandler imageHandler = new ImageHandler();
     private final BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
     private final JLabel leaderboardsTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/leaderboardsTitle.png"));
+    private final JLabel usernameTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/usernameTitle.png"));
+    private final JLabel scoreTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/scoreTitle.png"));
     private final ImageIcon backToMenuButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/backToMenuButton.png");
     private final ImageIcon backToMenuButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/backToMenuButton_Opaque.png");
 
@@ -27,6 +29,7 @@ public class LeaderboardsPanel extends JPanel {
 
     private JPanel headerPanel = new JPanel();
     private JPanel tablePanel = new JPanel();
+    private JPanel tableTitlePanel = new JPanel();
     private JPanel footerPanel = new JPanel();
 
     private Font tableTitleFont;
@@ -44,50 +47,7 @@ public class LeaderboardsPanel extends JPanel {
     }
 
     public LeaderboardsPanel(int width, int height) {
-        Dimension windowDimension = new Dimension(width, height);
-
-        setPreferredSize(windowDimension);
-        setMinimumSize(windowDimension);
-        setMaximumSize(windowDimension);
-        
-        setLayout(new BorderLayout());
-        headerPanel.setOpaque(false);
-        tablePanel.setOpaque(false);
-        footerPanel.setOpaque(false);
-
-        headerPanel.setLayout(new GridBagLayout());
-        tablePanel.setLayout(new GridBagLayout());
-        footerPanel.setLayout(new GridBagLayout());
-
-        gridBagConstraints = new GridBagConstraints();
-
-        gridBagConstraints.anchor = GridBagConstraints.CENTER;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-
-        headerPanel.add(leaderboardsTitle, gridBagConstraints);
-
-        add(headerPanel, BorderLayout.NORTH);
-
-        JScrollPane scrollPane = new JScrollPane(tablePanel);
-        scrollPane.setBackground(new Color(0, 0, 0, 0));
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        add(scrollPane, BorderLayout.CENTER);
-        gridBagConstraints.anchor = GridBagConstraints.CENTER;
-
-        tableTitleFont = new Font("Arial", Font.BOLD, 30);
-        tableFont = new Font("Arial", Font.BOLD, 20);
-
-        Dimension menuButtonDimension = new Dimension(300, 74);
-        backToMenuButton.setPreferredSize(menuButtonDimension);
-        backToMenuButton.setIcon(backToMenuButtonIcon);
-
-        footerPanel.add(backToMenuButton);
-        add(footerPanel, BorderLayout.SOUTH);
-
-        setBorder(BorderFactory.createEtchedBorder());
+        createMainPanel(width, height);
 
         backToMenuButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -115,6 +75,74 @@ public class LeaderboardsPanel extends JPanel {
                 }
             }
         });
+    }
+
+    private void createMainPanel(int width, int height) {
+        Dimension windowDimension = new Dimension(width, height);
+
+        setPreferredSize(windowDimension);
+        setMinimumSize(windowDimension);
+        setMaximumSize(windowDimension);
+
+        setLayout(new BorderLayout());
+
+        createHeaderPanel();
+        createTableTitlePanel();
+        createTablePanel();
+        createFooterPanel();
+
+        gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+
+        headerPanel.add(leaderboardsTitle, gridBagConstraints);
+        gridBagConstraints.gridy = 1;
+        headerPanel.add(tableTitlePanel, gridBagConstraints);
+        add(headerPanel, BorderLayout.PAGE_START);
+
+        createScrollPane();
+
+        tableFont = new Font("Arial", Font.BOLD, 20);
+
+        Dimension menuButtonDimension = new Dimension(300, 74);
+        backToMenuButton.setPreferredSize(menuButtonDimension);
+        backToMenuButton.setIcon(backToMenuButtonIcon);
+
+        footerPanel.add(backToMenuButton);
+        add(footerPanel, BorderLayout.PAGE_END);
+
+        setBorder(BorderFactory.createEtchedBorder());
+    }
+
+    private void createHeaderPanel() {
+        headerPanel.setOpaque(false);
+        headerPanel.setLayout(new GridBagLayout());
+    }
+
+    private void createTableTitlePanel() {
+        tableTitlePanel.setOpaque(false);
+        tableTitlePanel.setLayout(new GridBagLayout());
+    }
+
+    private void createTablePanel() {
+        tablePanel.setOpaque(false);
+        tablePanel.setLayout(new GridBagLayout());
+    }
+
+    private void createScrollPane() {
+        JScrollPane scrollPane = new JScrollPane(tablePanel);
+        scrollPane.setBackground(new Color(0, 0, 0, 0));
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private void createFooterPanel() {
+        footerPanel.setOpaque(false);
+        footerPanel.setLayout(new GridBagLayout());
     }
 
     private ArrayList<LeaderboardData> getLeaderboardFromMainWindow() {
@@ -148,21 +176,14 @@ public class LeaderboardsPanel extends JPanel {
         scoreTable = new JLabel[numOfLeaderboardsUsers];
         usernameTable = new JLabel[numOfLeaderboardsUsers];
 
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        scoreTable[0] = new JLabel("Username");
-        scoreTable[0].setFont(tableTitleFont);
-        scoreTable[0].setMinimumSize(new Dimension(150, 50));
-        scoreTable[0].setPreferredSize(new Dimension(150, 50));
-        scoreTable[0].setMaximumSize(new Dimension(150, 50));
-        gridBagConstraints.gridy = 1;
-        headerPanel.add(scoreTable[0], gridBagConstraints);
-
-        usernameTable[0] = new JLabel("Score");
-        usernameTable[0].setFont(tableTitleFont);
-        usernameTable[0].setPreferredSize(new Dimension(150, 50));
+        scoreTable[0] = usernameTitle;
+        scoreTable[0].setPreferredSize(new Dimension(200, 50));
+        gridBagConstraints.gridx = 0;
+        tableTitlePanel.add(scoreTable[0], gridBagConstraints);
+        usernameTable[0] = scoreTitle;
+        usernameTable[0].setPreferredSize(new Dimension(200, 50));
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        headerPanel.add(usernameTable[0], gridBagConstraints);
+        tableTitlePanel.add(usernameTable[0], gridBagConstraints);
 
         for (int i = 1; i < numOfLeaderboardsUsers; i++) {
             LeaderboardData currentRow = leaderboardScoreTable.get(i - 1);
