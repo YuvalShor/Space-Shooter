@@ -20,7 +20,7 @@ public class Laserbeam extends SpaceObject {
 
         AffineTransform affineTransform = new AffineTransform();
 
-        affineTransform.translate(this.x, this.y);
+        affineTransform.translate(this.leftBorder(), this.topBorder());
         affineTransform.scale(1, 1);
         g2d.drawImage(laserbeamImage, affineTransform, null);
     }

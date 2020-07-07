@@ -50,7 +50,7 @@ public class Player {
         return playerScore;
     }
 
-    public void updateSpaceshipPosition(int playerSpaceshipX,int playerSpaceshipY){
+    public void updateSpaceshipMovement(int playerSpaceshipX,int playerSpaceshipY){
         playerSpaceship.setX(playerSpaceshipX);
         playerSpaceship.setY(playerSpaceshipY);
         playerSpaceship.onTick();
