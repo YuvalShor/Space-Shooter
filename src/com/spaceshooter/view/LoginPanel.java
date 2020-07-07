@@ -1,5 +1,8 @@
 package com.spaceshooter.view;
 
+import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.LoginPanelLoginButtonClickListener;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +10,7 @@ import java.awt.event.ActionListener;
 public class LoginPanel extends JPanel{
     private JTextField usertText;
     private JPasswordField passwordText;
-    private JLabel userLabel,passwordLabel,success;
+    private JLabel userLabel,passwordLabel, errorLabel;
     private JButton loginButton;
     private JButton cancelButton;
     private LoginPanelLoginButtonClickListener loginButtonClickListener;
@@ -42,9 +45,9 @@ public class LoginPanel extends JPanel{
         cancelButton.setBounds((int) (loginButton.getBounds().getWidth() + 20), 80, 80, 25);
         add(cancelButton);
 
-        success=new JLabel("");
-        success.setBounds(10,110,300,25);
-        add(success);
+        errorLabel =new JLabel("");
+        errorLabel.setBounds(10,110,500,25);
+        add(errorLabel);
 
         addComponentListeners();
     }
@@ -60,7 +63,7 @@ public class LoginPanel extends JPanel{
                     try {
                         loginButtonClickListener.loginButtonClick(username, password);
                     } catch (Exception exception) {
-                        success.setText(exception.getMessage());
+                        errorLabel.setText(exception.getMessage());
                     }
                 }
             }

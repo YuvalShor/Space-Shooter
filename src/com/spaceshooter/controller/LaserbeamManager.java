@@ -1,8 +1,8 @@
 package com.spaceshooter.controller;
 
 import com.spaceshooter.model.Laserbeam;
-import com.spaceshooter.model.ObjectObserver;
-import com.spaceshooter.model.ObservableObject;
+import com.spaceshooter.model.interfaces.ObjectObserver;
+import com.spaceshooter.model.interfaces.ObservableObject;
 
 import java.awt.*;
 import java.util.ArrayList;

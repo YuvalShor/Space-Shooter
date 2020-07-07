@@ -1,5 +1,9 @@
 package com.spaceshooter.view;
 
+import com.spaceshooter.view.listenerInterfaces.MenuExitButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.MenuLeaderboardsClickListener;
+import com.spaceshooter.view.listenerInterfaces.MenuPlayButtonClickListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

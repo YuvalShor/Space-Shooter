@@ -35,7 +35,6 @@ public class HUD {
     }
 
     private void drawPlayerHealthBar(Graphics graphics) {
-        drawPlayerHealthBar(graphics);
         graphics.setColor(Color.GREEN);
         graphics.fillRoundRect(30, Game.HEIGHT - 30, player.getHealth(), 15, 15, 30);
         graphics.setColor(Color.BLUE);

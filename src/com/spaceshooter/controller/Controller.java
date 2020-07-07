@@ -71,7 +71,7 @@ public class Controller{
         game.playerMouseClicked();
     }
 
-    public void register(String username, String password) {
+    public void register(String username, String password) throws Exception {
         SecurityManager.register(username, password);
     }
 

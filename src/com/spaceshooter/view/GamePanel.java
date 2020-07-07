@@ -1,5 +1,9 @@
 package com.spaceshooter.view;
 
+import com.spaceshooter.view.listenerInterfaces.GamePanelKeyInputListener;
+import com.spaceshooter.view.listenerInterfaces.GamePanelMouseClickListener;
+import com.spaceshooter.view.listenerInterfaces.GamePanelMouseMovementListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

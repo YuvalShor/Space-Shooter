@@ -2,6 +2,7 @@ package com.spaceshooter.view;
 
 import com.spaceshooter.controller.Controller;
 import com.spaceshooter.model.LeaderboardData;
+import com.spaceshooter.view.listenerInterfaces.*;
 
 import javax.swing.*;
 import java.awt.*;

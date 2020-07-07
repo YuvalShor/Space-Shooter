@@ -14,9 +14,9 @@ public class SecurityManager {
     private static Map<String, User> usersMap;
 
     static{
-        try {
-            usersMap = (Map<String, User>) FileHandler.readObjectFromFile(usersFilename);
-        } catch (EOFException e) {
+        usersMap = (Map<String, User>) FileHandler.readObjectFromFile(usersFilename);
+
+        if(usersMap == null){
             usersMap = new Hashtable<>();
         }
     }
@@ -25,9 +25,15 @@ public class SecurityManager {
         return checkLoginInformation(username, password);
     }
 
-    public static void register(String username, String password){
+    public static void register(String username, String password) throws Exception {
+        validateInformation(username, password);
+
         String hashedPassword =  getSha1Hex(password);
         User newUserToRegister = new User(username, hashedPassword);
+
+        if(usersMap.containsKey(username)) {
+            throw new Exception("Username already exists");
+        }
 
         currentUser = username;
         usersMap.put(username, newUserToRegister);
@@ -56,6 +62,8 @@ public class SecurityManager {
     }
 
     private static boolean checkLoginInformation(String username, String password) throws Exception {
+        validateInformation(username, password);
+
         String passText = getSha1Hex(password);
 
         if(usersMap.containsKey(username)){
@@ -69,7 +77,39 @@ public class SecurityManager {
         }else{
             return false;
         }
+    }
 
+    private static void validateInformation(String username, String password) throws Exception {
+        boolean isUsernameValid = true;
+
+        if(username.length() < 4){
+            isUsernameValid = false;
+        }
+
+        if(isUsernameValid){
+            for (char letter : username.toCharArray()) {
+                if(!Character.isLetterOrDigit(letter)){
+                    isUsernameValid = false;
+                }
+            }
+        }
+
+        if(!isUsernameValid){
+            throw new Exception("Username must be alphanumeric and at least 4 characters long");
+        }
+
+        // check password
+        if(password.isEmpty() || password.length() < 8){
+            throw new Exception("Password must be at least 8 characters long");
+        }
+    }
+
+    public static void deleteUser(User user){
+        usersMap.remove(user);
+    }
+
+    public static User getUser(String username){
+        return usersMap.get(username);
     }
 
 }

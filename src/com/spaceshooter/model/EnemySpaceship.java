@@ -1,10 +1,10 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class EnemySpaceship extends SpaceObject{
     public BufferedImage enemySpaceshipImage;

@@ -3,6 +3,7 @@ package com.spaceshooter.model;
 import com.spaceshooter.controller.EnemySpaceshipManager;
 import com.spaceshooter.controller.ExplosionManager;
 import com.spaceshooter.controller.LaserbeamManager;
+import com.spaceshooter.model.interfaces.SpaceObjectFactory;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.image.BufferedImage;
