@@ -1,12 +1,15 @@
 package com.spaceshooter.model;
 
 import com.spaceshooter.controller.*;
+import com.spaceshooter.model.interfaces.ObjectObserver;
+import com.spaceshooter.model.interfaces.ObservableObject;
+import com.spaceshooter.model.interfaces.PlayerDeathListener;
 import com.spaceshooter.view.LoginRegisterFrame;
 import java.awt.*;
 import java.util.ArrayList;
 import com.spaceshooter.controller.SecurityManager;
 
-public class Game implements ObjectObserver{
+public class Game implements ObjectObserver {
     public final static int WIDTH = 1280;
     public final static int HEIGHT = 720;
     public final static SpaceObjectCreator creator = new SpaceObjectCreator();
@@ -165,7 +168,7 @@ public class Game implements ObjectObserver{
             startTime = System.currentTimeMillis();
 
             if(gameLevel == MAX_LEVEL){
-                creator.createSpaceObject("boss", Game.WIDTH/2, Game.WIDTH/8);
+                creator.createSpaceObject("boss", Game.WIDTH/2, Game.HEIGHT / 4);
                 gameLevel++;
             }
             else{

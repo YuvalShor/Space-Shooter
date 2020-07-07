@@ -1,11 +1,12 @@
 package com.spaceshooter.view;
 
 import com.spaceshooter.controller.Controller;
+import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.LoginPanelLoginButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.RegisterPanelRegisterButtonClickListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 
 public class LoginRegisterFrame extends JFrame{
     private Controller controller;
@@ -15,7 +16,7 @@ public class LoginRegisterFrame extends JFrame{
     public LoginRegisterFrame()  {
         setTitle("Login");
 
-        setPreferredSize(new Dimension(350,200));
+        setPreferredSize(new Dimension(500,180));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
@@ -32,7 +33,7 @@ public class LoginRegisterFrame extends JFrame{
     private void addPanelListeners() {
         registerPanel.setRegisterButtonListener(new RegisterPanelRegisterButtonClickListener() {
             @Override
-            public void registerButtonClicked(String username, String password) {
+            public void registerButtonClicked(String username, String password) throws Exception {
                 if(controller != null){
                     controller.register(username, password);
                     dispose();
@@ -62,6 +63,7 @@ public class LoginRegisterFrame extends JFrame{
                 }
                 else{
                     setContentPane(registerPanel);
+                    setTitle("Register");
                     pack();
                 }
             }

@@ -1,5 +1,8 @@
 package com.spaceshooter.view;
 
+import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.RegisterPanelRegisterButtonClickListener;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +25,7 @@ public class RegisterPanel extends JPanel {
         add(usertText);
 
         passwordText=new JPasswordField(20);
-        passwordText.setBounds(100,80,165,25);
+        passwordText.setBounds(100,60,165,25);
         add(passwordText);
 
 
@@ -31,18 +34,18 @@ public class RegisterPanel extends JPanel {
         add(userLabel);
 
         passwordLabel=new JLabel("Password");
-        passwordLabel.setBounds(10,80,80,25);//padding
+        passwordLabel.setBounds(10,60,80,25);//padding
         add(passwordLabel);
 
         registerButton =new JButton();
         registerButton.setText("Register");
-        registerButton.setBounds(10,120,100,25);
+        registerButton.setBounds(10,100,100,25);
 
         add(registerButton);
 
         cancelButton =new JButton();
         cancelButton.setText("Cancel");
-        cancelButton.setBounds(120,120,140,25);
+        cancelButton.setBounds(120,100,140,25);
         add(cancelButton);
         setVisible(true);
 
@@ -56,7 +59,11 @@ public class RegisterPanel extends JPanel {
                 if(registerButtonListener != null){
                     String username = usertText.getText();
                     String password = new String(passwordText.getPassword());
-                    registerButtonListener.registerButtonClicked(username, password);
+                    try {
+                        registerButtonListener.registerButtonClicked(username, password);
+                    } catch (Exception exception) {
+                        setBorder(BorderFactory.createTitledBorder(exception.getMessage()));
+                    }
                 }
             }
         });

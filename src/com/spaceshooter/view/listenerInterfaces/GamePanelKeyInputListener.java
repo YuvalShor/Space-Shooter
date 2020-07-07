@@ -1,4 +1,4 @@
-package com.spaceshooter.view;
+package com.spaceshooter.view.listenerInterfaces;
 
 public interface GamePanelKeyInputListener {
     void enterKeyPressed();

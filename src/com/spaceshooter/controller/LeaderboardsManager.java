@@ -13,9 +13,9 @@ public class LeaderboardsManager {
     private ArrayList<LeaderboardData> leaderboardsData;
 
     public LeaderboardsManager() {
-        try {
-            leaderboardsData = (ArrayList<LeaderboardData>) FileHandler.readObjectFromFile(leaderboardFilename);
-        } catch (EOFException e) {
+        leaderboardsData = (ArrayList<LeaderboardData>) FileHandler.readObjectFromFile(leaderboardFilename);
+
+        if(leaderboardsData == null){
             leaderboardsData = new ArrayList<>();
         }
     }

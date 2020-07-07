@@ -1,6 +1,8 @@
 package com.spaceshooter.view;
 
 import com.spaceshooter.model.LeaderboardData;
+import com.spaceshooter.view.listenerInterfaces.BackToMenuButtonClickListener;
+import com.spaceshooter.view.listenerInterfaces.LeaderboardDataListener;
 
 import javax.swing.*;
 import java.awt.*;

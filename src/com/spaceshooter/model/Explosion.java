@@ -1,5 +1,6 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;

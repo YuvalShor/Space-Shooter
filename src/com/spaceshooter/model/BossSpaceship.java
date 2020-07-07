@@ -1,9 +1,7 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.view.ImageHandler;
-
-import java.awt.*;
-import java.util.Random;
 
 public class BossSpaceship extends EnemySpaceship{
     private int frame;
@@ -22,20 +20,22 @@ public class BossSpaceship extends EnemySpaceship{
     public void onTick() {
         this.x += this.moveX;
 
-        randomizeMovementHorizontally();
+        moveTowardsPlayer();
         assureObjectWithinBorders();
         checkIfDestroyed();
         shootLasers();
     }
 
-    private void randomizeMovementHorizontally() {
-        if(frame % 120 == 0) {
-            if(this.leftBorder() <= 0 || this.rightBorder() >= Game.WIDTH){
-                this.moveX *= -1;
-            }
-            else if (RandomNumberCreator.getRandomNumberFromZeroTo(2) == 0) {
-                this.moveX *= -1;
-            }
+    private void moveTowardsPlayer() {
+        Player player = Player.createInstance(); // singleton
+
+        if(frame % 60 == 0) {
+           if(this.x < player.spaceshipX()){
+               this.moveX = 1;
+           }
+           else{
+               this.moveX = -1;
+           }
         }
     }
 
@@ -52,13 +52,13 @@ public class BossSpaceship extends EnemySpaceship{
     }
 
     private void shootLasers() {
-        frame = (frame + 1) % 120;
+        frame = (frame + 1) % 180;
 
-        if (frame % 120 == 0) {
+        if (frame % 180 == 0) {
             int directionOffset = (int) (this.x - Game.WIDTH / 2);
 
             for (int i = 0; i < numberOfEnergyBalls; i++) {
-                Laserbeam laser = (Laserbeam) Game.creator.createSpaceObject("enemylaserbeam", this.x,
+                Laserbeam laser = (Laserbeam) Game.creator.createSpaceObject("enemylaserbeam", this.x - 7,
                         this.bottomBorder());
                 laser.calculateDirection(directionOffset + i * distanceBetweenEnergyBalls,
                         Game.HEIGHT - Game.HEIGHT / 4);

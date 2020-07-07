@@ -20,7 +20,7 @@ public class FileHandler {
 
     }
 
-    public static Object readObjectFromFile(String filename) throws EOFException {
+    public static Object readObjectFromFile(String filename) {
         Object objectToRead = null;
 
         try {
@@ -30,9 +30,6 @@ public class FileHandler {
 
             fileInputStream.close();
             objectInputStream.close();
-        }
-        catch(EOFException eofe){
-            throw eofe;
         }
         catch(FileNotFoundException fnfe){
             createNewFile(filename);

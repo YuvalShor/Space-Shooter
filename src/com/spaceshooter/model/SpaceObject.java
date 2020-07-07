@@ -1,5 +1,8 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.model.interfaces.ObjectObserver;
+import com.spaceshooter.model.interfaces.ObservableObject;
+
 import java.awt.*;
 
 public abstract class SpaceObject implements ObservableObject {

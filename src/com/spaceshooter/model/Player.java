@@ -1,6 +1,7 @@
 package com.spaceshooter.model;
 
 import com.spaceshooter.controller.LaserbeamManager;
+import com.spaceshooter.model.interfaces.PlayerDeathListener;
 
 import java.awt.*;
 import java.util.List;
