@@ -47,6 +47,7 @@ public class RegisterPanel extends JPanel {
         add(registerButton);
 
         errorArea = new JTextArea("User not found. You must register first");
+        errorArea.setEnabled(false);
         errorArea.setOpaque(false);
         errorArea.setWrapStyleWord(true);
         errorArea.setLineWrap(true);
