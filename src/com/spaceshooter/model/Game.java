@@ -1,13 +1,13 @@
 package com.spaceshooter.model;
 
+import com.spaceshooter.controller.SecurityManager;
 import com.spaceshooter.controller.*;
 import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.model.interfaces.ObservableObject;
 import com.spaceshooter.model.interfaces.PlayerDeathListener;
 import com.spaceshooter.view.LoginRegisterFrame;
+
 import java.awt.*;
-import java.util.ArrayList;
-import com.spaceshooter.controller.SecurityManager;
 
 public class Game implements ObjectObserver {
     public final static int WIDTH = 1280;
@@ -21,7 +21,7 @@ public class Game implements ObjectObserver {
     private StarManager starManager;
     private ExplosionManager explosionManager;
     private CollisionHandler collisionHandler;
-    private LeaderboardsManager leaderboardsManager;
+    private final LeaderboardsManager leaderboardsManager;
     private int gameLevel;
     private final int MAX_LEVEL = 10;
     private long startTime;
@@ -53,8 +53,6 @@ public class Game implements ObjectObserver {
     private void initializeCreator() {
         creator.setEnemyManager(this.enemySpaceshipManager);
         creator.setExplosionManager(this.explosionManager);
-        creator.setPlayerLaserbeamManager(this.player.getLaserbeamManager());
-        creator.setEnemyLaserbeamManager(this.enemySpaceshipManager.getEnemyLaserbeamManager());
         creator.setPlayer(this.player);
     }
 
@@ -65,12 +63,12 @@ public class Game implements ObjectObserver {
         enemySpaceshipManager = new EnemySpaceshipManager();
         starManager = new StarManager();
         explosionManager = new ExplosionManager();
-        hud = new HUD(player, this);
+        hud = new HUD(this);
         collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
         enemySpaceshipManager.setObservableObject(this);
     }
 
-    public void onTick(){
+    public void onTick() {
         player.onTick();
         enemySpaceshipManager.onTick();
         starManager.onTick();
@@ -78,7 +76,7 @@ public class Game implements ObjectObserver {
         explosionManager.onTick();
     }
 
-    public void draw(Graphics graphics){
+    public void draw(Graphics graphics) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, 1280, 720);
         starManager.draw(graphics);
@@ -97,7 +95,7 @@ public class Game implements ObjectObserver {
         starManager.onTick();
         explosionManager.onTick();
 
-        if(!explosionManager.hasExplosions()){
+        if (!explosionManager.hasExplosions()) {
             enemySpaceshipManager.clear();
         }
 
@@ -112,7 +110,7 @@ public class Game implements ObjectObserver {
 
     public void update(Graphics graphics) {
 
-        switch(gameState) {
+        switch (gameState) {
             case GameRunning:
                 runGame(graphics);
                 break;
@@ -124,7 +122,7 @@ public class Game implements ObjectObserver {
         }
     }
 
-    public void updateLeaderboard(){
+    public void updateLeaderboard() {
         leaderboardsManager.addUserScore(SecurityManager.currentUser, player.getPlayerScore());
     }
 
@@ -148,23 +146,21 @@ public class Game implements ObjectObserver {
     public void objectStateChanged(ObservableObject observable) {
         player.addScore(10);
 
-        if(enemySpaceshipManager.isFleetAnnihilated()){
-            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000f;
-            int scoreToAdd = (int) ((1/minutesTookToFinishRound) * gameLevel * 100);
+        if (enemySpaceshipManager.isFleetAnnihilated()) {
+            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime) / 1000f;
+            int scoreToAdd = (int) ((1 / minutesTookToFinishRound) * gameLevel * 100);
 
             player.addScore(scoreToAdd);
 
             startTime = System.currentTimeMillis();
 
-            if(gameLevel == MAX_LEVEL){
-                creator.createSpaceObject("boss", Game.WIDTH/2f, Game.HEIGHT / 4f);
+            if (gameLevel == MAX_LEVEL) {
+                creator.createSpaceObject("boss", Game.WIDTH / 2f, Game.HEIGHT / 4f);
                 gameLevel++;
-            }
-            else{
+            } else {
                 enemySpaceshipManager.createEnemies(++gameLevel);
             }
-        }
-        else{
+        } else {
             if (enemySpaceshipManager.getEnemySpaceships().get(0) instanceof BossSpaceship) {
                 gameState = GameState.GameOver;
                 updateLeaderboard();
@@ -174,5 +170,9 @@ public class Game implements ObjectObserver {
 
     public void reset() {
         player.reset();
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }

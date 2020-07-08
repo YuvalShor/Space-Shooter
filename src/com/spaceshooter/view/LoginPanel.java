@@ -4,14 +4,19 @@ import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
 import com.spaceshooter.view.listenerInterfaces.LoginPanelLoginButtonClickListener;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class LoginPanel extends JPanel{
-    private JTextField usertText;
-    private JPasswordField passwordText;
-    private JLabel userLabel,passwordLabel, errorLabel;
-    private JButton loginButton;
-    private JButton cancelButton;
+public class LoginPanel extends JPanel {
+    private final JTextField usertText;
+    private final JPasswordField passwordText;
+    private final JLabel userLabel;
+    private final JLabel passwordLabel;
+    private final JLabel errorLabel;
+    private final JButton loginButton;
+    private final JButton cancelButton;
     private LoginPanelLoginButtonClickListener loginButtonClickListener;
     private CancelButtonClickListener cancelButtonClickListener;
 
@@ -20,32 +25,32 @@ public class LoginPanel extends JPanel{
         setLayout(null);
         setVisible(true);
 
-        userLabel=new JLabel("User");
-        userLabel.setBounds(10,20,80,25);
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10, 20, 80, 25);
         add(userLabel);
 
-        passwordLabel=new JLabel("Password");
-        passwordLabel.setBounds(10,50,80,25);//padding
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10, 50, 80, 25);//padding
         add(passwordLabel);
 
-        passwordText=new JPasswordField(20);
-        passwordText.setBounds(100,50,165,25);
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(100, 50, 165, 25);
         add(passwordText);
 
-        usertText=new JTextField(20);
-        usertText.setBounds(100,20,165,25);
+        usertText = new JTextField(20);
+        usertText.setBounds(100, 20, 165, 25);
         add(usertText);
 
-        loginButton=new JButton("Login");
-        loginButton.setBounds(10,80,80,25);
+        loginButton = new JButton("Login");
+        loginButton.setBounds(10, 80, 80, 25);
         add(loginButton);
 
         cancelButton = new JButton("Cancel");
         cancelButton.setBounds((int) (loginButton.getBounds().getWidth() + 20), 80, 80, 25);
         add(cancelButton);
 
-        errorLabel =new JLabel("");
-        errorLabel.setBounds(10,110,500,25);
+        errorLabel = new JLabel("");
+        errorLabel.setBounds(10, 110, 500, 25);
         add(errorLabel);
 
         addComponentListeners();
@@ -55,7 +60,7 @@ public class LoginPanel extends JPanel{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(loginButtonClickListener != null) {
+                if (loginButtonClickListener != null) {
                     String username = usertText.getText();
                     String password = new String(passwordText.getPassword());
 
@@ -71,7 +76,7 @@ public class LoginPanel extends JPanel{
         loginButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     loginButton.doClick();
                 }
             }
@@ -80,7 +85,7 @@ public class LoginPanel extends JPanel{
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cancelButtonClickListener != null){
+                if (cancelButtonClickListener != null) {
                     cancelButtonClickListener.mouseCancelButtonClick();
                 }
             }
@@ -89,7 +94,7 @@ public class LoginPanel extends JPanel{
         cancelButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     cancelButton.doClick();
                 }
             }

@@ -5,16 +5,16 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 
 public class ImageHandler {
-    private static BufferedImageLoader bufferedImageLoader;
+    private static final BufferedImageLoader bufferedImageLoader;
 
-    private static BufferedImage enemySpaceshipImage;
-    private static BufferedImage playerSpaceshipImage;
-    private static BufferedImage playerLaserbeamImage;
-    private static BufferedImage enemyLaserbeamImage;
-    private static BufferedImage bossImage;
+    private static final BufferedImage enemySpaceshipImage;
+    private static final BufferedImage playerSpaceshipImage;
+    private static final BufferedImage playerLaserbeamImage;
+    private static final BufferedImage enemyLaserbeamImage;
+    private static final BufferedImage bossImage;
     private static BufferedImage[] smallExplosionAnimation;
-    private static BufferedImage[] bigExplosionAnimation;
-    private static BufferedImage cursorImg;
+    private static final BufferedImage[] bigExplosionAnimation;
+    private static final BufferedImage cursorImg;
     private final static int smallExplosionFrames = 80;
     private final static int smallExplosionSpriteSheetColumns = 10;
     private final static int smallExplosionSubImageWidth = 100;
@@ -25,7 +25,7 @@ public class ImageHandler {
     private final static int bigExplosionSubImageWidth = 256;
     private final static int bigExplosionSubImageHeight = 256;
 
-    static{
+    static {
         bufferedImageLoader = new BufferedImageLoader();
 
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
@@ -37,16 +37,20 @@ public class ImageHandler {
 
         smallExplosionAnimation = new BufferedImage[smallExplosionFrames];
 
-        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/verticalexplosion.png");
-        smallExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, smallExplosionSpriteSheetColumns, smallExplosionSubImageWidth, smallExplosionSubImageHeight, smallExplosionFrames);
+        BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage(
+                "/com/spaceshooter/view/images/verticalexplosion.png");
+        smallExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, smallExplosionSpriteSheetColumns,
+                smallExplosionSubImageWidth, smallExplosionSubImageHeight, smallExplosionFrames);
         explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/explosion256.png");
-        bigExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, bigExplosionSpriteSheetColumns, bigExplosionSubImageWidth, bigExplosionSubImageHeight, bigExplosionFrames);
+        bigExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, bigExplosionSpriteSheetColumns,
+                bigExplosionSubImageWidth, bigExplosionSubImageHeight, bigExplosionFrames);
     }
 
-    private static BufferedImage[] initializeExplosionAnimation(BufferedImage explosionSpriteSheet, int explosionSpriteSheetColumns, int explosionSubImageWidth, int explosionSubImageHeight, int explosionFrames)
-    {
+    private static BufferedImage[] initializeExplosionAnimation(BufferedImage explosionSpriteSheet,
+            int explosionSpriteSheetColumns, int explosionSubImageWidth, int explosionSubImageHeight,
+            int explosionFrames) {
         BufferedImage[] explosionAnimation = new BufferedImage[explosionFrames];
-        for (int i = 0; i < explosionAnimation.length ; i++) {
+        for (int i = 0; i < explosionAnimation.length; i++) {
             int row = i / explosionSpriteSheetColumns;
             int column = i % explosionSpriteSheetColumns;
 
@@ -57,15 +61,15 @@ public class ImageHandler {
         return explosionAnimation;
     }
 
-    public static BufferedImage getEnemySpaceshipImage(){
+    public static BufferedImage getEnemySpaceshipImage() {
         return enemySpaceshipImage;
     }
 
-    public static BufferedImage getPlayerSpaceshipImage(){
+    public static BufferedImage getPlayerSpaceshipImage() {
         return playerSpaceshipImage;
     }
 
-    public static BufferedImage getEnemyLaserbeamImage(){
+    public static BufferedImage getEnemyLaserbeamImage() {
         return enemyLaserbeamImage;
     }
 
@@ -77,11 +81,11 @@ public class ImageHandler {
         return bufferedImageLoader.loadImage(imagePath);
     }
 
-    public ImageIcon CreateIcon(String path){
+    public ImageIcon CreateIcon(String path) {
         URL url = getClass().getResource(path);
 
-        if(url == null){
-            System.err.println("Unable to load image " +  path);
+        if (url == null) {
+            System.err.println("Unable to load image " + path);
             return null;
         }
 

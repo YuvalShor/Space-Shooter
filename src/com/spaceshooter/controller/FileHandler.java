@@ -13,8 +13,7 @@ public class FileHandler {
 
         } catch (FileNotFoundException ex) {
             createNewFile(filename);
-        }
-        catch(IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
@@ -29,18 +28,16 @@ public class FileHandler {
 
             fileInputStream.close();
             objectInputStream.close();
-        }
-        catch(FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             createNewFile(filename);
-        }
-        catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         return objectToRead;
     }
 
-    private static void createNewFile(String filename){
+    private static void createNewFile(String filename) {
         File file = new File(filename);
         try {
             file.createNewFile();

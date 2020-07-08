@@ -13,22 +13,27 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class MenuPanel extends JPanel {
-    private ImageHandler imageHandler = new ImageHandler();
+    private final ImageHandler imageHandler = new ImageHandler();
 
-    private BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
+    private final BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage(
+            "/com/spaceshooter/view/images/menuBackground.jpg");
 
-    private JLabel menuLogo = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/logo.png"));
+    private final JLabel menuLogo = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/logo.png"));
 
-    private JButton playButton = new JButton();
-    private JButton leaderboardsButton = new JButton();
-    private JButton exitButton = new JButton();
+    private final JButton playButton = new JButton();
+    private final JButton leaderboardsButton = new JButton();
+    private final JButton exitButton = new JButton();
 
-    private ImageIcon playButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton.png");
-    private ImageIcon playButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton_Opaque.png");
-    private ImageIcon leaderboardsButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton.png");
-    private ImageIcon leaderboardsButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuLeaderboardsButton_Opaque.png");
-    private ImageIcon exitButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton.png");
-    private ImageIcon exitButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton_Opaque.png");
+    private final ImageIcon playButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuPlayButton.png");
+    private final ImageIcon playButtonOpaqueIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/menuPlayButton_Opaque.png");
+    private final ImageIcon leaderboardsButtonIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/menuLeaderboardsButton.png");
+    private final ImageIcon leaderboardsButtonOpaqueIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/menuLeaderboardsButton_Opaque.png");
+    private final ImageIcon exitButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/menuExitButton.png");
+    private final ImageIcon exitButtonOpaqueIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/menuExitButton_Opaque.png");
 
     private MenuPlayButtonClickListener menuPlayButtonClickListener;
     private MenuLeaderboardsClickListener menuLeaderboardsClickListener;

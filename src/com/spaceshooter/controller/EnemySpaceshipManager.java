@@ -1,6 +1,8 @@
 package com.spaceshooter.controller;
 
-import com.spaceshooter.model.*;
+import com.spaceshooter.model.BossSpaceship;
+import com.spaceshooter.model.EnemySpaceship;
+import com.spaceshooter.model.Game;
 import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.model.interfaces.ObservableObject;
 
@@ -8,9 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
-    private List<EnemySpaceship> enemySpaceships;
-    private LaserbeamManager enemyLaserbeamManager;
+public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
+    private final List<EnemySpaceship> enemySpaceships;
+    private final LaserbeamManager enemyLaserbeamManager;
     private ObjectObserver objectObserver;
 
     public EnemySpaceshipManager() {
@@ -19,7 +21,8 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
     }
 
     public void onTick() {
-        EnemySpaceship[] enemySpaceships = this.enemySpaceships.toArray(new EnemySpaceship[this.enemySpaceships.size()]);
+        EnemySpaceship[] enemySpaceships = this.enemySpaceships.toArray(
+                new EnemySpaceship[this.enemySpaceships.size()]);
 
         for (EnemySpaceship enemy : enemySpaceships) {
             enemy.onTick();
@@ -29,7 +32,8 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
     }
 
     public void draw(Graphics graphics) {
-        EnemySpaceship[] enemySpaceships = this.enemySpaceships.toArray(new EnemySpaceship[this.enemySpaceships.size()]);
+        EnemySpaceship[] enemySpaceships = this.enemySpaceships.toArray(
+                new EnemySpaceship[this.enemySpaceships.size()]);
 
         for (EnemySpaceship enemy : enemySpaceships) {
             enemy.draw(graphics);
@@ -44,10 +48,6 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
 
     public void removeEnemySpaceship(EnemySpaceship spaceship) {
         this.enemySpaceships.remove(spaceship);
-    }
-
-    public List<Laserbeam> getEnemyLasers() {
-        return this.enemyLaserbeamManager.getLasers();
     }
 
     public LaserbeamManager getEnemyLaserbeamManager() {
@@ -66,24 +66,26 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver{
 
     public void createEnemies(int numberOfEnemies) {
         int enemyWidth = Game.creator.getEnemySpaceshipWidth();
-        int enemyDistance = (Game.WIDTH - enemyWidth)/(numberOfEnemies*2);
+        int enemyDistance = (Game.WIDTH - enemyWidth) / (numberOfEnemies * 2);
 
-        if(numberOfEnemies % 2 == 1) {
+        if (numberOfEnemies % 2 == 1) {
             Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2, Game.HEIGHT / 4);
             numberOfEnemies -= 1;
         }
 
-        for (int i = 1; i <= numberOfEnemies/2; i++) {
-            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 + i*(enemyWidth + enemyDistance) , Game.HEIGHT / 4);
-            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 - i*(enemyWidth + enemyDistance) , Game.HEIGHT/4);
+        for (int i = 1; i <= numberOfEnemies / 2; i++) {
+            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 + i * (enemyWidth + enemyDistance),
+                    Game.HEIGHT / 4);
+            Game.creator.createSpaceObject("enemyspaceship", Game.WIDTH / 2 - i * (enemyWidth + enemyDistance),
+                    Game.HEIGHT / 4);
         }
     }
 
-    public List<EnemySpaceship> getEnemySpaceships(){
+    public List<EnemySpaceship> getEnemySpaceships() {
         return this.enemySpaceships;
     }
 
-    public boolean isFleetAnnihilated(){
+    public boolean isFleetAnnihilated() {
         return this.enemySpaceships.isEmpty();
     }
 

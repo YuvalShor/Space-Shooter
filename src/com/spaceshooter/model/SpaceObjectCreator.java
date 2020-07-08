@@ -2,7 +2,6 @@ package com.spaceshooter.model;
 
 import com.spaceshooter.controller.EnemySpaceshipManager;
 import com.spaceshooter.controller.ExplosionManager;
-import com.spaceshooter.controller.LaserbeamManager;
 import com.spaceshooter.model.interfaces.SpaceObjectFactory;
 import com.spaceshooter.view.ImageHandler;
 
@@ -24,41 +23,31 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
     private final int smallExplosionHeight = 100;
     private final int bigExplosionWidth = 256;
     private final int bigExplosionHeight = 256;
-    private  EnemySpaceshipManager enemySpaceshipManager;
-    private  ExplosionManager explosionManager;
-    private  LaserbeamManager playerLaserbeamManager;
-    private  LaserbeamManager enemyLaserbeamManager;
+    private EnemySpaceshipManager enemySpaceshipManager;
+    private ExplosionManager explosionManager;
     private Player player;
 
     @Override
     public SpaceObject createSpaceObject(String nameOfObject, float objectX, float objectY) {
         SpaceObject spaceObjectToCreate;
 
-        if(nameOfObject == "playerspaceship"){
+        if (nameOfObject == "playerspaceship") {
             spaceObjectToCreate = createPlayerSpaceship();
-        }
-        else if(nameOfObject == "enemyspaceship"){
+        } else if (nameOfObject == "enemyspaceship") {
             spaceObjectToCreate = createEnemySpaceship(objectX, objectY);
-        }
-        else if(nameOfObject == "enemylaserbeam"){
+        } else if (nameOfObject == "enemylaserbeam") {
             spaceObjectToCreate = createEnemyLaserbeam(objectX, objectY);
-        }
-        else if(nameOfObject == "playerlaserbeam"){
+        } else if (nameOfObject == "playerlaserbeam") {
             spaceObjectToCreate = createPlayerLaserbeam(objectX, objectY);
-        }
-        else if(nameOfObject == "star"){
+        } else if (nameOfObject == "star") {
             spaceObjectToCreate = createStar(objectX, objectY);
-        }
-        else if(nameOfObject == "smallexplosion"){
+        } else if (nameOfObject == "smallexplosion") {
             spaceObjectToCreate = createSmallExplosion(objectX, objectY);
-        }
-        else if(nameOfObject == "bigexplosion"){
+        } else if (nameOfObject == "bigexplosion") {
             spaceObjectToCreate = createBigExplosion(objectX, objectY);
-        }
-        else if(nameOfObject == "boss"){
+        } else if (nameOfObject == "boss") {
             spaceObjectToCreate = createBoss(objectX, objectY);
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Object name does not exist");
         }
 
@@ -66,54 +55,60 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
     }
 
     private BossSpaceship createBoss(float bossX, float bossY) {
-        BossSpaceship bossSpaceship = new BossSpaceship(bossX, bossY, bossSpaceshipWidth, bossSpaceshipHeight, enemySpaceshipManager);
+        BossSpaceship bossSpaceship = new BossSpaceship(bossX, bossY, bossSpaceshipWidth, bossSpaceshipHeight,
+                enemySpaceshipManager);
         enemySpaceshipManager.addEnemySpaceship(bossSpaceship);
         return bossSpaceship;
     }
 
-    private Star createStar(float starX, float starY){
+    private Star createStar(float starX, float starY) {
         return new Star(starX, starY, starWidth, starHeight);
     }
 
-    private PlayerSpaceship createPlayerSpaceship(){
+    private PlayerSpaceship createPlayerSpaceship() {
         return PlayerSpaceship.createInstance();
     }
 
-    private Laserbeam createPlayerLaserbeam(float laserX, float laserY){
+    private Laserbeam createPlayerLaserbeam(float laserX, float laserY) {
         BufferedImage playerLaserbeamImage = ImageHandler.getPlayerLaserbeamImage();
-        Laserbeam playerLaserbeam = new Laserbeam(laserX, laserY, playerLaserbeamWidth, playerLaserbeamHeight, playerLaserbeamManager);
+        Laserbeam playerLaserbeam = new Laserbeam(laserX, laserY, playerLaserbeamWidth, playerLaserbeamHeight,
+                player.getLaserbeamManager());
         playerLaserbeam.setImage(playerLaserbeamImage);
-        playerLaserbeamManager.addLaserbeam(playerLaserbeam);
+        player.getLaserbeamManager().addLaserbeam(playerLaserbeam);
 
         return playerLaserbeam;
     }
 
-    private Laserbeam createEnemyLaserbeam(float laserX, float laserY){
+    private Laserbeam createEnemyLaserbeam(float laserX, float laserY) {
         BufferedImage enemyLaserbeamImage = ImageHandler.getEnemyLaserbeamImage();
-        Laserbeam enemyLaserbeam = new Laserbeam(laserX, laserY, enemyEnergyBallWidth, enemyEnergyBallHeight, enemyLaserbeamManager);
+        Laserbeam enemyLaserbeam = new Laserbeam(laserX, laserY, enemyEnergyBallWidth, enemyEnergyBallHeight,
+                enemySpaceshipManager.getEnemyLaserbeamManager());
         enemyLaserbeam.setImage(enemyLaserbeamImage);
         enemyLaserbeam.calculateDirection(player.spaceshipX(), player.spaceshipY());
-        enemyLaserbeamManager.addLaserbeam(enemyLaserbeam);
+        enemySpaceshipManager.getEnemyLaserbeamManager().addLaserbeam(enemyLaserbeam);
 
         return enemyLaserbeam;
     }
 
-    private EnemySpaceship createEnemySpaceship(float enemyX, float enemyY){
-        EnemySpaceship enemySpaceship = new EnemySpaceship(enemyX, enemyY, enemySpaceshipWidth, enemySpaceshipHeight, enemySpaceshipManager);
+    private EnemySpaceship createEnemySpaceship(float enemyX, float enemyY) {
+        EnemySpaceship enemySpaceship = new EnemySpaceship(enemyX, enemyY, enemySpaceshipWidth, enemySpaceshipHeight,
+                enemySpaceshipManager);
         enemySpaceshipManager.addEnemySpaceship(enemySpaceship);
         return enemySpaceship;
     }
 
-    private Explosion createSmallExplosion(float explosionX, float explosionY){
-        Explosion explosion = new Explosion(explosionX, explosionY, smallExplosionWidth, smallExplosionHeight, explosionManager);
+    private Explosion createSmallExplosion(float explosionX, float explosionY) {
+        Explosion explosion = new Explosion(explosionX, explosionY, smallExplosionWidth, smallExplosionHeight,
+                explosionManager);
         explosionManager.addExplosion(explosion);
         explosion.setAnimation(ImageHandler.getSmallExplosionAnimation());
         return explosion;
     }
 
 
-    private Explosion createBigExplosion(float explosionX, float explosionY){
-        Explosion explosion = new Explosion(explosionX, explosionY, bigExplosionWidth, bigExplosionHeight, explosionManager);
+    private Explosion createBigExplosion(float explosionX, float explosionY) {
+        Explosion explosion = new Explosion(explosionX, explosionY, bigExplosionWidth, bigExplosionHeight,
+                explosionManager);
         explosionManager.addExplosion(explosion);
         explosion.setAnimation(ImageHandler.getBigExplosionAnimation());
 
@@ -128,15 +123,7 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         this.explosionManager = explosionManager;
     }
 
-    public void setPlayerLaserbeamManager(LaserbeamManager laserbeamManager) {
-        this.playerLaserbeamManager = laserbeamManager;
-    }
-
-    public void setEnemyLaserbeamManager(LaserbeamManager enemyLaserbeamManager) {
-        this.enemyLaserbeamManager = enemyLaserbeamManager;
-    }
-
-    public void setPlayer(Player player){
+    public void setPlayer(Player player) {
         this.player = player;
     }
 

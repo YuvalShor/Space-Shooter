@@ -6,7 +6,7 @@ import com.spaceshooter.view.ImageHandler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Explosion extends SpaceObject{
+public class Explosion extends SpaceObject {
 
     private BufferedImage[] explosionAnimation;
     private int currentFrame;
@@ -20,14 +20,14 @@ public class Explosion extends SpaceObject{
     @Override
     public void draw(Graphics graphics) {
         graphics.drawImage(this.explosionAnimation[currentFrame], (int) this.leftBorder(), (int) this.topBorder(),
-                    null);
+                null);
     }
 
     @Override
     public void onTick() {
         currentFrame++;
 
-        if(currentFrame >= explosionAnimation.length){
+        if (currentFrame >= explosionAnimation.length) {
             notifyObserver();
         }
     }
@@ -37,7 +37,7 @@ public class Explosion extends SpaceObject{
         observer.objectStateChanged(this);
     }
 
-    public void setAnimation(BufferedImage[] smallExplosionAnimation) {
-        this.explosionAnimation = smallExplosionAnimation;
+    public void setAnimation(BufferedImage[] explosionAnimation) {
+        this.explosionAnimation = explosionAnimation;
     }
 }

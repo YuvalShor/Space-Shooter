@@ -3,10 +3,11 @@ package com.spaceshooter.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = 4286884142032940064L;
     private String username;
-    private String password;
+    private final String password;
 
-    public User( String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

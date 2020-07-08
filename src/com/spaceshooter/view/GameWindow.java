@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class GameWindow extends JFrame {
 
     private Controller gameController;
-    private MenuPanel menuPanel;
-    private GamePanel gamePanel;
-    private LeaderboardsPanel leaderboardsPanel;
+    private final MenuPanel menuPanel;
+    private final GamePanel gamePanel;
+    private final LeaderboardsPanel leaderboardsPanel;
     final private JPanel cardPanel;
 
     public GameWindow(int width, int height) {
@@ -30,7 +30,7 @@ public class GameWindow extends JFrame {
 
         menuPanel = new MenuPanel(width, height);
         gamePanel = new GamePanel(width, height);
-        leaderboardsPanel = new LeaderboardsPanel(width,height);
+        leaderboardsPanel = new LeaderboardsPanel(width, height);
 
         cardPanel.add(gamePanel, "gamepanel");
         cardPanel.add(menuPanel, "menupanel");
@@ -41,7 +41,7 @@ public class GameWindow extends JFrame {
         pack();
         addListeners();
 
-        CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+        CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
         cardLayout.show(cardPanel, "menupanel");
     }
 
@@ -53,7 +53,7 @@ public class GameWindow extends JFrame {
         gamePanel.setGamePanelMouseMovementListener(new GamePanelMouseMovementListener() {
             @Override
             public void mouseMovedInPanel(int playerX, int playerY) {
-                if(gameController != null){
+                if (gameController != null) {
                     gameController.updatePlayerPosition(playerX, playerY);
                 }
             }
@@ -62,7 +62,7 @@ public class GameWindow extends JFrame {
         gamePanel.setGamePanelMouseClickListener(new GamePanelMouseClickListener() {
             @Override
             public void mouseClickedOnPanel() {
-                if(gameController != null) {
+                if (gameController != null) {
                     gameController.playerMouseClicked();
                 }
             }
@@ -71,7 +71,7 @@ public class GameWindow extends JFrame {
         gamePanel.setGamePanelKeyInputListener(new GamePanelKeyInputListener() {
             @Override
             public void enterKeyPressed() {
-                if(gameController.attemptStopGame()) {
+                if (gameController.attemptStopGame()) {
                     CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
                     cardLayout.show(cardPanel, "menupanel");
                     pack();
@@ -82,7 +82,7 @@ public class GameWindow extends JFrame {
         menuPanel.setMenuPlayButtonClickListener(new MenuPlayButtonClickListener() {
             @Override
             public void mouseButtonClick() {
-                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
                 cardLayout.show(cardPanel, "gamepanel");
                 gamePanel.CreateGamePanelBufferStrategy(2);
                 pack();
@@ -93,7 +93,7 @@ public class GameWindow extends JFrame {
         menuPanel.setMenuLeaderboardsClickListener(new MenuLeaderboardsClickListener() {
             @Override
             public void mouseButtonClick() {
-                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
                 cardLayout.show(cardPanel, "leaderboardpanel");
                 leaderboardsPanel.drawLeaderboardsTable();
                 pack();
@@ -101,16 +101,16 @@ public class GameWindow extends JFrame {
         });
 
         menuPanel.setMenuExitClickListener(new MenuExitButtonClickListener() {
-           @Override
-           public void mouseButtonClick() {
-               dispose();
-           }
-        });
-
-        leaderboardsPanel.setLeaderboardsBackClickListener(new BackToMenuButtonClickListener(){
             @Override
             public void mouseButtonClick() {
-                CardLayout cardLayout = (CardLayout)(cardPanel.getLayout());
+                dispose();
+            }
+        });
+
+        leaderboardsPanel.setLeaderboardsBackClickListener(new BackToMenuButtonClickListener() {
+            @Override
+            public void mouseButtonClick() {
+                CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
                 cardLayout.show(cardPanel, "menupanel");
                 pack();
             }
@@ -119,7 +119,7 @@ public class GameWindow extends JFrame {
         leaderboardsPanel.setLeaderboardDataListener(new LeaderboardDataListener() {
             @Override
             public ArrayList<LeaderboardData> getLeaderboardData() {
-                if(gameController != null){
+                if (gameController != null) {
                     return gameController.getLeaderboardData();
                 }
 

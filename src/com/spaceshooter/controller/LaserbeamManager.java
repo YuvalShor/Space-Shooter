@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LaserbeamManager implements ObjectObserver {
-    private List<Laserbeam> laserbeams;
+    private final List<Laserbeam> laserbeams;
 
     public LaserbeamManager() {
         this.laserbeams = new ArrayList<Laserbeam>();
@@ -50,5 +50,9 @@ public class LaserbeamManager implements ObjectObserver {
 
     public void clear() {
         this.laserbeams.clear();
+    }
+
+    public void remove(Laserbeam laser) {
+        laserbeams.remove(laser);
     }
 }

@@ -1,12 +1,9 @@
 package com.spaceshooter.controller;
 
-import com.spaceshooter.controller.FileHandler;
 import com.spaceshooter.model.LeaderboardData;
 
-import java.io.*;
-import java.util.*;
-import java.lang.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class LeaderboardsManager {
     final private String leaderboardFilename = "scores.dat";
@@ -15,7 +12,7 @@ public class LeaderboardsManager {
     public LeaderboardsManager() {
         leaderboardsData = (ArrayList<LeaderboardData>) FileHandler.readObjectFromFile(leaderboardFilename);
 
-        if(leaderboardsData == null){
+        if (leaderboardsData == null) {
             leaderboardsData = new ArrayList<>();
         }
     }
@@ -24,7 +21,7 @@ public class LeaderboardsManager {
         return leaderboardsData;
     }
 
-    public void addUserScore(String username, int score){
+    public void addUserScore(String username, int score) {
         leaderboardsData.add(new LeaderboardData(username, score));
         Collections.sort(leaderboardsData);
         FileHandler.writeObjectToFile(leaderboardsData, leaderboardFilename);

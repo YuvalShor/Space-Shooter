@@ -11,7 +11,7 @@ import java.util.Random;
 public class StarManager {
     private final int NUMBER_OF_STARS = 50;
 
-    private List<Star> stars;
+    private final List<Star> stars;
 
     public StarManager() {
         this.stars = new ArrayList<>(NUMBER_OF_STARS);
@@ -31,13 +31,13 @@ public class StarManager {
         }
     }
 
-    public void onTick(){
+    public void onTick() {
         for (Star star : this.stars) {
             star.onTick();
         }
     }
 
-    public void draw(Graphics graphics){
+    public void draw(Graphics graphics) {
         for (Star star : this.stars) {
             star.draw(graphics);
         }

@@ -9,10 +9,10 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-public class Controller{
-    private GameWindow gameWindow;
+public class Controller {
+    private final GameWindow gameWindow;
     private Game game;
-    private LeaderboardsManager leaderboardsManager;
+    private final LeaderboardsManager leaderboardsManager;
     private Thread thread;
 
     public Controller() {
@@ -22,9 +22,9 @@ public class Controller{
 
     }
 
-    public synchronized void startGame(){
+    public synchronized void startGame() {
         game = new Game(leaderboardsManager);
-        game.gameState = GameState.GameRunning;
+        Game.gameState = GameState.GameRunning;
 
         // game loop in a different thread from UI components.
         thread = new Thread(() -> {
@@ -35,7 +35,7 @@ public class Controller{
             double waitingTime = (1000000000) / amountOfTicks;
             long difference, now;
 
-            while(game.gameState != GameState.GameMenu){
+            while (Game.gameState != GameState.GameMenu) {
                 lastTime = System.nanoTime();
 
                 // prepare the ground
@@ -50,9 +50,9 @@ public class Controller{
 
                 now = System.nanoTime();
                 difference = now - lastTime;
-                if(difference < waitingTime){
+                if (difference < waitingTime) {
                     try {
-                        thread.sleep((long)((waitingTime - difference)/1000000));
+                        Thread.sleep((long) ((waitingTime - difference) / 1000000));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -63,7 +63,7 @@ public class Controller{
         thread.start();
     }
 
-    public void updatePlayerPosition(int playerX, int playerY){
+    public void updatePlayerPosition(int playerX, int playerY) {
         game.updatePlayerPosition(playerX, playerY);
     }
 
@@ -88,7 +88,7 @@ public class Controller{
     }
 
     public boolean attemptStopGame() {
-        if(Game.gameState == GameState.GameOver) {
+        if (Game.gameState == GameState.GameOver) {
             Game.gameState = GameState.GameMenu;
             game.reset();
             return true;

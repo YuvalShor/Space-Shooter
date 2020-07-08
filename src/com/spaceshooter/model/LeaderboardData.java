@@ -3,8 +3,9 @@ package com.spaceshooter.model;
 import java.io.Serializable;
 
 public class LeaderboardData implements Comparable, Serializable {
-    private String username;
-    private int score;
+    private static final long serialVersionUID = 6528965198267757690L;
+    private final String username;
+    private final int score;
 
     public LeaderboardData(String username, int score) {
         this.username = username;
