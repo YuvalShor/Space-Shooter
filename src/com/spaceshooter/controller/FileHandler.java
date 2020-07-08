@@ -17,7 +17,6 @@ public class FileHandler {
         catch(IOException ioe){
             ioe.printStackTrace();
         }
-
     }
 
     public static Object readObjectFromFile(String filename) {

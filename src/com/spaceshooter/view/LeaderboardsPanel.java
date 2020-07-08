@@ -32,8 +32,8 @@ public class LeaderboardsPanel extends JPanel {
     private JPanel tableTitlePanel = new JPanel();
     private JPanel footerPanel = new JPanel();
 
-    private Font tableTitleFont;
     private Font tableFont;
+    private Color tableColor;
     GridBagConstraints gridBagConstraints;
 
     private BackToMenuButtonClickListener backToMenuButtonClickListener;
@@ -104,7 +104,8 @@ public class LeaderboardsPanel extends JPanel {
 
         createScrollPane();
 
-        tableFont = new Font("Arial", Font.BOLD, 20);
+        tableFont = new Font("Helvetica", Font.BOLD, 20);
+        tableColor = new Color(0, 100, 0);
 
         Dimension menuButtonDimension = new Dimension(300, 74);
         backToMenuButton.setPreferredSize(menuButtonDimension);
@@ -190,6 +191,7 @@ public class LeaderboardsPanel extends JPanel {
 
             scoreTable[i] = new JLabel(String.valueOf(currentRow.getScore()));
             scoreTable[i].setFont(tableFont);
+            scoreTable[i].setForeground(tableColor);
             scoreTable[i].setPreferredSize(new Dimension(200, 50));
             scoreTable[i].setHorizontalAlignment(SwingConstants.CENTER);
             gridBagConstraints.gridx = 1;
@@ -198,6 +200,7 @@ public class LeaderboardsPanel extends JPanel {
 
             usernameTable[i] = new JLabel(String.valueOf(currentRow.getUsername()));
             usernameTable[i].setFont(tableFont);
+            usernameTable[i].setForeground(tableColor);
             usernameTable[i].setPreferredSize(new Dimension(200, 50));
             usernameTable[i].setHorizontalAlignment(SwingConstants.CENTER);
             gridBagConstraints.gridx = 0;

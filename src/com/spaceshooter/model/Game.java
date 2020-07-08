@@ -33,28 +33,13 @@ public class Game implements ObjectObserver {
     }
 
     public Game(LeaderboardsManager leaderboardsManager) {
-        gameState = GameState.GameMenu;
-        gameOver = new GameOver();
-        player = Player.createInstance();
-        enemySpaceshipManager = new EnemySpaceshipManager();
-        starManager = new StarManager();
-        explosionManager = new ExplosionManager();
-        hud = new HUD(player, this);
+        instantiateMembers();
+        initializeCreator();
+
         this.leaderboardsManager = leaderboardsManager;
         gameLevel = 10;
-
-        creator.setEnemyManager(this.enemySpaceshipManager);
-        creator.setExplosionManager(this.explosionManager);
-        creator.setPlayerLaserbeamManager(this.player.getLaserbeamManager());
-        creator.setEnemyLaserbeamManager(this.enemySpaceshipManager.getEnemyLaserbeamManager());
-        creator.setPlayer(this.player);
-
         starManager.createStars();
-        enemySpaceshipManager.setObservableObject(this);
         enemySpaceshipManager.createEnemies(gameLevel);
-
-        collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
-
 
         player.setPlayerDeathListener(new PlayerDeathListener() {
             @Override
@@ -63,6 +48,26 @@ public class Game implements ObjectObserver {
                 updateLeaderboard();
             }
         });
+    }
+
+    private void initializeCreator() {
+        creator.setEnemyManager(this.enemySpaceshipManager);
+        creator.setExplosionManager(this.explosionManager);
+        creator.setPlayerLaserbeamManager(this.player.getLaserbeamManager());
+        creator.setEnemyLaserbeamManager(this.enemySpaceshipManager.getEnemyLaserbeamManager());
+        creator.setPlayer(this.player);
+    }
+
+    private void instantiateMembers() {
+        gameState = GameState.GameMenu;
+        gameOver = new GameOver();
+        player = Player.createInstance();
+        enemySpaceshipManager = new EnemySpaceshipManager();
+        starManager = new StarManager();
+        explosionManager = new ExplosionManager();
+        hud = new HUD(player, this);
+        collisionHandler = new CollisionHandler(enemySpaceshipManager, player);
+        enemySpaceshipManager.setObservableObject(this);
     }
 
     public void onTick(){
@@ -119,24 +124,12 @@ public class Game implements ObjectObserver {
         }
     }
 
-    public void pauseGame(){
-
-    }
-
-    public void nextLevel(){
-        gameLevel++;
-    }
-
-    public void addPlayerLaserbeam(){
-
-    }
-
     public void updateLeaderboard(){
         leaderboardsManager.addUserScore(SecurityManager.currentUser, player.getPlayerScore());
     }
 
     public void updatePlayerPosition(int playerX, int playerY) {
-        player.updateSpaceshipPosition(playerX, playerY);
+        player.updateSpaceshipMovement(playerX, playerY);
     }
 
     public void playerMouseClicked() {
@@ -149,10 +142,6 @@ public class Game implements ObjectObserver {
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
-    }
-
-    public long getStartTime() {
-        return startTime;
     }
 
     @Override
