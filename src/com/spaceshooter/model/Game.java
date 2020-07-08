@@ -127,7 +127,7 @@ public class Game implements ObjectObserver {
     }
 
     public void updatePlayerPosition(int playerX, int playerY) {
-        player.updateSpaceshipMovement(playerX, playerY);
+        player.updateSpaceshipPosition(playerX, playerY);
     }
 
     public void playerMouseClicked() {

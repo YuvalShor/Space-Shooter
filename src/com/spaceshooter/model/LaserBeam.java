@@ -7,7 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class LaserBeam extends SpaceObject {
-    private BufferedImage laserbeamImage;
+    private BufferedImage laserBeamImage;
 
     public LaserBeam(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer);
@@ -22,7 +22,7 @@ public class LaserBeam extends SpaceObject {
 
         affineTransform.translate(this.leftBorder(), this.topBorder());
         affineTransform.scale(1, 1);
-        g2d.drawImage(laserbeamImage, affineTransform, null);
+        g2d.drawImage(laserBeamImage, affineTransform, null);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class LaserBeam extends SpaceObject {
     }
 
     public void setImage(BufferedImage imageToSet) {
-        this.laserbeamImage = imageToSet;
+        this.laserBeamImage = imageToSet;
     }
 }

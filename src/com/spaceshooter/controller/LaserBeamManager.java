@@ -12,7 +12,7 @@ public class LaserBeamManager implements ObjectObserver {
     private final List<LaserBeam> laserbeams;
 
     public LaserBeamManager() {
-        this.laserbeams = new ArrayList<LaserBeam>();
+        this.laserbeams = new ArrayList<>();
     }
 
     public void onTick() {
@@ -50,9 +50,5 @@ public class LaserBeamManager implements ObjectObserver {
 
     public void clear() {
         this.laserbeams.clear();
-    }
-
-    public void remove(LaserBeam laser) {
-        laserbeams.remove(laser);
     }
 }
