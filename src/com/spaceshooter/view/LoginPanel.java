@@ -49,6 +49,7 @@ public class LoginPanel extends JPanel {
 
         errorArea = new JTextArea("");
         errorArea.setOpaque(false);
+        errorArea.setEnabled(false);
         errorArea.setWrapStyleWord(true);
         errorArea.setLineWrap(true);
         Font errorFont = new Font("Helvetica", Font.PLAIN, 12);
