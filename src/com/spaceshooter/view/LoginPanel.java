@@ -4,6 +4,7 @@ import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
 import com.spaceshooter.view.listenerInterfaces.LoginPanelLoginButtonClickListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -12,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class LoginPanel extends JPanel {
     private final JTextField userText;
     private final JPasswordField passwordText;
-    private final JLabel errorLabel;
+    private final JTextArea errorArea;
     private final JButton loginButton;
     private final JButton cancelButton;
     private LoginPanelLoginButtonClickListener loginButtonClickListener;
@@ -22,7 +23,7 @@ public class LoginPanel extends JPanel {
         setLayout(null);
         setVisible(true);
 
-        JLabel userLabel = new JLabel("User");
+        JLabel userLabel = new JLabel("Username");
         userLabel.setBounds(10, 20, 80, 25);
         add(userLabel);
 
@@ -39,16 +40,22 @@ public class LoginPanel extends JPanel {
         add(userText);
 
         loginButton = new JButton("Login");
-        loginButton.setBounds(10, 80, 80, 25);
+        loginButton.setBounds(10, 80, 90, 25);
         add(loginButton);
 
         cancelButton = new JButton("Cancel");
-        cancelButton.setBounds((int) (loginButton.getBounds().getWidth() + 20), 80, 80, 25);
+        cancelButton.setBounds((int) (loginButton.getBounds().getWidth() + 20), 80, 90, 25);
         add(cancelButton);
 
-        errorLabel = new JLabel("");
-        errorLabel.setBounds(10, 110, 500, 25);
-        add(errorLabel);
+        errorArea = new JTextArea("");
+        errorArea.setOpaque(false);
+        errorArea.setWrapStyleWord(true);
+        errorArea.setLineWrap(true);
+        Font errorFont = new Font("Helvetica", Font.PLAIN, 12);
+        errorArea.setFont(errorFont);
+        errorArea.setForeground(Color.RED);
+        errorArea.setBounds(10, 120, 270, 50);
+        add(errorArea);
 
         addComponentListeners();
     }
@@ -64,7 +71,7 @@ public class LoginPanel extends JPanel {
                     try {
                         loginButtonClickListener.loginButtonClick(username, password);
                     } catch (Exception exception) {
-                        errorLabel.setText(exception.getMessage());
+                        errorArea.setText(exception.getMessage());
                     }
                 }
             }

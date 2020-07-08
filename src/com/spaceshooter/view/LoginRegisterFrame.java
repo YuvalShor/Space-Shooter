@@ -19,7 +19,7 @@ public class LoginRegisterFrame extends JFrame {
 
         setFrameIcon();
 
-        setPreferredSize(new Dimension(500, 180));
+        setPreferredSize(new Dimension(290, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);

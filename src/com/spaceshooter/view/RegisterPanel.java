@@ -4,50 +4,57 @@ import com.spaceshooter.view.listenerInterfaces.CancelButtonClickListener;
 import com.spaceshooter.view.listenerInterfaces.RegisterPanelRegisterButtonClickListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegisterPanel extends JPanel {
-    private static JTextField usertText;
+    private static JTextField userText;
     private static JPasswordField passwordText;
     private static JLabel userLabel, passwordLabel;
+    private final JTextArea errorArea;
     private static JButton registerButton, cancelButton;
     private RegisterPanelRegisterButtonClickListener registerButtonListener;
     private CancelButtonClickListener cancelButtonListener;
 
     public RegisterPanel() {
-
-        setBorder(BorderFactory.createTitledBorder("User not found. You must register first"));
         setLayout(null);
 
-        usertText = new JTextField(20);
-        usertText.setBounds(100, 20, 165, 25);
-        add(usertText);
-
-        passwordText = new JPasswordField(20);
-        passwordText.setBounds(100, 60, 165, 25);
-        add(passwordText);
-
-
         userLabel = new JLabel("Username");
-        userLabel.setBounds(10, 20, 80, 25);//padding
+        userLabel.setBounds(10, 20, 80, 25);
         add(userLabel);
 
         passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 60, 80, 25);//padding
+        passwordLabel.setBounds(10, 50, 80, 25);//padding
         add(passwordLabel);
 
-        registerButton = new JButton();
-        registerButton.setText("Register");
-        registerButton.setBounds(10, 100, 100, 25);
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(100, 50, 165, 25);
+        add(passwordText);
+
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        add(userText);
+
+        registerButton = new JButton("Register");
+        registerButton.setBounds(10, 80, 90, 25);
+        add(registerButton);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setBounds((int) (registerButton.getBounds().getWidth() + 20), 80, 90, 25);
+        add(cancelButton);
 
         add(registerButton);
 
-        cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setBounds(120, 100, 140, 25);
-        add(cancelButton);
-        setVisible(true);
+        errorArea = new JTextArea("User not found. You must register first");
+        errorArea.setOpaque(false);
+        errorArea.setWrapStyleWord(true);
+        errorArea.setLineWrap(true);
+        Font errorFont = new Font("Helvetica", Font.PLAIN, 12);
+        errorArea.setFont(errorFont);
+        errorArea.setForeground(Color.RED);
+        errorArea.setBounds(10, 120, 270, 50);
+        add(errorArea);
 
         createComponentListeners();
     }
@@ -57,12 +64,12 @@ public class RegisterPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (registerButtonListener != null) {
-                    String username = usertText.getText();
+                    String username = userText.getText();
                     String password = new String(passwordText.getPassword());
                     try {
                         registerButtonListener.registerButtonClicked(username, password);
                     } catch (Exception exception) {
-                        setBorder(BorderFactory.createTitledBorder(exception.getMessage()));
+                        errorArea.setText(exception.getMessage());
                     }
                 }
             }
