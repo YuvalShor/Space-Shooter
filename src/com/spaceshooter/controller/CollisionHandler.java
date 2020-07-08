@@ -17,6 +17,7 @@ public class CollisionHandler {
     public void onTick() {
         LaserBeamManager playerLaserBeamManager = player.getLaserBeamManager();
         LaserBeamManager enemyLaserBeamsManager = enemyManager.getEnemyLaserBeamManager();
+
         LaserBeam[] playerLaserBeams = playerLaserBeamManager.getLasers().toArray(
                 new LaserBeam[playerLaserBeamManager.getLasers().size()]);
         LaserBeam[] enemyLaserBeams = enemyLaserBeamsManager.getLasers().toArray(
