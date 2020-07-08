@@ -37,7 +37,7 @@ public class Game implements ObjectObserver {
         initializeCreator();
 
         this.leaderboardsManager = leaderboardsManager;
-        gameLevel = 10;
+        gameLevel = 1;
         starManager.createStars();
         enemySpaceshipManager.createEnemies(gameLevel);
 
@@ -149,7 +149,7 @@ public class Game implements ObjectObserver {
         player.addScore(10);
 
         if(enemySpaceshipManager.isFleetAnnihilated()){
-            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000;
+            float minutesTookToFinishRound = (System.currentTimeMillis() - startTime)/1000f;
             int scoreToAdd = (int) ((1/minutesTookToFinishRound) * gameLevel * 100);
 
             player.addScore(scoreToAdd);
@@ -157,7 +157,7 @@ public class Game implements ObjectObserver {
             startTime = System.currentTimeMillis();
 
             if(gameLevel == MAX_LEVEL){
-                creator.createSpaceObject("boss", Game.WIDTH/2, Game.HEIGHT / 4);
+                creator.createSpaceObject("boss", Game.WIDTH/2f, Game.HEIGHT / 4f);
                 gameLevel++;
             }
             else{
@@ -170,10 +170,6 @@ public class Game implements ObjectObserver {
                 updateLeaderboard();
             }
         }
-    }
-
-    public ArrayList<LeaderboardData> getLeaderboardData() {
-        return leaderboardsManager.getLeaderboardsData();
     }
 
     public void reset() {

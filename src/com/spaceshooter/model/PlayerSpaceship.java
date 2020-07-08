@@ -3,23 +3,16 @@ package com.spaceshooter.model;
 import com.spaceshooter.view.ImageHandler;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class PlayerSpaceship extends SpaceObject{
-    public static int count;
+    public static int count = 0;
     private static PlayerSpaceship instance;
     private BufferedImage playerSpaceshipImage;
-    private int spaceshipSpeed;
-    private float toX;
-    private float toY;
 
     private PlayerSpaceship(int x, int y, int width, int height) {
         super(x, y, width, height);
         count = 1;
-        this.moveX = 0;
-        this.moveY = 0;
-        spaceshipSpeed = 1000;
         playerSpaceshipImage = ImageHandler.getPlayerSpaceshipImage();
     }
 
@@ -33,19 +26,18 @@ public class PlayerSpaceship extends SpaceObject{
     }
 
     public static synchronized PlayerSpaceship createInstance() {
-        if (count == 1) {
-            return instance;
-        }
-        else {
+        if (count == 0) {
             int halfWidthOfScreen = Game.WIDTH/2;
             int bottomOfScreen = Game.HEIGHT - 100;
             int widthOfSpaceship = 75, heightOfSpaceship = 50;
-            return new PlayerSpaceship(halfWidthOfScreen, bottomOfScreen, widthOfSpaceship, heightOfSpaceship);
+            instance = new PlayerSpaceship(halfWidthOfScreen, bottomOfScreen, widthOfSpaceship, heightOfSpaceship);
         }
+
+        return instance;
     }
 
     public void reset(){
-        this.x = Game.WIDTH / 2;
+        this.x = Game.WIDTH / 2f;
         this.y = Game.HEIGHT - 100;
     }
 
