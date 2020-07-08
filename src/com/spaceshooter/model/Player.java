@@ -50,7 +50,7 @@ public class Player {
         return playerScore;
     }
 
-    public void updateSpaceshipMovement(int playerSpaceshipX, int playerSpaceshipY) {
+    public void updateSpaceshipPosition(int playerSpaceshipX, int playerSpaceshipY) {
         playerSpaceship.setX(playerSpaceshipX);
         playerSpaceship.setY(playerSpaceshipY);
         playerSpaceship.onTick();
@@ -64,10 +64,6 @@ public class Player {
                 laserbeamY);
         Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth * 0.88f,
                 laserbeamY);
-    }
-
-    public List<LaserBeam> getPlayerLaserBeamManager() {
-        return this.playerLaserBeamManager.getLasers();
     }
 
     public LaserBeamManager getLaserBeamManager() {
@@ -90,8 +86,8 @@ public class Player {
         return this.playerHealth;
     }
 
-    public void hit(int hitpoints) {
-        this.playerHealth -= hitpoints;
+    public void hit(int hitPoints) {
+        this.playerHealth -= hitPoints;
     }
 
     public void addScore(int scoreToAdd) {

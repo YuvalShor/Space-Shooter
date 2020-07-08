@@ -39,7 +39,7 @@ public class CollisionHandler {
         for (LaserBeam laser : enemyLaserBeams) {
             if (laser.intersects(playerSpaceship)) {
                 player.hit(2);
-                enemyLaserBeamsManager.remove(laser);
+                laser.notifyObserver();
             }
         }
 
