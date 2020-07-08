@@ -11,7 +11,7 @@ import java.awt.image.BufferStrategy;
 
 public class GamePanel extends JPanel {
 
-    private Canvas gameCanvas;
+    private final Canvas gameCanvas;
     private GamePanelMouseMovementListener gamePanelMouseMovementListener;
     private GamePanelMouseClickListener gamePanelMouseClickListener;
     private GamePanelKeyInputListener gamePanelKeyInputListener;
@@ -46,14 +46,14 @@ public class GamePanel extends JPanel {
         gameCanvas.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                if(gamePanelMouseMovementListener != null) {
+                if (gamePanelMouseMovementListener != null) {
                     gamePanelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
                 }
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(gamePanelMouseMovementListener != null) {
+                if (gamePanelMouseMovementListener != null) {
                     gamePanelMouseMovementListener.mouseMovedInPanel(e.getX(), e.getY());
                 }
             }
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel {
         gameCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(gamePanelMouseClickListener != null){
+                if (gamePanelMouseClickListener != null) {
                     gamePanelMouseClickListener.mouseClickedOnPanel();
                 }
             }
@@ -71,8 +71,8 @@ public class GamePanel extends JPanel {
         gameCanvas.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == MouseEvent.BUTTON1){
-                    if(gamePanelKeyInputListener != null){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == MouseEvent.BUTTON1) {
+                    if (gamePanelKeyInputListener != null) {
                         gamePanelKeyInputListener.enterKeyPressed();
                     }
                 }
@@ -80,7 +80,7 @@ public class GamePanel extends JPanel {
         });
     }
 
-    public void setGamePanelMouseMovementListener(GamePanelMouseMovementListener gamePanelMouseMovementListener){
+    public void setGamePanelMouseMovementListener(GamePanelMouseMovementListener gamePanelMouseMovementListener) {
         this.gamePanelMouseMovementListener = gamePanelMouseMovementListener;
     }
 
@@ -88,7 +88,7 @@ public class GamePanel extends JPanel {
         this.gamePanelMouseClickListener = gamePanelMouseClickListener;
     }
 
-    public BufferStrategy getCanvasBufferStrategy(){
+    public BufferStrategy getCanvasBufferStrategy() {
         return gameCanvas.getBufferStrategy();
     }
 

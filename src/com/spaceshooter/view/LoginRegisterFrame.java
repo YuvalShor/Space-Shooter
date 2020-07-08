@@ -8,15 +8,15 @@ import com.spaceshooter.view.listenerInterfaces.RegisterPanelRegisterButtonClick
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginRegisterFrame extends JFrame{
+public class LoginRegisterFrame extends JFrame {
     private Controller controller;
-    private LoginPanel loginPanel;
-    private RegisterPanel registerPanel;
+    private final LoginPanel loginPanel;
+    private final RegisterPanel registerPanel;
 
-    public LoginRegisterFrame()  {
+    public LoginRegisterFrame() {
         setTitle("Login");
 
-        setPreferredSize(new Dimension(500,180));
+        setPreferredSize(new Dimension(500, 180));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
@@ -34,7 +34,7 @@ public class LoginRegisterFrame extends JFrame{
         registerPanel.setRegisterButtonListener(new RegisterPanelRegisterButtonClickListener() {
             @Override
             public void registerButtonClicked(String username, String password) throws Exception {
-                if(controller != null){
+                if (controller != null) {
                     controller.register(username, password);
                     dispose();
                     controller.startGameWindow();
@@ -45,7 +45,7 @@ public class LoginRegisterFrame extends JFrame{
         registerPanel.setCancelButtonListener(new CancelButtonClickListener() {
             @Override
             public void mouseCancelButtonClick() {
-                if(controller != null) {
+                if (controller != null) {
                     dispose();
                     System.exit(0);
                 }
@@ -55,13 +55,12 @@ public class LoginRegisterFrame extends JFrame{
         loginPanel.setLoginButtonClickListener(new LoginPanelLoginButtonClickListener() {
             @Override
             public void loginButtonClick(String username, String password) throws Exception {
-                if(controller.login(username, password)){
-                    if(controller != null) {
+                if (controller.login(username, password)) {
+                    if (controller != null) {
                         dispose();
                         controller.startGameWindow();
                     }
-                }
-                else{
+                } else {
                     setContentPane(registerPanel);
                     setTitle("Register");
                     pack();

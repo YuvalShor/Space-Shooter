@@ -10,7 +10,7 @@ public class Player {
     private int playerScore;
     private int playerHealth;
     private LaserbeamManager playerLaserbeamManager;
-    private PlayerSpaceship playerSpaceship;
+    private final PlayerSpaceship playerSpaceship;
     private static final Player instance = new Player();
     private PlayerDeathListener playerDeathListener;
 
@@ -21,7 +21,7 @@ public class Player {
         playerLaserbeamManager = new LaserbeamManager();
     }
 
-    public static Player createInstance(){
+    public static Player createInstance() {
         return instance;
     }
 
@@ -32,10 +32,10 @@ public class Player {
     }
 
     private void checkIfDead() {
-        if(this.playerHealth <= 0){
+        if (this.playerHealth <= 0) {
             Game.creator.createSpaceObject("smallexplosion", this.playerSpaceship.getX(), this.playerSpaceship.getY());
 
-            if(playerDeathListener != null){
+            if (playerDeathListener != null) {
                 playerDeathListener.onPlayerDeath();
             }
         }
@@ -50,7 +50,7 @@ public class Player {
         return playerScore;
     }
 
-    public void updateSpaceshipMovement(int playerSpaceshipX,int playerSpaceshipY){
+    public void updateSpaceshipMovement(int playerSpaceshipX, int playerSpaceshipY) {
         playerSpaceship.setX(playerSpaceshipX);
         playerSpaceship.setY(playerSpaceshipY);
         playerSpaceship.onTick();
@@ -60,8 +60,10 @@ public class Player {
         float playerSpaceshipWidth = playerSpaceship.width;
         float laserbeamY = playerSpaceship.topBorder();
 
-        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth*0.09f, laserbeamY);
-        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth*0.88f, laserbeamY);
+        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth * 0.09f,
+                laserbeamY);
+        Game.creator.createSpaceObject("playerlaserbeam", playerSpaceship.leftBorder() + playerSpaceshipWidth * 0.88f,
+                laserbeamY);
     }
 
     public List<Laserbeam> getPlayerLaserbeamManager() {
@@ -96,7 +98,7 @@ public class Player {
         this.playerScore += scoreToAdd;
     }
 
-    public void reset(){
+    public void reset() {
         playerSpaceship.reset();
         playerScore = 0;
         playerHealth = 100;

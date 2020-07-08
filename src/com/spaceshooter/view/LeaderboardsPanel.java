@@ -17,20 +17,26 @@ public class LeaderboardsPanel extends JPanel {
 
     private final JButton backToMenuButton = new JButton();
     private final ImageHandler imageHandler = new ImageHandler();
-    private final BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage("/com/spaceshooter/view/images/menuBackground.jpg");
-    private final JLabel leaderboardsTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/leaderboardsTitle.png"));
-    private final JLabel usernameTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/usernameTitle.png"));
-    private final JLabel scoreTitle = new JLabel(imageHandler.CreateIcon("/com/spaceshooter/view/images/scoreTitle.png"));
-    private final ImageIcon backToMenuButtonIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/backToMenuButton.png");
-    private final ImageIcon backToMenuButtonOpaqueIcon = imageHandler.CreateIcon("/com/spaceshooter/view/images/backToMenuButton_Opaque.png");
+    private final BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage(
+            "/com/spaceshooter/view/images/menuBackground.jpg");
+    private final JLabel leaderboardsTitle = new JLabel(
+            imageHandler.CreateIcon("/com/spaceshooter/view/images/leaderboardsTitle.png"));
+    private final JLabel usernameTitle = new JLabel(
+            imageHandler.CreateIcon("/com/spaceshooter/view/images/usernameTitle.png"));
+    private final JLabel scoreTitle = new JLabel(
+            imageHandler.CreateIcon("/com/spaceshooter/view/images/scoreTitle.png"));
+    private final ImageIcon backToMenuButtonIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/backToMenuButton.png");
+    private final ImageIcon backToMenuButtonOpaqueIcon = imageHandler.CreateIcon(
+            "/com/spaceshooter/view/images/backToMenuButton_Opaque.png");
 
     private JLabel[] scoreTable;
     private JLabel[] usernameTable;
 
-    private JPanel headerPanel = new JPanel();
-    private JPanel tablePanel = new JPanel();
-    private JPanel tableTitlePanel = new JPanel();
-    private JPanel footerPanel = new JPanel();
+    private final JPanel headerPanel = new JPanel();
+    private final JPanel tablePanel = new JPanel();
+    private final JPanel tableTitlePanel = new JPanel();
+    private final JPanel footerPanel = new JPanel();
 
     private Font tableFont;
     private Color tableColor;
@@ -147,7 +153,7 @@ public class LeaderboardsPanel extends JPanel {
     }
 
     private ArrayList<LeaderboardData> getLeaderboardFromMainWindow() {
-        if(leaderboardDataListener != null){
+        if (leaderboardDataListener != null) {
             return leaderboardDataListener.getLeaderboardData();
         }
 
@@ -169,8 +175,7 @@ public class LeaderboardsPanel extends JPanel {
 
         if (leaderboardScoreTable != null) {
             numOfLeaderboardsUsers = leaderboardScoreTable.size() + 1;
-        }
-        else{
+        } else {
             numOfLeaderboardsUsers = 1;
         }
 

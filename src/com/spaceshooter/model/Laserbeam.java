@@ -30,7 +30,7 @@ public class Laserbeam extends SpaceObject {
         this.x += this.moveX;
         this.y += this.moveY;
 
-        if(!isWithinBorders()){
+        if (!isWithinBorders()) {
             notifyObserver();
         }
     }
@@ -40,7 +40,7 @@ public class Laserbeam extends SpaceObject {
         this.observer.objectStateChanged(this);
     }
 
-    public void calculateDirection(float x, float y){
+    public void calculateDirection(float x, float y) {
         double distanceX = x - this.x;
         double distanceY = y - this.y;
         double realDistance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
@@ -49,7 +49,7 @@ public class Laserbeam extends SpaceObject {
         this.moveY = (float) (distanceY / realDistance);
     }
 
-    public void setImage(BufferedImage imageToSet){
+    public void setImage(BufferedImage imageToSet) {
         this.laserbeamImage = imageToSet;
     }
 }

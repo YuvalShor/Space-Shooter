@@ -3,7 +3,7 @@ package com.spaceshooter.model;
 import java.awt.*;
 import java.util.Random;
 
-public class Star extends SpaceObject{
+public class Star extends SpaceObject {
 
     public Star(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -11,7 +11,7 @@ public class Star extends SpaceObject{
         this.moveY = 1;
 
     }
-  
+
     @Override
     public void draw(Graphics graphics) {
         graphics.setColor(Color.WHITE);
@@ -22,7 +22,7 @@ public class Star extends SpaceObject{
     public void onTick() {
         this.y += this.moveY;
 
-        if (this.y > Game.HEIGHT){
+        if (this.y > Game.HEIGHT) {
             restartPosition();
         }
     }

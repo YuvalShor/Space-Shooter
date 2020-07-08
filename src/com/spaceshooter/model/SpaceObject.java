@@ -44,22 +44,23 @@ public abstract class SpaceObject implements ObservableObject {
         this.moveY = moveY;
     }
 
-    public abstract  void draw(Graphics graphics);
-    public abstract  void onTick();
+    public abstract void draw(Graphics graphics);
 
-    public float leftBorder(){
+    public abstract void onTick();
+
+    public float leftBorder() {
         return this.x - this.width / 2f;
     }
 
-    public float rightBorder(){
+    public float rightBorder() {
         return this.x + this.width / 2f;
     }
 
-    public float topBorder(){
+    public float topBorder() {
         return this.y - this.height / 2f;
     }
 
-    public float bottomBorder(){
+    public float bottomBorder() {
         return this.y + this.height / 2f;
     }
 
@@ -67,7 +68,7 @@ public abstract class SpaceObject implements ObservableObject {
         return x;
     }
 
-    public  void setX(float x) {
+    public void setX(float x) {
         this.x = x;
     }
 
@@ -75,7 +76,7 @@ public abstract class SpaceObject implements ObservableObject {
         return y;
     }
 
-    public  void setY(float y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -95,31 +96,31 @@ public abstract class SpaceObject implements ObservableObject {
         this.height = height;
     }
 
-    protected void assureObjectWithinBorders(){
-        if(this.leftBorder() < 0){
-            this.x = this.width/2f;
+    protected void assureObjectWithinBorders() {
+        if (this.leftBorder() < 0) {
+            this.x = this.width / 2f;
         }
 
-        if(this.rightBorder() > Game.WIDTH){
-            this.x = Game.WIDTH - this.width/2f;
+        if (this.rightBorder() > Game.WIDTH) {
+            this.x = Game.WIDTH - this.width / 2f;
         }
 
-        if(this.topBorder() < 0){
-            this.y = this.height/2f;
+        if (this.topBorder() < 0) {
+            this.y = this.height / 2f;
         }
 
-        if(this.bottomBorder() > Game.HEIGHT){
-            this.y = Game.HEIGHT - this.height/2f;
+        if (this.bottomBorder() > Game.HEIGHT) {
+            this.y = Game.HEIGHT - this.height / 2f;
         }
     }
 
-    public boolean isWithinBorders(){
+    public boolean isWithinBorders() {
         boolean isWithinBorders = true;
 
-        if(this.leftBorder() < 0 ||
+        if (this.leftBorder() < 0 ||
                 this.rightBorder() > Game.WIDTH ||
                 this.topBorder() < 0 ||
-                this.bottomBorder() > Game.HEIGHT){
+                this.bottomBorder() > Game.HEIGHT) {
 
             isWithinBorders = false;
         }
@@ -127,14 +128,14 @@ public abstract class SpaceObject implements ObservableObject {
         return isWithinBorders;
     }
 
-    public boolean intersects(SpaceObject other){
+    public boolean intersects(SpaceObject other) {
         boolean areObjectsIntersecting = false;
 
         // interval intersection with x
-        if(this.rightBorder() >= other.leftBorder() && this.leftBorder() <= other.rightBorder()){
+        if (this.rightBorder() >= other.leftBorder() && this.leftBorder() <= other.rightBorder()) {
 
             // interval intersection with y
-            if(this.bottomBorder() >= other.topBorder() && this.topBorder() <= other.bottomBorder()){
+            if (this.bottomBorder() >= other.topBorder() && this.topBorder() <= other.bottomBorder()) {
                 areObjectsIntersecting = true;
             }
         }

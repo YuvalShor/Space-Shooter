@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class ExplosionManager implements ObjectObserver {
-    private List<Explosion> explosionList;
+    private final List<Explosion> explosionList;
 
     public ExplosionManager() {
         explosionList = new ArrayList<Explosion>();
@@ -33,13 +33,13 @@ public class ExplosionManager implements ObjectObserver {
     }
 
 
-    private void removeExplosion(Explosion explosion) {
+    public void removeExplosion(Explosion explosion) {
         this.explosionList.remove(explosion);
     }
 
     @Override
     public void objectStateChanged(ObservableObject observable) {
-        removeExplosion((Explosion)observable);
+        removeExplosion((Explosion) observable);
     }
 
     public void addExplosion(Explosion explosionToAdd) {

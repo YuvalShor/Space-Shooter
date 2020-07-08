@@ -3,10 +3,11 @@ package com.spaceshooter.model;
 import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.view.ImageHandler;
 
-public class BossSpaceship extends EnemySpaceship{
+public class BossSpaceship extends EnemySpaceship {
     private int frame;
     private final int numberOfEnergyBalls = 15;
     private final int distanceBetweenEnergyBalls;
+
     public BossSpaceship(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer, 1000);
         this.health = 1000;
@@ -29,23 +30,22 @@ public class BossSpaceship extends EnemySpaceship{
     private void moveTowardsPlayer() {
         Player player = Player.createInstance(); // singleton
 
-        if(frame % 60 == 0) {
-           if(this.x < player.spaceshipX()){
-               this.moveX = 1;
-           }
-           else{
-               this.moveX = -1;
-           }
+        if (frame % 60 == 0) {
+            if (this.x < player.spaceshipX()) {
+                this.moveX = 1;
+            } else {
+                this.moveX = -1;
+            }
         }
     }
 
     private void checkIfDestroyed() {
-        if(this.health <= 0){
+        if (this.health <= 0) {
             int explosionWidth = Game.creator.getBigExplosionWidth();
 
-            Game.creator.createSpaceObject("bigexplosion",this.leftBorder() + explosionWidth/8, this.y );
-            Game.creator.createSpaceObject("bigexplosion", this.x, this.y );
-            Game.creator.createSpaceObject("bigexplosion", this.rightBorder() - explosionWidth/8 , this.y);
+            Game.creator.createSpaceObject("bigexplosion", this.leftBorder() + explosionWidth / 8, this.y);
+            Game.creator.createSpaceObject("bigexplosion", this.x, this.y);
+            Game.creator.createSpaceObject("bigexplosion", this.rightBorder() - explosionWidth / 8, this.y);
 
             notifyObserver();
         }

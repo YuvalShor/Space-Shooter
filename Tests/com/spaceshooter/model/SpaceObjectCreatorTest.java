@@ -13,9 +13,7 @@ class SpaceObjectCreatorTest {
         EnemySpaceshipManager enemySpaceshipManager = new EnemySpaceshipManager();
 
         creator.setPlayer(player);
-        creator.setPlayerLaserbeamManager(player.getLaserbeamManager());
         creator.setEnemyManager(enemySpaceshipManager);
-        creator.setEnemyLaserbeamManager(enemySpaceshipManager.getEnemyLaserbeamManager());
         creator.setExplosionManager(new ExplosionManager());
     }
 
