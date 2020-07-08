@@ -25,12 +25,9 @@ public class GamePanel extends JPanel {
         gameCanvas.setMaximumSize(dimension);
 
         setRequestFocusEnabled(true);
-
         setLayout(new BorderLayout());
         add(gameCanvas, BorderLayout.CENTER);
-
         hideCursor();
-
         addPanelListeners();
     }
 

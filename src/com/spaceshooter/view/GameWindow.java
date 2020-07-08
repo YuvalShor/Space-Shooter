@@ -19,32 +19,34 @@ public class GameWindow extends JFrame {
     private final JPanel cardPanel;
 
     public GameWindow(int width, int height) {
-        setTitle("Space Shooter");
-        setFrameIcon();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(false);
-
-        setLayout(new BorderLayout());
+        initializeGameWindowSettings();
 
         cardPanel = new JPanel();
-        cardPanel.setLayout(new CardLayout());
-
         menuPanel = new MenuPanel(width, height);
         gamePanel = new GamePanel(width, height);
         leaderboardsPanel = new LeaderboardsPanel(width, height);
 
+        cardPanel.setLayout(new CardLayout());
         cardPanel.add(gamePanel, "gamepanel");
         cardPanel.add(menuPanel, "menupanel");
         cardPanel.add(leaderboardsPanel, "leaderboardpanel");
 
         add(cardPanel, BorderLayout.CENTER);
-
         pack();
+
         addListeners();
 
         CardLayout cardLayout = (CardLayout) (cardPanel.getLayout());
         cardLayout.show(cardPanel, "menupanel");
+    }
+
+    private void initializeGameWindowSettings() {
+        setTitle("Space Shooter");
+        setFrameIcon();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(false);
+        setLayout(new BorderLayout());
     }
 
     public void setController(Controller gameController) {
