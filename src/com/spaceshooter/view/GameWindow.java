@@ -7,6 +7,7 @@ import com.spaceshooter.view.listenerInterfaces.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class GameWindow extends JFrame {
@@ -15,10 +16,11 @@ public class GameWindow extends JFrame {
     private final MenuPanel menuPanel;
     private final GamePanel gamePanel;
     private final LeaderboardsPanel leaderboardsPanel;
-    final private JPanel cardPanel;
+    private final JPanel cardPanel;
 
     public GameWindow(int width, int height) {
         setTitle("Space Shooter");
+        setFrameIcon();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(false);
@@ -131,5 +133,11 @@ public class GameWindow extends JFrame {
 
     public BufferStrategy getGamePanelCanvasBufferStrategy() {
         return gamePanel.getCanvasBufferStrategy();
+    }
+
+    private void setFrameIcon() {
+        URL iconURL = getClass().getResource("/com/spaceshooter/view/images/playerSpaceship.png");
+        ImageIcon icon = new ImageIcon(iconURL);
+        setIconImage(icon.getImage());
     }
 }

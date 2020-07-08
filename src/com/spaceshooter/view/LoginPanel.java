@@ -10,10 +10,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class LoginPanel extends JPanel {
-    private final JTextField usertText;
+    private final JTextField userText;
     private final JPasswordField passwordText;
-    private final JLabel userLabel;
-    private final JLabel passwordLabel;
     private final JLabel errorLabel;
     private final JButton loginButton;
     private final JButton cancelButton;
@@ -21,15 +19,14 @@ public class LoginPanel extends JPanel {
     private CancelButtonClickListener cancelButtonClickListener;
 
     public LoginPanel() {
-        //setBorder(BorderFactory.createTitledBorder("Login"));
         setLayout(null);
         setVisible(true);
 
-        userLabel = new JLabel("User");
+        JLabel userLabel = new JLabel("User");
         userLabel.setBounds(10, 20, 80, 25);
         add(userLabel);
 
-        passwordLabel = new JLabel("Password");
+        JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 50, 80, 25);//padding
         add(passwordLabel);
 
@@ -37,9 +34,9 @@ public class LoginPanel extends JPanel {
         passwordText.setBounds(100, 50, 165, 25);
         add(passwordText);
 
-        usertText = new JTextField(20);
-        usertText.setBounds(100, 20, 165, 25);
-        add(usertText);
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        add(userText);
 
         loginButton = new JButton("Login");
         loginButton.setBounds(10, 80, 80, 25);
@@ -61,7 +58,7 @@ public class LoginPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (loginButtonClickListener != null) {
-                    String username = usertText.getText();
+                    String username = userText.getText();
                     String password = new String(passwordText.getPassword());
 
                     try {

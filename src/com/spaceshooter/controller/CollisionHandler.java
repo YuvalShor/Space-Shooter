@@ -1,7 +1,7 @@
 package com.spaceshooter.controller;
 
 import com.spaceshooter.model.EnemySpaceship;
-import com.spaceshooter.model.Laserbeam;
+import com.spaceshooter.model.LaserBeam;
 import com.spaceshooter.model.Player;
 import com.spaceshooter.model.PlayerSpaceship;
 
@@ -15,15 +15,15 @@ public class CollisionHandler {
     }
 
     public void onTick() {
-        LaserbeamManager playerLaserbeamManager = player.getLaserbeamManager();
-        LaserbeamManager enemyLaserbeamsManager = enemyManager.getEnemyLaserbeamManager();
-        Laserbeam[] playerLaserbeams = playerLaserbeamManager.getLasers().toArray(
-                new Laserbeam[playerLaserbeamManager.getLasers().size()]);
-        Laserbeam[] enemyLaserbeams = enemyLaserbeamsManager.getLasers().toArray(
-                new Laserbeam[enemyLaserbeamsManager.getLasers().size()]);
+        LaserBeamManager playerLaserBeamManager = player.getLaserBeamManager();
+        LaserBeamManager enemyLaserBeamsManager = enemyManager.getEnemyLaserBeamManager();
+        LaserBeam[] playerLaserBeams = playerLaserBeamManager.getLasers().toArray(
+                new LaserBeam[playerLaserBeamManager.getLasers().size()]);
+        LaserBeam[] enemyLaserBeams = enemyLaserBeamsManager.getLasers().toArray(
+                new LaserBeam[enemyLaserBeamsManager.getLasers().size()]);
 
         // player laserbeams intersection with enemy spaceships
-        for (Laserbeam laser : playerLaserbeams) {
+        for (LaserBeam laser : playerLaserBeams) {
 
             for (EnemySpaceship enemy : enemyManager.getEnemySpaceships()) {
                 if (laser.intersects(enemy)) {
@@ -36,10 +36,10 @@ public class CollisionHandler {
         PlayerSpaceship playerSpaceship = player.getPlayerSpaceship();
 
         // enemy laserbeams intersection with player spaceship
-        for (Laserbeam laser : enemyLaserbeams) {
+        for (LaserBeam laser : enemyLaserBeams) {
             if (laser.intersects(playerSpaceship)) {
                 player.hit(2);
-                enemyLaserbeamsManager.remove(laser);
+                enemyLaserBeamsManager.remove(laser);
             }
         }
 

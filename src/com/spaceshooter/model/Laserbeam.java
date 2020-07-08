@@ -6,10 +6,10 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public class Laserbeam extends SpaceObject {
+public class LaserBeam extends SpaceObject {
     private BufferedImage laserbeamImage;
 
-    public Laserbeam(float x, float y, int width, int height, ObjectObserver observer) {
+    public LaserBeam(float x, float y, int width, int height, ObjectObserver observer) {
         super(x, y, width, height, observer);
         this.moveY = -5;
     }

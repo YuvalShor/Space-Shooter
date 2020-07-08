@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class SpaceObjectCreator implements SpaceObjectFactory {
 
-    private final int playerLaserbeamWidth = 3;
-    private final int playerLaserbeamHeight = 32;
+    private final int playerLaserBeamWidth = 3;
+    private final int playerLaserBeamHeight = 32;
     private final int enemyEnergyBallWidth = 8;
     private final int enemyEnergyBallHeight = 8;
     private final int starWidth = 2;
@@ -36,9 +36,9 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         } else if (nameOfObject == "enemyspaceship") {
             spaceObjectToCreate = createEnemySpaceship(objectX, objectY);
         } else if (nameOfObject == "enemylaserbeam") {
-            spaceObjectToCreate = createEnemyLaserbeam(objectX, objectY);
+            spaceObjectToCreate = createEnemyLaserBeam(objectX, objectY);
         } else if (nameOfObject == "playerlaserbeam") {
-            spaceObjectToCreate = createPlayerLaserbeam(objectX, objectY);
+            spaceObjectToCreate = createPlayerLaserBeam(objectX, objectY);
         } else if (nameOfObject == "star") {
             spaceObjectToCreate = createStar(objectX, objectY);
         } else if (nameOfObject == "smallexplosion") {
@@ -69,25 +69,25 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         return PlayerSpaceship.createInstance();
     }
 
-    private Laserbeam createPlayerLaserbeam(float laserX, float laserY) {
-        BufferedImage playerLaserbeamImage = ImageHandler.getPlayerLaserbeamImage();
-        Laserbeam playerLaserbeam = new Laserbeam(laserX, laserY, playerLaserbeamWidth, playerLaserbeamHeight,
-                player.getLaserbeamManager());
-        playerLaserbeam.setImage(playerLaserbeamImage);
-        player.getLaserbeamManager().addLaserbeam(playerLaserbeam);
+    private LaserBeam createPlayerLaserBeam(float laserX, float laserY) {
+        BufferedImage playerLaserBeamImage = ImageHandler.getPlayerLaserBeamImage();
+        LaserBeam playerLaserBeam = new LaserBeam(laserX, laserY, playerLaserBeamWidth, playerLaserBeamHeight,
+                player.getLaserBeamManager());
+        playerLaserBeam.setImage(playerLaserBeamImage);
+        player.getLaserBeamManager().addLaserBeam(playerLaserBeam);
 
-        return playerLaserbeam;
+        return playerLaserBeam;
     }
 
-    private Laserbeam createEnemyLaserbeam(float laserX, float laserY) {
-        BufferedImage enemyLaserbeamImage = ImageHandler.getEnemyLaserbeamImage();
-        Laserbeam enemyLaserbeam = new Laserbeam(laserX, laserY, enemyEnergyBallWidth, enemyEnergyBallHeight,
-                enemySpaceshipManager.getEnemyLaserbeamManager());
-        enemyLaserbeam.setImage(enemyLaserbeamImage);
-        enemyLaserbeam.calculateDirection(player.spaceshipX(), player.spaceshipY());
-        enemySpaceshipManager.getEnemyLaserbeamManager().addLaserbeam(enemyLaserbeam);
+    private LaserBeam createEnemyLaserBeam(float laserX, float laserY) {
+        BufferedImage enemyLaserBeamImage = ImageHandler.getEnemyLaserBeamImage();
+        LaserBeam enemyLaserBeam = new LaserBeam(laserX, laserY, enemyEnergyBallWidth, enemyEnergyBallHeight,
+                enemySpaceshipManager.getEnemyLaserBeamManager());
+        enemyLaserBeam.setImage(enemyLaserBeamImage);
+        enemyLaserBeam.calculateDirection(player.spaceshipX(), player.spaceshipY());
+        enemySpaceshipManager.getEnemyLaserBeamManager().addLaserBeam(enemyLaserBeam);
 
-        return enemyLaserbeam;
+        return enemyLaserBeam;
     }
 
     private EnemySpaceship createEnemySpaceship(float enemyX, float enemyY) {
@@ -127,12 +127,12 @@ public class SpaceObjectCreator implements SpaceObjectFactory {
         this.player = player;
     }
 
-    public int getPlayerLaserbeamWidth() {
-        return playerLaserbeamWidth;
+    public int getPlayerLaserBeamWidth() {
+        return playerLaserBeamWidth;
     }
 
-    public int getPlayerLaserbeamHeight() {
-        return playerLaserbeamHeight;
+    public int getPlayerLaserBeamHeight() {
+        return playerLaserBeamHeight;
     }
 
     public int getEnemyEnergyBallWidth() {

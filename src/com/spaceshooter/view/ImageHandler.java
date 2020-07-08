@@ -9,8 +9,8 @@ public class ImageHandler {
 
     private static final BufferedImage enemySpaceshipImage;
     private static final BufferedImage playerSpaceshipImage;
-    private static final BufferedImage playerLaserbeamImage;
-    private static final BufferedImage enemyLaserbeamImage;
+    private static final BufferedImage playerLaserBeamImage;
+    private static final BufferedImage enemyLaserBeamImage;
     private static final BufferedImage bossImage;
     private static BufferedImage[] smallExplosionAnimation;
     private static final BufferedImage[] bigExplosionAnimation;
@@ -30,8 +30,8 @@ public class ImageHandler {
 
         playerSpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/playerSpaceship.png");
         enemySpaceshipImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/ufodark.png");
-        playerLaserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
-        enemyLaserbeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/enemyEnergyBall.png");
+        playerLaserBeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/PlayerLaser.png");
+        enemyLaserBeamImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/enemyEnergyBall.png");
         bossImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/boss.png");
         cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
@@ -47,8 +47,8 @@ public class ImageHandler {
     }
 
     private static BufferedImage[] initializeExplosionAnimation(BufferedImage explosionSpriteSheet,
-            int explosionSpriteSheetColumns, int explosionSubImageWidth, int explosionSubImageHeight,
-            int explosionFrames) {
+                                                                int explosionSpriteSheetColumns, int explosionSubImageWidth, int explosionSubImageHeight,
+                                                                int explosionFrames) {
         BufferedImage[] explosionAnimation = new BufferedImage[explosionFrames];
         for (int i = 0; i < explosionAnimation.length; i++) {
             int row = i / explosionSpriteSheetColumns;
@@ -69,8 +69,8 @@ public class ImageHandler {
         return playerSpaceshipImage;
     }
 
-    public static BufferedImage getEnemyLaserbeamImage() {
-        return enemyLaserbeamImage;
+    public static BufferedImage getEnemyLaserBeamImage() {
+        return enemyLaserBeamImage;
     }
 
     public static BufferedImage[] getSmallExplosionAnimation() {
@@ -92,8 +92,8 @@ public class ImageHandler {
         return new ImageIcon(url);
     }
 
-    public static BufferedImage getPlayerLaserbeamImage() {
-        return playerLaserbeamImage;
+    public static BufferedImage getPlayerLaserBeamImage() {
+        return playerLaserBeamImage;
     }
 
     public static BufferedImage getBossSpaceshipImage() {

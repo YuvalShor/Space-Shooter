@@ -1,6 +1,6 @@
 package com.spaceshooter.model;
 
-import com.spaceshooter.controller.LaserbeamManager;
+import com.spaceshooter.controller.LaserBeamManager;
 import com.spaceshooter.model.interfaces.PlayerDeathListener;
 
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.util.List;
 public class Player {
     private int playerScore;
     private int playerHealth;
-    private LaserbeamManager playerLaserbeamManager;
+    private LaserBeamManager playerLaserBeamManager;
     private final PlayerSpaceship playerSpaceship;
     private static final Player instance = new Player();
     private PlayerDeathListener playerDeathListener;
@@ -18,7 +18,7 @@ public class Player {
         playerSpaceship = PlayerSpaceship.createInstance();
         playerScore = 0;
         playerHealth = 100;
-        playerLaserbeamManager = new LaserbeamManager();
+        playerLaserBeamManager = new LaserBeamManager();
     }
 
     public static Player createInstance() {
@@ -28,7 +28,7 @@ public class Player {
     public void onTick() {
         checkIfDead();
         playerSpaceship.onTick();
-        playerLaserbeamManager.onTick();
+        playerLaserBeamManager.onTick();
     }
 
     private void checkIfDead() {
@@ -43,7 +43,7 @@ public class Player {
 
     public void draw(Graphics graphics) {
         playerSpaceship.draw(graphics);
-        playerLaserbeamManager.draw(graphics);
+        playerLaserBeamManager.draw(graphics);
     }
 
     public int getPlayerScore() {
@@ -66,12 +66,12 @@ public class Player {
                 laserbeamY);
     }
 
-    public List<Laserbeam> getPlayerLaserbeamManager() {
-        return this.playerLaserbeamManager.getLasers();
+    public List<LaserBeam> getPlayerLaserBeamManager() {
+        return this.playerLaserBeamManager.getLasers();
     }
 
-    public LaserbeamManager getLaserbeamManager() {
-        return this.playerLaserbeamManager;
+    public LaserBeamManager getLaserBeamManager() {
+        return this.playerLaserBeamManager;
     }
 
     public float spaceshipX() {
@@ -102,7 +102,7 @@ public class Player {
         playerSpaceship.reset();
         playerScore = 0;
         playerHealth = 100;
-        playerLaserbeamManager = new LaserbeamManager();
+        playerLaserBeamManager = new LaserBeamManager();
     }
 
     public void setPlayerDeathListener(PlayerDeathListener playerDeathListener) {

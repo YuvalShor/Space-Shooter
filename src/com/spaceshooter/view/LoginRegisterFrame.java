@@ -7,6 +7,7 @@ import com.spaceshooter.view.listenerInterfaces.RegisterPanelRegisterButtonClick
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class LoginRegisterFrame extends JFrame {
     private Controller controller;
@@ -15,6 +16,8 @@ public class LoginRegisterFrame extends JFrame {
 
     public LoginRegisterFrame() {
         setTitle("Login");
+
+        setFrameIcon();
 
         setPreferredSize(new Dimension(500, 180));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,6 +31,12 @@ public class LoginRegisterFrame extends JFrame {
         add(loginPanel);
         pack();
         addPanelListeners();
+    }
+
+    private void setFrameIcon() {
+        URL iconURL = getClass().getResource("/com/spaceshooter/view/images/playerSpaceship.png");
+        ImageIcon icon = new ImageIcon(iconURL);
+        setIconImage(icon.getImage());
     }
 
     private void addPanelListeners() {

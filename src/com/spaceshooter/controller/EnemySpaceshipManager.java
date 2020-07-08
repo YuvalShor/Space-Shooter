@@ -12,12 +12,12 @@ import java.util.List;
 
 public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
     private final List<EnemySpaceship> enemySpaceships;
-    private final LaserbeamManager enemyLaserbeamManager;
+    private final LaserBeamManager enemyLaserBeamManager;
     private ObjectObserver objectObserver;
 
     public EnemySpaceshipManager() {
         this.enemySpaceships = new ArrayList<EnemySpaceship>();
-        this.enemyLaserbeamManager = new LaserbeamManager();
+        this.enemyLaserBeamManager = new LaserBeamManager();
     }
 
     public void onTick() {
@@ -28,7 +28,7 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
             enemy.onTick();
         }
 
-        this.enemyLaserbeamManager.onTick();
+        this.enemyLaserBeamManager.onTick();
     }
 
     public void draw(Graphics graphics) {
@@ -39,7 +39,7 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
             enemy.draw(graphics);
         }
 
-        this.enemyLaserbeamManager.draw(graphics);
+        this.enemyLaserBeamManager.draw(graphics);
     }
 
     public void addEnemySpaceship(EnemySpaceship spaceship) {
@@ -50,8 +50,8 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
         this.enemySpaceships.remove(spaceship);
     }
 
-    public LaserbeamManager getEnemyLaserbeamManager() {
-        return this.enemyLaserbeamManager;
+    public LaserBeamManager getEnemyLaserBeamManager() {
+        return this.enemyLaserBeamManager;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class EnemySpaceshipManager implements ObservableObject, ObjectObserver {
 
     public void clear() {
         this.enemySpaceships.clear();
-        this.enemyLaserbeamManager.clear();
+        this.enemyLaserBeamManager.clear();
     }
 
     @Override

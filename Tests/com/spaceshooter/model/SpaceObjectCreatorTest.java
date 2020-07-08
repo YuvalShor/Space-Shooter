@@ -25,8 +25,8 @@ class SpaceObjectCreatorTest {
     void createSpaceObjectTest(){
         Assertions.assertEquals(EnemySpaceship.class, creator.createSpaceObject("enemyspaceship", 0, 0).getClass());
         Assertions.assertEquals(PlayerSpaceship.class, creator.createSpaceObject("playerspaceship", 0, 0).getClass());
-        Assertions.assertEquals(Laserbeam.class, creator.createSpaceObject("enemylaserbeam", 0, 0).getClass());
-        Assertions.assertEquals(Laserbeam.class, creator.createSpaceObject("playerlaserbeam", 0, 0).getClass());
+        Assertions.assertEquals(LaserBeam.class, creator.createSpaceObject("enemylaserbeam", 0, 0).getClass());
+        Assertions.assertEquals(LaserBeam.class, creator.createSpaceObject("playerlaserbeam", 0, 0).getClass());
         Assertions.assertEquals(Star.class, creator.createSpaceObject("star", 0, 0).getClass());
         Assertions.assertEquals(Explosion.class, creator.createSpaceObject("smallexplosion", 0, 0).getClass());
         Assertions.assertEquals(Explosion.class, creator.createSpaceObject("bigexplosion", 0, 0).getClass());

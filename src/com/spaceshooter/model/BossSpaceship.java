@@ -43,9 +43,9 @@ public class BossSpaceship extends EnemySpaceship {
         if (this.health <= 0) {
             int explosionWidth = Game.creator.getBigExplosionWidth();
 
-            Game.creator.createSpaceObject("bigexplosion", this.leftBorder() + explosionWidth / 8, this.y);
+            Game.creator.createSpaceObject("bigexplosion", this.leftBorder() + explosionWidth / 8f, this.y);
             Game.creator.createSpaceObject("bigexplosion", this.x, this.y);
-            Game.creator.createSpaceObject("bigexplosion", this.rightBorder() - explosionWidth / 8, this.y);
+            Game.creator.createSpaceObject("bigexplosion", this.rightBorder() - explosionWidth / 8f, this.y);
 
             notifyObserver();
         }
@@ -58,10 +58,10 @@ public class BossSpaceship extends EnemySpaceship {
             int directionOffset = (int) (this.x - Game.WIDTH / 2);
 
             for (int i = 0; i < numberOfEnergyBalls; i++) {
-                Laserbeam laser = (Laserbeam) Game.creator.createSpaceObject("enemylaserbeam", this.x - 7,
+                LaserBeam laser = (LaserBeam) Game.creator.createSpaceObject("enemylaserbeam", this.x - 7,
                         this.bottomBorder());
                 laser.calculateDirection(directionOffset + i * distanceBetweenEnergyBalls,
-                        Game.HEIGHT - Game.HEIGHT / 4);
+                        Game.HEIGHT - Game.HEIGHT / 4f);
             }
         }
     }
