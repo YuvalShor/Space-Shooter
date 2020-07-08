@@ -28,16 +28,8 @@ public abstract class SpaceObject implements ObservableObject {
         this.observer = observer;
     }
 
-    public float getMoveX() {
-        return moveX;
-    }
-
     public void setMoveX(float moveX) {
         this.moveX = moveX;
-    }
-
-    public float getMoveY() {
-        return moveY;
     }
 
     public void setMoveY(float moveY) {

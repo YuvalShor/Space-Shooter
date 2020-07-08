@@ -18,7 +18,7 @@ public class LeaderboardsPanel extends JPanel {
     private final JButton backToMenuButton = new JButton();
     private final ImageHandler imageHandler = new ImageHandler();
     private final BufferedImage menuBackgroundImage = ImageHandler.GetMenuImage(
-            "/com/spaceshooter/view/images/menuBackground.jpg");
+            "/com/spaceshooter/view/images/leaderboardsBackground.png");
     private final JLabel leaderboardsTitle = new JLabel(
             imageHandler.CreateIcon("/com/spaceshooter/view/images/leaderboardsTitle.png"));
     private final JLabel usernameTitle = new JLabel(
@@ -40,7 +40,7 @@ public class LeaderboardsPanel extends JPanel {
 
     private Font tableFont;
     private Color tableColor;
-    GridBagConstraints gridBagConstraints;
+    private GridBagConstraints gridBagConstraints;
 
     private BackToMenuButtonClickListener backToMenuButtonClickListener;
     private LeaderboardDataListener leaderboardDataListener;
@@ -87,8 +87,6 @@ public class LeaderboardsPanel extends JPanel {
         Dimension windowDimension = new Dimension(width, height);
 
         setPreferredSize(windowDimension);
-        setMinimumSize(windowDimension);
-        setMaximumSize(windowDimension);
 
         setLayout(new BorderLayout());
 
@@ -110,8 +108,8 @@ public class LeaderboardsPanel extends JPanel {
 
         createScrollPane();
 
-        tableFont = new Font("Helvetica", Font.BOLD, 20);
-        tableColor = new Color(0, 100, 0);
+        tableFont = new Font("Helvetica", Font.BOLD, 28);
+        tableColor = new Color(0, 150, 245);
 
         Dimension menuButtonDimension = new Dimension(300, 74);
         backToMenuButton.setPreferredSize(menuButtonDimension);

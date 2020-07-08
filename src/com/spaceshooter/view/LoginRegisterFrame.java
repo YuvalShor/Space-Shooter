@@ -30,6 +30,7 @@ public class LoginRegisterFrame extends JFrame {
 
         add(loginPanel);
         pack();
+        setLocationRelativeTo(null);
         addPanelListeners();
     }
 

@@ -33,6 +33,7 @@ public class GameWindow extends JFrame {
 
         add(cardPanel, BorderLayout.CENTER);
         pack();
+        setLocationRelativeTo(null);
 
         addListeners();
 
