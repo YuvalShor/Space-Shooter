@@ -48,19 +48,19 @@ public abstract class SpaceObject implements ObservableObject {
     public abstract  void onTick();
 
     public float leftBorder(){
-        return this.x - this.width / 2;
+        return this.x - this.width / 2f;
     }
 
     public float rightBorder(){
-        return this.x + this.width / 2;
+        return this.x + this.width / 2f;
     }
 
     public float topBorder(){
-        return this.y - this.height / 2;
+        return this.y - this.height / 2f;
     }
 
     public float bottomBorder(){
-        return this.y + this.height / 2;
+        return this.y + this.height / 2f;
     }
 
     public float getX() {
@@ -97,19 +97,19 @@ public abstract class SpaceObject implements ObservableObject {
 
     protected void assureObjectWithinBorders(){
         if(this.leftBorder() < 0){
-            this.x = 0 + this.width/2;
+            this.x = this.width/2f;
         }
 
         if(this.rightBorder() > Game.WIDTH){
-            this.x = Game.WIDTH - this.width/2;
+            this.x = Game.WIDTH - this.width/2f;
         }
 
         if(this.topBorder() < 0){
-            this.y = 0 + this.height/2;
+            this.y = this.height/2f;
         }
 
         if(this.bottomBorder() > Game.HEIGHT){
-            this.y = Game.HEIGHT - this.height/2;
+            this.y = Game.HEIGHT - this.height/2f;
         }
     }
 

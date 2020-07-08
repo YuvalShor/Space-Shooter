@@ -104,8 +104,11 @@ public class SecurityManager {
         }
     }
 
-    public static void deleteUser(User user){
-        usersMap.remove(user);
+    public static boolean deleteUser(String username){
+        User value = usersMap.remove(username);
+        FileHandler.writeObjectToFile(usersMap, usersFilename);
+
+        return value != null;
     }
 
     public static User getUser(String username){

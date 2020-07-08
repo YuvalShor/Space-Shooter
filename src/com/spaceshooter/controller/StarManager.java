@@ -42,17 +42,4 @@ public class StarManager {
             star.draw(graphics);
         }
     }
-
-  /*  public boolean checkStarIntersectionWithAll(Star starToCheck){
-        boolean starIntersects = false;
-
-        // check if current star that needs to be added intersects with already existing stars
-        for (Star star: this.stars) {
-            if(starToCheck.intersects(star)) {
-                starIntersects = true;
-            }
-        }
-
-        return starIntersects;
-    }*/
 }

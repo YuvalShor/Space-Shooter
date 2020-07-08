@@ -20,6 +20,7 @@ public class CollisionHandler {
         Laserbeam[] playerLaserbeams = playerLasers.toArray(new Laserbeam[playerLasers.size()]);
         Laserbeam[] enemyLaserbeams = enemyLasers.toArray(new Laserbeam[enemyLasers.size()]);
 
+        // player laserbeams intersection with enemy spaceships
         for (Laserbeam laser : playerLaserbeams) {
 
             for (EnemySpaceship enemy : enemyManager.getEnemySpaceships()) {
@@ -32,6 +33,7 @@ public class CollisionHandler {
 
         PlayerSpaceship playerSpaceship = player.getPlayerSpaceship();
 
+        // enemy laserbeams intersection with player spaceship
         for (Laserbeam laser : enemyLaserbeams) {
             if(laser.intersects(playerSpaceship)){
                 player.hit(2);
@@ -39,6 +41,7 @@ public class CollisionHandler {
             }
         }
 
+        // enemy spaceships intersection with player spaceship
         for (EnemySpaceship enemySpaceship : enemyManager.getEnemySpaceships()) {
             if(enemySpaceship.intersects(playerSpaceship)){
                 player.hit(25);

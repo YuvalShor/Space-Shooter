@@ -42,13 +42,18 @@ class SecurityManagerTest {
         Assertions.assertNull(SecurityManager.getUser(""));
 
         Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.register("yuval", ""));
+                SecurityManager.register("someusername", ""));
 
-        Assertions.assertNull(SecurityManager.getUser("yuval"));
+        Assertions.assertNull(SecurityManager.getUser("someusername"));
 
         Assertions.assertThrows(Exception.class, () ->
                 SecurityManager.register("abc$$$$$$$$$$$$", "zzzzzzzzzzzzzzzz"));
 
         Assertions.assertNull(SecurityManager.getUser("abc$$$$$$$$$$$$"));
+
+        Assertions.assertDoesNotThrow(() ->
+                SecurityManager.register("goodusername", "goodpassword"));
+
+        Assertions.assertTrue(SecurityManager.deleteUser("goodusername"));
     }
 }
