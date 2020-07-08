@@ -49,12 +49,13 @@ public class LoginPanel extends JPanel {
 
         errorArea = new JTextArea("");
         errorArea.setOpaque(false);
-        errorArea.setEnabled(false);
         errorArea.setWrapStyleWord(true);
         errorArea.setLineWrap(true);
         Font errorFont = new Font("Helvetica", Font.PLAIN, 12);
         errorArea.setFont(errorFont);
         errorArea.setForeground(Color.RED);
+        errorArea.setEnabled(false);
+        errorArea.setDisabledTextColor(Color.RED);
         errorArea.setBounds(10, 120, 270, 50);
         add(errorArea);
 
