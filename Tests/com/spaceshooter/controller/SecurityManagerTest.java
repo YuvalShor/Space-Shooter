@@ -2,9 +2,9 @@ package com.spaceshooter.controller;
 
 
 import com.spaceshooter.model.User;
-import org.junit.Assert;
-import org.junit.jupiter.api.*;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class SecurityManagerTest {
     private User user;
@@ -14,46 +14,72 @@ class SecurityManagerTest {
     }
 
     @Test
-    void loginTest()  {
+    void loginTest() {
+        Assertions.assertDoesNotThrow(() ->
+                SecurityManager.login("goodusername", "goodpassword"));
+    }
 
-       Assertions.assertThrows(Exception.class, () ->
-            SecurityManager.login("", ""));
-
-       Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.login("", "123shfois1"));
-
-       Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.login("yuval", ""));
-
-       Assertions.assertThrows(Exception.class, () ->
+    @Test
+    void loginTestUsernameBadCharacters() {
+        Assertions.assertThrows(Exception.class, () ->
                 SecurityManager.login("abc$$$$$$$$$$$$", "zzzzzzzzzzzzzzzz"));
     }
 
     @Test
+    void loginTestEmptyUsernameAndPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.login("", ""));
+    }
+
+    @Test
+    void loginTestEmptyUsernameGoodPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.login("", "123shfois1"));
+    }
+
+    @Test
+    void loginTestGoodUsernameEmptyPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.login("yuval", ""));
+    }
+
+    @Test
     void registerTest() {
-        Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.register("", ""));
-
-        Assertions.assertNull(SecurityManager.getUser(""));
-
-        Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.register("", "123shfois1"));
-
-        Assertions.assertNull(SecurityManager.getUser(""));
-
-        Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.register("someusername", ""));
-
-        Assertions.assertNull(SecurityManager.getUser("someusername"));
-
-        Assertions.assertThrows(Exception.class, () ->
-                SecurityManager.register("abc$$$$$$$$$$$$", "zzzzzzzzzzzzzzzz"));
-
-        Assertions.assertNull(SecurityManager.getUser("abc$$$$$$$$$$$$"));
-
         Assertions.assertDoesNotThrow(() ->
                 SecurityManager.register("goodusername", "goodpassword"));
 
         Assertions.assertTrue(SecurityManager.deleteUser("goodusername"));
+    }
+
+    @Test
+    void registerTestEmptyUsernameAndPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.register("", ""));
+
+        Assertions.assertNull(SecurityManager.getUser(""));
+    }
+
+    @Test
+    void registerTestEmptyUsernameGoodPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.register("", "123shfois1"));
+
+        Assertions.assertNull(SecurityManager.getUser(""));
+    }
+
+    @Test
+    void registerTestGoodUsernameEmptyPassword() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.register("someusername", ""));
+
+        Assertions.assertNull(SecurityManager.getUser("someusername"));
+    }
+
+    @Test
+    void registerTestUsernameBadCharacters() {
+        Assertions.assertThrows(Exception.class, () ->
+                SecurityManager.register("abc$$$$$$$$$$$$", "zzzzzzzzzzzzzzzz"));
+
+        Assertions.assertNull(SecurityManager.getUser("abc$$$$$$$$$$$$"));
     }
 }
