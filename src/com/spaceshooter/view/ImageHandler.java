@@ -35,12 +35,11 @@ public class ImageHandler {
         bossImage = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/boss.png");
         cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
-        smallExplosionAnimation = new BufferedImage[smallExplosionFrames];
-
         BufferedImage explosionSpriteSheet = bufferedImageLoader.loadImage(
                 "/com/spaceshooter/view/images/verticalexplosion.png");
         smallExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, smallExplosionSpriteSheetColumns,
                 smallExplosionSubImageWidth, smallExplosionSubImageHeight, smallExplosionFrames);
+
         explosionSpriteSheet = bufferedImageLoader.loadImage("/com/spaceshooter/view/images/explosion256.png");
         bigExplosionAnimation = initializeExplosionAnimation(explosionSpriteSheet, bigExplosionSpriteSheetColumns,
                 bigExplosionSubImageWidth, bigExplosionSubImageHeight, bigExplosionFrames);

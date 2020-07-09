@@ -13,7 +13,7 @@ public class SecurityManager {
     private static Map<String, User> usersMap;
 
     static {
-        usersMap = (Map<String, User>) FileHandler.readObjectFromFile(usersFilename);
+        usersMap = (Hashtable<String, User>) FileHandler.readObjectFromFile(usersFilename);
 
         if (usersMap == null) {
             usersMap = new Hashtable<>();

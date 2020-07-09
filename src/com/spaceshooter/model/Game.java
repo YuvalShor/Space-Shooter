@@ -5,7 +5,7 @@ import com.spaceshooter.controller.*;
 import com.spaceshooter.model.interfaces.ObjectObserver;
 import com.spaceshooter.model.interfaces.ObservableObject;
 import com.spaceshooter.model.interfaces.PlayerDeathListener;
-import com.spaceshooter.view.LoginRegisterFrame;
+import com.spaceshooter.view.LoginRegisterWindow;
 
 import java.awt.*;
 
@@ -27,9 +27,9 @@ public class Game implements ObjectObserver {
     private long startTime;
 
     public static void main(String[] args) {
-        LoginRegisterFrame loginRegisterFrame = new LoginRegisterFrame();
+        LoginRegisterWindow loginRegisterWindow = new LoginRegisterWindow();
         Controller gameController = new Controller();
-        loginRegisterFrame.setController(gameController);
+        loginRegisterWindow.setController(gameController);
     }
 
     public Game(LeaderboardsManager leaderboardsManager) {

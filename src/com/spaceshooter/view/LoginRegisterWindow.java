@@ -9,16 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-public class LoginRegisterFrame extends JFrame {
+public class LoginRegisterWindow extends JFrame {
     private Controller controller;
     private final LoginPanel loginPanel;
     private final RegisterPanel registerPanel;
 
-    public LoginRegisterFrame() {
+    public LoginRegisterWindow() {
         setTitle("Login");
-
         setFrameIcon();
-
         setPreferredSize(new Dimension(290, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
