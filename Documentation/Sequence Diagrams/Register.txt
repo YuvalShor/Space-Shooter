@@ -1,22 +1,42 @@
 title Register
 
 actor Player
-participant RegisterScreen
-participant RegisterService
-database Users
+participant LoginRegisterWindow
+participant RegisterPanel
+participant Controller
+participant SecurityManager
+database Users-File
 
-Player->RegisterScreen:Enter user details
-activate RegisterScreen
+Player->LoginRegisterWindow:Enter new user details
+activate LoginRegisterWindow
 
-RegisterScreen->RegisterService:User\ndetails
-activate RegisterService
-RegisterService->Users:Check\nduplicate\nusername
-activate Users
-Users-->RegisterService:Username\navailable
-RegisterService->Users:Insert\nuser details
-Users-->RegisterService:Inserted\nsuccessfully
-deactivate Users
-RegisterService-->RegisterScreen:Register\nsuccessful
-deactivate RegisterService
-RegisterScreen-->Player:Output\nregister\nsuccessful
-deactivate RegisterScreen
+LoginRegisterWindow-->Player:User not found.\nYou must register first
+
+Player->RegisterPanel:Enter new user details
+activate RegisterPanel
+
+RegisterPanel->Controller:User data
+activate Controller
+
+Controller->SecurityManager:Parsing User data
+activate SecurityManager
+
+SecurityManager-->SecurityManager:Vaildate
+
+SecurityManager->Users-File:Add new User data
+activate Users-File
+
+Users-File-->SecurityManager: [Result]
+deactivate Users-File
+
+SecurityManager-->Controller:[Result]
+deactivate SecurityManager
+
+Controller-->RegisterPanel:[Result]
+deactivate Controller
+
+RegisterPanel-->LoginRegisterWindow:[Result]
+deactivate RegisterPanel
+
+LoginRegisterWindow-->Player:Lunching Menu
+deactivate LoginRegisterWindow
