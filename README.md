@@ -1,6 +1,7 @@
 # Space-Shooter
 
 YouTube video: https://www.youtube.com/watch?v=suPhTpd6_R8
+
 Documentation: https://github.com/theyuvalshor/Space-Shooter/tree/master/Documentation
 
 Space Shooter is a computer game that simulates a spaceship in space controlled by the player.
