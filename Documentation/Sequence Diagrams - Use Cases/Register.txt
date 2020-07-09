@@ -1,0 +1,42 @@
+title Register
+
+actor Player
+participant LoginRegisterWindow
+participant RegisterPanel
+participant Controller
+participant SecurityManager
+database Users-File
+
+Player->LoginRegisterWindow:Enter new user details
+activate LoginRegisterWindow
+
+LoginRegisterWindow-->Player:User not found.\nYou must register first
+
+Player->RegisterPanel:Enter new user details
+activate RegisterPanel
+
+RegisterPanel->Controller:User data
+activate Controller
+
+Controller->SecurityManager:Parsing User data
+activate SecurityManager
+
+SecurityManager-->SecurityManager:Vaildate
+
+SecurityManager->Users-File:Add new User data
+activate Users-File
+
+Users-File-->SecurityManager: [Result]
+deactivate Users-File
+
+SecurityManager-->Controller:[Result]
+deactivate SecurityManager
+
+Controller-->RegisterPanel:[Result]
+deactivate Controller
+
+RegisterPanel-->LoginRegisterWindow:[Result]
+deactivate RegisterPanel
+
+LoginRegisterWindow-->Player:Lunching Menu
+deactivate LoginRegisterWindow
