@@ -1,22 +1,22 @@
 title Start New Game
 
 actor Player
-participant MainMenu
-participant GameEngine
-participant GameUI
+participant GameWindow
+participant GamePanel
+participant Controller
 
-Player->MainMenu:Start new game
-activate MainMenu
-MainMenu->GameEngine:Request game
-activate GameEngine
-deactivate MainMenu
-GameEngine->GameUI:StartGame()
-activate GameUI
-GameUI-->GameUI:Draw game
-GameUI-->GameEngine:Game finished
-deactivate GameUI
-GameEngine-->MainMenu:Game over
-deactivate GameEngine
-activate MainMenu
-MainMenu-->Player:Start new or exit
-deactivate MainMenu
+Player->GameWindow:Play
+activate GameWindow
+GameWindow->GamePanel:Play Button Clicked
+activate GamePanel
+deactivate GameWindow
+GamePanel->Controller:startGame()
+activate Controller
+Controller-->Controller:Game Loop
+Controller-->GamePanel:Game finished
+deactivate Controller
+GamePanel-->GameWindow:Game over
+deactivate GamePanel
+activate GameWindow
+GameWindow-->Player:Start new or exit
+deactivate GameWindow
