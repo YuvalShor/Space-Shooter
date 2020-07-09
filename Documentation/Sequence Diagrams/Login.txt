@@ -1,0 +1,14 @@
+title Login
+
+actor Player
+participant LoginScreen
+participant SecurityManager
+database Users
+
+Player->LoginScreen:Login
+LoginScreen->SecurityManager:ValidateUser
+SecurityManager->Users:CheckUserDetail Query
+Users-->SecurityManager:[UserDetails]
+SecurityManager-->SecurityManager:Validate
+SecurityManager-->LoginScreen:[Result]
+LoginScreen-->Player:
